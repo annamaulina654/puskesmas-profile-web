@@ -18,6 +18,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::resource('informasi', InformasiController::class);
+
+    Route::get('/layanan', function() { return Inertia::render('dashboard'); });
+    Route::get('/pesan', function() { return Inertia::render('dashboard'); });
 });
 
 require __DIR__.'/settings.php';
