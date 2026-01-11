@@ -2,16 +2,28 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Laravel\Fortify\Features;
-
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\LandingController;
 
-Route::get('/', function () {
-    return Inertia::render('welcome', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ]);
-})->name('home');
+Route::controller(LandingController::class)->group(function () {
+    Route::get('/', 'home')->name('home');
+    Route::get('/services', 'services')->name('public.services');
+    Route::get('/contact', 'contact')->name('public.contact');
+
+    Route::prefix('profile')->group(function () {
+        Route::get('/vision-mission', 'visionMission')->name('public.vision-mission');
+        Route::get('/organization', 'organization')->name('public.organization');
+        Route::get('/innovations', 'innovations')->name('public.innovations');
+        Route::get('/about', 'about')->name('public.about');
+    });
+
+    Route::prefix('information')->group(function () {
+        Route::get('/announcements', 'announcements')->name('public.announcements');
+        Route::get('/activities', 'activities')->name('public.activities');
+        Route::get('/helpdesk', 'helpdesk')->name('public.helpdesk');
+    });
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
@@ -20,8 +32,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('informasi', InformasiController::class);
     Route::resource('profil', ProfilController::class);
-    Route::get('/layanan', function() { return Inertia::render('dashboard'); });
-    Route::get('/pesan', function() { return Inertia::render('dashboard'); });
 });
 
 require __DIR__.'/settings.php';
