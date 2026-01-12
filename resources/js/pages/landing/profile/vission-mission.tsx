@@ -4,19 +4,16 @@ import { Target, Eye, CheckCircle } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
 const missions = [
-  "Memberikan pelayanan kesehatan yang berkualitas, merata, dan terjangkau bagi seluruh lapisan masyarakat",
-  "Meningkatkan kesadaran dan partisipasi masyarakat dalam upaya kesehatan preventif dan promotif",
-  "Mengembangkan sumber daya manusia kesehatan yang profesional dan berintegritas",
-  "Membangun kemitraan dengan berbagai pihak untuk meningkatkan derajat kesehatan masyarakat",
-  "Menerapkan sistem manajemen mutu dalam penyelenggaraan pelayanan kesehatan",
-  "Mengoptimalkan pemanfaatan teknologi informasi dalam pelayanan kesehatan",
+  "Terlaksananya Pelayanan Kesehatan Dasar yang makin bermutu, dengan menetapkan Standar Pelayanan yang tersedia di Puskesmas.",
+  "Terlaksananya peningkatan kompetensi pegawai melalui pendidikan, pelatihan, seminar, dan workshop.",
+  "Meningkatkan intensitas sosialisasi tentang Pelayanan di Puskesmas Kwanyar."
 ]
 
 const values = [
   { title: "Profesional", description: "Melayani dengan kompetensi dan standar tertinggi" },
   { title: "Integritas", description: "Jujur, transparan, dan bertanggung jawab" },
   { title: "Empati", description: "Memahami dan peduli terhadap kebutuhan pasien" },
-  { title: "Inovatif", description: "Terus berinovasi untuk pelayanan yang lebih baik" },
+  { title: "Religius", description: "Menunjung tinggi nilai-nilai agama dalam pelayanan" },
 ]
 
 export default function VisionMissionPage() {
@@ -49,16 +46,16 @@ export default function VisionMissionPage() {
                   className="text-3xl md:text-4xl font-bold text-foreground mb-6"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
-                  Menjadi Puskesmas Unggulan yang Terpercaya
+                  Visi UPT Puskesmas Kwanyar
                 </h2>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  Mewujudkan masyarakat sehat, mandiri, dan berkeadilan melalui pelayanan kesehatan primer yang
-                  berkualitas, inovatif, dan berorientasi pada kepuasan masyarakat di wilayah kerja UPT Puskesmas Kwanyar.
+                <p className="text-muted-foreground text-lg leading-relaxed text-justify">
+                  "Terwujudnya Puskesmas Kwanyar, sebagai Fasilitas Kesehatan Tingkat Pertama yang menjadi pilihan masyarakat Kwanyar, dalam memberikan pelayanan Kesehatan yang bermutu, didukung dengan tenaga yang profesional menuju masyarakat Bangkalan yang religius dan sejahtera berbasis potensi lokal."
                 </p>
               </div>
+              
               <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl">
                 <img
-                  src="/images/healthcare-team-meeting-discussing-vision-in-moder.jpg"
+                  src="/images/placeholder.svg" 
                   alt="Visi Puskesmas"
                   className="w-full h-full object-cover"
                 />
@@ -86,14 +83,14 @@ export default function VisionMissionPage() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {missions.map((mission, index) => (
-                <Card key={index} className="border-0 shadow-lg">
-                  <CardContent className="p-6 flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center flex-shrink-0 text-white font-bold">
+                <Card key={index} className="border-0 shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                  <CardContent className="p-8 flex flex-col gap-4 h-full">
+                    <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center flex-shrink-0 text-white font-bold text-xl shadow-md">
                       {index + 1}
                     </div>
-                    <p className="text-foreground leading-relaxed">{mission}</p>
+                    <p className="text-foreground leading-relaxed text-lg">{mission}</p>
                   </CardContent>
                 </Card>
               ))}

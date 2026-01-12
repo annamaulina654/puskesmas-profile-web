@@ -30,6 +30,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 
+    Route::prefix('admin')->name('admin.')->group(function() {
+        Route::resource('announcements', \App\Http\Controllers\Admin\AnnouncementController::class);
+    });
+
     Route::resource('informasi', InformasiController::class);
     Route::resource('profil', ProfilController::class);
 });
