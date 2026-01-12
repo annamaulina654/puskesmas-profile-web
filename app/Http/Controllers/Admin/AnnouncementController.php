@@ -13,14 +13,14 @@ class AnnouncementController extends Controller
     {
         $announcements = Announcement::latest()->get();
 
-        return Inertia::render('Admin/Announcements/Index', [
+        return Inertia::render('admin/announcements/index', [
             'announcements' => $announcements
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Admin/Announcements/Create');
+        return Inertia::render('admin/announcements/create');
     }
 
     public function store(Request $request)
@@ -40,7 +40,7 @@ class AnnouncementController extends Controller
 
     public function edit(Announcement $announcement)
     {
-        return Inertia::render('Admin/Announcements/Edit', [
+        return Inertia::render('admin/announcements/edit', [
             'announcement' => $announcement
         ]);
     }

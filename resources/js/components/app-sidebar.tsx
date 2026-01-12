@@ -1,4 +1,3 @@
-import { NavFooter } from '@/components/nav-footer';
 import { NavUser } from '@/components/nav-user';
 import {
     Sidebar,
@@ -15,13 +14,10 @@ import {
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { 
-    BookOpen, 
-    Folder, 
     LayoutGrid, 
-    Newspaper, 
-    Building2, 
-    Stethoscope, 
-    MessageSquare 
+    Megaphone, 
+    CalendarDays, 
+    Mail 
 } from 'lucide-react';
 import AppLogo from './app-logo';
 
@@ -33,42 +29,21 @@ const navMain: NavItem[] = [
     },
 ];
 
-const navMaster: NavItem[] = [
+const navAdmin: NavItem[] = [
     {
-        title: 'Profil Puskesmas',
-        href: '/profil',
-        icon: Building2,
+        title: 'Pengumuman',
+        href: '/admin/announcements',
+        icon: Megaphone,
     },
     {
-        title: 'Data Layanan',
-        href: '/layanan',
-        icon: Stethoscope,
-    },
-];
-
-const navKonten: NavItem[] = [
-    {
-        title: 'Informasi / Berita',
-        href: '/informasi',
-        icon: Newspaper,
+        title: 'Kegiatan',
+        href: '/admin/activities',
+        icon: CalendarDays,
     },
     {
         title: 'Pesan Masuk',
-        href: '/pesan',
-        icon: MessageSquare,
-    },
-];
-
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
+        href: '/admin/messages',
+        icon: Mail,
     },
 ];
 
@@ -80,7 +55,9 @@ function MenuList({ items }: { items: NavItem[] }) {
             {items.map((item) => {
                 const href = item.href as string; 
                 
-                const isActive = href ? url.startsWith(href) : false;
+                const isActive = href === '/dashboard' 
+                    ? url === '/dashboard' 
+                    : url.startsWith(href);
                 
                 return (
                     <SidebarMenuItem key={item.title}>
@@ -121,23 +98,15 @@ export function AppSidebar() {
                 </SidebarGroup>
 
                 <SidebarGroup>
-                    <SidebarGroupLabel>Master Data</SidebarGroupLabel>
+                    <SidebarGroupLabel>Kelola Website</SidebarGroupLabel>
                     <SidebarGroupContent>
-                        <MenuList items={navMaster} />
-                    </SidebarGroupContent>
-                </SidebarGroup>
-
-                <SidebarGroup>
-                    <SidebarGroupLabel>Publikasi & Interaksi</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <MenuList items={navKonten} />
+                        <MenuList items={navAdmin} />
                     </SidebarGroupContent>
                 </SidebarGroup>
 
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
                 <NavUser />
             </SidebarFooter>
         </Sidebar>

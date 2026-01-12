@@ -1,68 +1,20 @@
 import { useState } from "react"
 import { Head } from "@inertiajs/react"
 import PublicLayout from "@/layouts/public-layout"
-import { Calendar, Search, Bell, FileText, AlertCircle, ChevronRight } from "lucide-react"
+import { Calendar, Search, Bell, FileText, AlertCircle, ChevronRight, Info } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
-const allAnnouncements = [
-  {
-    id: 1,
-    title: "Jadwal Pelayanan Libur Tahun Baru 2026",
-    date: "8 Januari 2026",
-    content:
-      "Informasi jadwal pelayanan Puskesmas selama libur tahun baru 2026. Layanan UGD tetap beroperasi 24 jam untuk melayani kebutuhan darurat masyarakat. Pelayanan reguler akan kembali normal pada tanggal 6 Januari 2026.",
-    type: "Penting",
-    isNew: true,
-  },
-  {
-    id: 2,
-    title: "Pendaftaran Vaksinasi Influenza Gratis",
-    date: "5 Januari 2026",
-    content:
-      "Puskesmas membuka pendaftaran vaksinasi influenza gratis untuk lansia dan anak-anak. Kuota terbatas hanya untuk 200 peserta. Pendaftaran dapat dilakukan secara online melalui aplikasi SIMPUS atau langsung ke loket pendaftaran.",
-    type: "Program",
-    isNew: true,
-  },
-  {
-    id: 3,
-    title: "Lowongan Tenaga Kesehatan PTT",
-    date: "2 Januari 2026",
-    content:
-      "Dibuka lowongan untuk posisi bidan dan perawat PTT. Persyaratan: lulusan D3/S1 kebidanan atau keperawatan, memiliki STR aktif, dan bersedia ditempatkan di wilayah kerja Puskesmas.",
-    type: "Rekrutmen",
-    isNew: false,
-  },
-  {
-    id: 4,
-    title: "Hasil Akreditasi Puskesmas 2025",
-    date: "28 Desember 2025",
-    content:
-      "Puskesmas Sehat Sejahtera berhasil meraih akreditasi Utama dari Kementerian Kesehatan RI. Pencapaian ini merupakan hasil kerja keras seluruh tim dalam meningkatkan kualitas pelayanan kesehatan.",
-    type: "Prestasi",
-    isNew: false,
-  },
-  {
-    id: 5,
-    title: "Jadwal Posyandu Bulan Januari 2026",
-    date: "25 Desember 2025",
-    content:
-      "Jadwal kegiatan Posyandu untuk bulan Januari 2026 telah tersedia. Silakan cek jadwal di masing-masing Posyandu atau hubungi kader kesehatan setempat.",
-    type: "Program",
-    isNew: false,
-  },
-  {
-    id: 6,
-    title: "Peringatan Waspada DBD Musim Hujan",
-    date: "20 Desember 2025",
-    content:
-      "Memasuki musim hujan, masyarakat diimbau untuk meningkatkan kewaspadaan terhadap demam berdarah dengue (DBD). Lakukan 3M Plus secara rutin dan segera periksakan diri jika mengalami gejala.",
-    type: "Penting",
-    isNew: false,
-  },
-]
+interface Announcement {
+  id: number;
+  title: string;
+  content: string;
+  date: string;
+  type: string;
+  created_at: string;
+}
 
 const typeConfig: Record<
   string,
@@ -72,22 +24,41 @@ const typeConfig: Record<
   Program: { color: "text-primary", bgColor: "bg-primary", icon: Bell },
   Rekrutmen: { color: "text-blue-600", bgColor: "bg-blue-500", icon: FileText },
   Prestasi: { color: "text-amber-600", bgColor: "bg-amber-500", icon: Bell },
+  Default: { color: "text-gray-600", bgColor: "bg-gray-500", icon: Info },
 }
 
-export default function AnnouncementsPage() {
+export default function AnnouncementsPage({ announcements }: { announcements: Announcement[] }) {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedType, setSelectedType] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<number | null>(null)
 
-  const filteredAnnouncements = allAnnouncements.filter((announcement) => {
+  const filteredAnnouncements = announcements.filter((announcement) => {
     const matchesSearch =
       announcement.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       announcement.content.toLowerCase().includes(searchTerm.toLowerCase())
+    
     const matchesType = selectedType ? announcement.type === selectedType : true
+    
     return matchesSearch && matchesType
   })
 
-  const types = [...new Set(allAnnouncements.map((a) => a.type))]
+  const types = [...new Set(announcements.map((a) => a.type))]
+
+  const isNewPost = (dateString: string) => {
+    const postDate = new Date(dateString);
+    const now = new Date();
+    const diffTime = Math.abs(now.getTime() - postDate.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    return diffDays <= 7;
+  }
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+  }
 
   return (
     <PublicLayout>
@@ -142,9 +113,10 @@ export default function AnnouncementsPage() {
 
             <div className="space-y-4">
               {filteredAnnouncements.map((announcement) => {
-                const config = typeConfig[announcement.type]
+                const config = typeConfig[announcement.type] || typeConfig.Default
                 const Icon = config.icon
                 const isExpanded = expandedId === announcement.id
+                const isNew = isNewPost(announcement.created_at)
 
                 return (
                   <Card
@@ -164,12 +136,14 @@ export default function AnnouncementsPage() {
                             <Badge variant="secondary" className="text-xs">
                               {announcement.type}
                             </Badge>
-                            {announcement.isNew && (
+                            
+                            {isNew && (
                               <Badge className="bg-primary text-primary-foreground text-xs">Baru</Badge>
                             )}
+                            
                             <div className="flex items-center gap-1 text-muted-foreground text-xs ml-auto">
                               <Calendar className="w-3.5 h-3.5" />
-                              {announcement.date}
+                              {formatDate(announcement.date)}
                             </div>
                           </div>
                           <h3 className="text-lg font-semibold text-foreground mb-2 flex items-center gap-2">
@@ -179,7 +153,7 @@ export default function AnnouncementsPage() {
                             />
                           </h3>
                           <p
-                            className={`text-muted-foreground text-sm leading-relaxed ${isExpanded ? "" : "line-clamp-2"}`}
+                            className={`text-muted-foreground text-sm leading-relaxed whitespace-pre-line ${isExpanded ? "" : "line-clamp-2"}`}
                           >
                             {announcement.content}
                           </p>

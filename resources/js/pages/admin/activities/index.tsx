@@ -22,50 +22,54 @@ import {
     Pencil, 
     Trash, 
     Search,
-    Megaphone
+    CalendarDays,
+    MapPin,
+    ImageIcon
 } from 'lucide-react';
 
-interface Announcement {
+interface Activity {
     id: number;
     title: string;
-    content: string;
-    type: string;
+    description: string;
+    category: string;
     date: string;
-    is_active: boolean | number;
+    location: string;
+    images: string[] | null;
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Kelola Pengumuman', href: '/admin/announcements' },
+    { title: 'Kelola Kegiatan', href: '/admin/activities' },
 ];
 
-export default function AnnouncementIndex({ announcements }: { announcements: Announcement[] }) {
+export default function ActivityIndex({ activities }: { activities: Activity[] }) {
     const [search, setSearch] = useState('');
 
-    const filteredData = announcements.filter((item) =>
+    const filteredData = activities.filter((item) =>
         item.title.toLowerCase().includes(search.toLowerCase()) ||
-        item.type.toLowerCase().includes(search.toLowerCase())
+        item.category.toLowerCase().includes(search.toLowerCase()) ||
+        item.location.toLowerCase().includes(search.toLowerCase())
     );
 
     const handleDelete = (id: number) => {
-        if (confirm('Apakah Anda yakin ingin menghapus pengumuman ini?')) {
-            router.delete(`/admin/announcements/${id}`);
+        if (confirm('Apakah Anda yakin ingin menghapus kegiatan ini?')) {
+            router.delete(`/admin/activities/${id}`);
         }
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Kelola Pengumuman" />
+            <Head title="Kelola Kegiatan" />
 
             <div className="flex flex-col gap-6 p-4 md:p-6">
                 
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-                            Daftar Pengumuman
+                            Daftar Kegiatan
                         </h1>
                         <p className="text-muted-foreground text-sm mt-1">
-                            Kelola pengumuman penting, program, dan prestasi puskesmas.
+                            Dokumentasi kegiatan Posyandu, Penyuluhan, dan program puskesmas lainnya.
                         </p>
                     </div>
 
@@ -73,7 +77,7 @@ export default function AnnouncementIndex({ announcements }: { announcements: An
                         <div className="relative w-full md:w-64">
                             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                             <Input
-                                placeholder="Cari judul..."
+                                placeholder="Cari kegiatan..."
                                 className="pl-9 bg-white dark:bg-gray-800"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
@@ -81,7 +85,7 @@ export default function AnnouncementIndex({ announcements }: { announcements: An
                         </div>
                         
                         <Button asChild>
-                            <Link href="/admin/announcements/create">
+                            <Link href="/admin/activities/create">
                                 <Plus className="mr-2 h-4 w-4" /> Tambah
                             </Link>
                         </Button>
@@ -94,10 +98,10 @@ export default function AnnouncementIndex({ announcements }: { announcements: An
                             <table className="w-full text-sm text-left">
                                 <thead className="bg-gray-50 dark:bg-gray-800/50 text-gray-500 border-b border-gray-200 dark:border-gray-700">
                                     <tr>
-                                        <th className="px-6 py-4 font-medium uppercase text-xs tracking-wider">Judul</th>
-                                        <th className="px-6 py-4 font-medium uppercase text-xs tracking-wider">Tanggal</th>
-                                        <th className="px-6 py-4 font-medium uppercase text-xs tracking-wider">Tipe</th>
-                                        <th className="px-6 py-4 font-medium uppercase text-xs tracking-wider">Status</th>
+                                        <th className="px-6 py-4 font-medium uppercase text-xs tracking-wider">Foto</th>
+                                        <th className="px-6 py-4 font-medium uppercase text-xs tracking-wider">Judul Kegiatan</th>
+                                        <th className="px-6 py-4 font-medium uppercase text-xs tracking-wider">Tanggal & Lokasi</th>
+                                        <th className="px-6 py-4 font-medium uppercase text-xs tracking-wider">Kategori</th>
                                         <th className="px-6 py-4 font-medium uppercase text-xs tracking-wider text-right">Aksi</th>
                                     </tr>
                                 </thead>
@@ -105,22 +109,39 @@ export default function AnnouncementIndex({ announcements }: { announcements: An
                                     {filteredData.length > 0 ? (
                                         filteredData.map((item) => (
                                             <tr key={item.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                                <td className="px-6 py-4 align-middle">
+                                                    <div className="w-16 h-12 rounded-md bg-gray-100 overflow-hidden border border-gray-200 flex items-center justify-center">
+                                                        {item.images && item.images.length > 0 ? (
+                                                            <img 
+                                                                src={`/storage/${item.images[0]}`} 
+                                                                alt="Thumbnail" 
+                                                                className="w-full h-full object-cover"
+                                                            />
+                                                        ) : (
+                                                            <ImageIcon className="w-6 h-6 text-gray-300" />
+                                                        )}
+                                                    </div>
+                                                </td>
                                                 <td className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 align-middle">
                                                     {item.title}
                                                 </td>
                                                 <td className="px-6 py-4 text-gray-500 dark:text-gray-400 align-middle">
-                                                    {new Date(item.date).toLocaleDateString('id-ID', {
-                                                        day: 'numeric', month: 'short', year: 'numeric'
-                                                    })}
+                                                    <div className="flex flex-col gap-1">
+                                                        <div className="flex items-center gap-1.5 text-xs font-medium">
+                                                            <CalendarDays className="w-3.5 h-3.5" />
+                                                            {new Date(item.date).toLocaleDateString('id-ID', {
+                                                                day: 'numeric', month: 'short', year: 'numeric'
+                                                            })}
+                                                        </div>
+                                                        <div className="flex items-center gap-1.5 text-xs">
+                                                            <MapPin className="w-3.5 h-3.5" />
+                                                            {item.location}
+                                                        </div>
+                                                    </div>
                                                 </td>
                                                 <td className="px-6 py-4 align-middle">
-                                                    <Badge variant="outline" className="capitalize bg-blue-50 text-blue-700 border-blue-200">
-                                                        {item.type}
-                                                    </Badge>
-                                                </td>
-                                                <td className="px-6 py-4 align-middle">
-                                                    <Badge className={item.is_active ? "bg-green-100 text-green-700 hover:bg-green-200" : "bg-red-100 text-red-700 hover:bg-red-200"}>
-                                                        {item.is_active ? 'Aktif' : 'Nonaktif'}
+                                                    <Badge variant="secondary" className="bg-indigo-50 text-indigo-700 border-indigo-100 hover:bg-indigo-100">
+                                                        {item.category}
                                                     </Badge>
                                                 </td>
                                                 <td className="px-6 py-4 text-right align-middle">
@@ -135,7 +156,8 @@ export default function AnnouncementIndex({ announcements }: { announcements: An
                                                             <DropdownMenuLabel>Aksi</DropdownMenuLabel>
                                                             <DropdownMenuSeparator />
                                                             <DropdownMenuItem asChild>
-                                                                <Link href={`/admin/announcements/${item.id}/edit`} className="cursor-pointer flex w-full items-center">
+                                                                {/* URL Manual */}
+                                                                <Link href={`/admin/activities/${item.id}/edit`} className="cursor-pointer flex w-full items-center">
                                                                     <Pencil className="mr-2 h-4 w-4 text-yellow-600" /> Edit
                                                                 </Link>
                                                             </DropdownMenuItem>
@@ -154,9 +176,9 @@ export default function AnnouncementIndex({ announcements }: { announcements: An
                                         <tr>
                                             <td colSpan={5} className="px-6 py-12 text-center text-gray-500">
                                                 <div className="flex flex-col items-center justify-center gap-2">
-                                                    <Megaphone className="h-8 w-8 text-gray-300" />
-                                                    <p className="text-lg font-medium">Data tidak ditemukan</p>
-                                                    <p className="text-sm">Coba kata kunci lain atau tambahkan data baru.</p>
+                                                    <CalendarDays className="h-8 w-8 text-gray-300" />
+                                                    <p className="text-lg font-medium">Tidak ada kegiatan ditemukan</p>
+                                                    <p className="text-sm">Silakan tambah kegiatan baru.</p>
                                                 </div>
                                             </td>
                                         </tr>

@@ -5,11 +5,17 @@ use Inertia\Inertia;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\Admin\AnnouncementController;
+use App\Http\Controllers\Admin\ActivityController;
+use App\Models\Message;
+use App\Models\Activity;
+use App\Models\Announcement;
 
 Route::controller(LandingController::class)->group(function () {
     Route::get('/', 'home')->name('home');
     Route::get('/services', 'services')->name('public.services');
     Route::get('/contact', 'contact')->name('public.contact');
+    Route::post('/contact', 'storeContact')->name('contact.store');
 
     Route::prefix('profile')->group(function () {
         Route::get('/vision-mission', 'visionMission')->name('public.vision-mission');
@@ -26,12 +32,29 @@ Route::controller(LandingController::class)->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
+    Route::get('/dashboard', function () {
+        return Inertia::render('dashboard', [
+            'stats' => [
+                'total_messages' => Message::count(),
+                'unread_messages' => Message::where('is_read', false)->count(),
+                'total_activities' => Activity::count(),
+                'total_announcements' => Announcement::count(),
+            ],
+            'recent_messages' => Message::orderBy('created_at', 'desc')->take(5)->get(),
+            'recent_activities' => Activity::latest()->take(3)->get(),
+        ]);
     })->name('dashboard');
 
     Route::prefix('admin')->name('admin.')->group(function() {
-        Route::resource('announcements', \App\Http\Controllers\Admin\AnnouncementController::class);
+        
+ 
+        Route::resource('announcements', AnnouncementController::class);
+
+        Route::resource('activities', ActivityController::class);
+
+        Route::get('/messages', [App\Http\Controllers\Admin\MessageController::class, 'index'])->name('messages.index');
+        Route::delete('/messages/{id}', [App\Http\Controllers\Admin\MessageController::class, 'destroy'])->name('messages.destroy');
+        Route::put('/messages/{id}/read', [App\Http\Controllers\Admin\MessageController::class, 'markAsRead'])->name('messages.read');
     });
 
     Route::resource('informasi', InformasiController::class);

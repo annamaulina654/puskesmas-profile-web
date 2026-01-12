@@ -1,30 +1,41 @@
-import { useState } from "react"
-import { Head } from "@inertiajs/react"
+import { useState, FormEventHandler } from "react"
+import { Head, useForm } from "@inertiajs/react" // Import useForm dari Inertia
 import PublicLayout from "@/layouts/public-layout"
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from "lucide-react"
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle, Loader2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 
-export default function Contact() {
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [formData, setFormData] = useState({
+interface ContactProps {
+    flash?: {
+        success?: string;
+        error?: string;
+    }
+}
+
+export default function Contact({ flash }: ContactProps) {
+  const { data, setData, post, processing, errors, reset } = useForm({
     name: "",
     email: "",
     phone: "",
     subject: "",
     message: "",
-  })
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitted(true)
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({ name: "", email: "", phone: "", subject: "", message: "" })
-    }, 3000)
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit: FormEventHandler = (e) => {
+    e.preventDefault();
+    
+    post('/contact', {
+        onSuccess: () => {
+            setIsSubmitted(true);
+            reset();
+            setTimeout(() => setIsSubmitted(false), 5000);
+        },
+    });
   }
 
   const contactInfo = [
@@ -61,13 +72,14 @@ export default function Contact() {
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4" style={{ fontFamily: "var(--font-heading)" }}>
               Hubungi Kami
             </h1>
-            <p className="text-white/90 text-lg max-w-2xl mx-auto">Kami siap membantu dan menjawab pertanyaan Anda</p>
+            <p className="text-white/90 text-lg max-w-2xl mx-auto">Kami siap membantu Anda</p>
           </div>
         </section>
 
         <section className="py-20">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12">
+              
               <div>
                 <h2 className="text-2xl font-bold text-foreground mb-6" style={{ fontFamily: "var(--font-heading)" }}>
                   Informasi Kontak
@@ -114,15 +126,22 @@ export default function Contact() {
                       Kirim Pesan
                     </h2>
 
-                    {isSubmitted ? (
-                      <div className="text-center py-12">
-                        <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                          <CheckCircle className="w-8 h-8 text-primary" />
+                    {isSubmitted || flash?.success ? (
+                      <div className="text-center py-12 animate-in fade-in zoom-in duration-300">
+                        <div className="w-16 h-16 mx-auto rounded-full bg-green-100 flex items-center justify-center mb-4">
+                          <CheckCircle className="w-8 h-8 text-green-600" />
                         </div>
                         <h3 className="text-xl font-semibold text-foreground mb-2">Pesan Terkirim!</h3>
                         <p className="text-muted-foreground">
-                          Terima kasih telah menghubungi kami. Kami akan segera merespons pesan Anda.
+                          {flash?.success || "Terima kasih telah menghubungi kami. Kami akan menerima pesan Anda."}
                         </p>
+                        <Button 
+                            variant="outline" 
+                            className="mt-6"
+                            onClick={() => setIsSubmitted(false)}
+                        >
+                            Kirim Pesan Lagi
+                        </Button>
                       </div>
                     ) : (
                       <form onSubmit={handleSubmit} className="space-y-6">
@@ -131,22 +150,26 @@ export default function Contact() {
                             <Label htmlFor="name">Nama Lengkap</Label>
                             <Input
                               id="name"
-                              value={formData.name}
-                              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                              value={data.name}
+                              onChange={(e) => setData('name', e.target.value)}
                               placeholder="Masukkan nama Anda"
                               required
+                              className={errors.name ? "border-red-500" : ""}
                             />
+                            {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
                           </div>
                           <div className="space-y-2">
                             <Label htmlFor="email">Email</Label>
                             <Input
                               id="email"
                               type="email"
-                              value={formData.email}
-                              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                              value={data.email}
+                              onChange={(e) => setData('email', e.target.value)}
                               placeholder="email@example.com"
                               required
+                              className={errors.email ? "border-red-500" : ""}
                             />
+                            {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
                           </div>
                         </div>
 
@@ -156,20 +179,24 @@ export default function Contact() {
                             <Input
                               id="phone"
                               type="tel"
-                              value={formData.phone}
-                              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                              value={data.phone}
+                              onChange={(e) => setData('phone', e.target.value)}
                               placeholder="08xx-xxxx-xxxx"
+                              className={errors.phone ? "border-red-500" : ""}
                             />
+                             {errors.phone && <p className="text-xs text-red-500">{errors.phone}</p>}
                           </div>
                           <div className="space-y-2">
                             <Label htmlFor="subject">Subjek</Label>
                             <Input
                               id="subject"
-                              value={formData.subject}
-                              onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                              value={data.subject}
+                              onChange={(e) => setData('subject', e.target.value)}
                               placeholder="Topik pesan Anda"
                               required
+                              className={errors.subject ? "border-red-500" : ""}
                             />
+                            {errors.subject && <p className="text-xs text-red-500">{errors.subject}</p>}
                           </div>
                         </div>
 
@@ -177,17 +204,31 @@ export default function Contact() {
                           <Label htmlFor="message">Pesan</Label>
                           <Textarea
                             id="message"
-                            value={formData.message}
-                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                            value={data.message}
+                            onChange={(e) => setData('message', e.target.value)}
                             placeholder="Tuliskan pesan Anda di sini..."
                             rows={5}
                             required
+                            className={errors.message ? "border-red-500" : ""}
                           />
+                          {errors.message && <p className="text-xs text-red-500">{errors.message}</p>}
                         </div>
 
-                        <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90">
-                          <Send className="w-4 h-4 mr-2" />
-                          Kirim Pesan
+                        <Button 
+                            type="submit" 
+                            size="lg" 
+                            className="w-full bg-primary hover:bg-primary/90"
+                            disabled={processing}
+                        >
+                          {processing ? (
+                             <>
+                                <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Mengirim...
+                             </>
+                          ) : (
+                             <>
+                                <Send className="w-4 h-4 mr-2" /> Kirim Pesan
+                             </>
+                          )}
                         </Button>
                       </form>
                     )}
