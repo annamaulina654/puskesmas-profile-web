@@ -60,8 +60,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/messages/{id}/read', [App\Http\Controllers\Admin\MessageController::class, 'markAsRead'])->name('messages.read');
     });
 
-    Route::resource('informasi', InformasiController::class);
-    Route::resource('profil', ProfilController::class);
 });
 
 require __DIR__.'/settings.php';
