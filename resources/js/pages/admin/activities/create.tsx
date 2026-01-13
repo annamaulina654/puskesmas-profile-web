@@ -7,8 +7,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ArrowLeft, Save, UploadCloud } from 'lucide-react';
-import { FormEventHandler } from 'react';
+import { ArrowLeft, Save, UploadCloud, X, Image as IconImage } from 'lucide-react';
+import { FormEventHandler, useState, useEffect } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
@@ -25,6 +25,27 @@ export default function ActivityCreate() {
         location: '',
         images: [] as File[],
     });
+
+    const [previews, setPreviews] = useState<string[]>([]);
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const newFiles = Array.from(e.target.files);
+            
+            setData('images', [...data.images, ...newFiles]);
+
+            const newPreviews = newFiles.map(file => URL.createObjectURL(file));
+            setPreviews([...previews, ...newPreviews]);
+        }
+    };
+
+    const removeImage = (index: number) => {
+        const updatedImages = data.images.filter((_, i) => i !== index);
+        setData('images', updatedImages);
+
+        const updatedPreviews = previews.filter((_, i) => i !== index);
+        setPreviews(updatedPreviews);
+    };
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -54,38 +75,19 @@ export default function ActivityCreate() {
                             
                             <div className="space-y-2">
                                 <Label htmlFor="title">Nama Kegiatan</Label>
-                                <Input
-                                    id="title"
-                                    value={data.title}
-                                    onChange={(e) => setData('title', e.target.value)}
-                                    placeholder="Contoh: Posyandu Melati Desa Kwanyar"
-                                    required
-                                />
+                                <Input id="title" value={data.title} onChange={(e) => setData('title', e.target.value)} placeholder="Contoh: Posyandu Melati" required />
                                 {errors.title && <p className="text-sm text-red-500">{errors.title}</p>}
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <Label htmlFor="date">Tanggal Pelaksanaan</Label>
-                                    <Input
-                                        id="date"
-                                        type="date"
-                                        value={data.date}
-                                        onChange={(e) => setData('date', e.target.value)}
-                                        required
-                                    />
-                                    {errors.date && <p className="text-sm text-red-500">{errors.date}</p>}
+                                    <Label htmlFor="date">Tanggal</Label>
+                                    <Input id="date" type="date" value={data.date} onChange={(e) => setData('date', e.target.value)} required />
                                 </div>
-
                                 <div className="space-y-2">
                                     <Label htmlFor="category">Kategori</Label>
-                                    <Select 
-                                        value={data.category}
-                                        onValueChange={(value) => setData('category', value)}
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Pilih Kategori" />
-                                        </SelectTrigger>
+                                    <Select value={data.category} onValueChange={(value) => setData('category', value)}>
+                                        <SelectTrigger><SelectValue placeholder="Pilih Kategori" /></SelectTrigger>
                                         <SelectContent>
                                             <SelectItem value="Posyandu">Posyandu</SelectItem>
                                             <SelectItem value="Penyuluhan">Penyuluhan</SelectItem>
@@ -94,56 +96,54 @@ export default function ActivityCreate() {
                                             <SelectItem value="Lainnya">Lainnya</SelectItem>
                                         </SelectContent>
                                     </Select>
-                                    {errors.category && <p className="text-sm text-red-500">{errors.category}</p>}
                                 </div>
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="location">Lokasi Kegiatan</Label>
-                                <Input
-                                    id="location"
-                                    value={data.location}
-                                    onChange={(e) => setData('location', e.target.value)}
-                                    placeholder="Contoh: Balai Desa Kwanyar"
-                                    required
-                                />
-                                {errors.location && <p className="text-sm text-red-500">{errors.location}</p>}
+                                <Label htmlFor="location">Lokasi</Label>
+                                <Input id="location" value={data.location} onChange={(e) => setData('location', e.target.value)} required />
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="description">Deskripsi Kegiatan</Label>
-                                <Textarea
-                                    id="description"
-                                    value={data.description}
-                                    onChange={(e) => setData('description', e.target.value)}
-                                    placeholder="Jelaskan detail kegiatan..."
-                                    className="min-h-[120px]"
-                                    required
-                                />
-                                {errors.description && <p className="text-sm text-red-500">{errors.description}</p>}
+                                <Label htmlFor="description">Deskripsi</Label>
+                                <Textarea id="description" value={data.description} onChange={(e) => setData('description', e.target.value)} className="min-h-[100px]" required />
                             </div>
 
-                            <div className="space-y-2">
+                            <div className="space-y-4">
                                 <Label>Dokumentasi Foto</Label>
-                                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 bg-gray-50 hover:bg-gray-100 transition text-center cursor-pointer relative">
-                                    <input 
-                                        type="file"
-                                        multiple
-                                        accept="image/*"
-                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                        onChange={(e) => setData('images', Array.from(e.target.files || []))}
-                                    />
-                                    <div className="flex flex-col items-center justify-center gap-2 text-gray-500">
-                                        <UploadCloud className="w-10 h-10 text-gray-400" />
-                                        <p className="font-medium text-sm">Klik untuk upload atau drag & drop</p>
-                                        <p className="text-xs">Bisa pilih banyak foto sekaligus (Maks. 2MB/foto)</p>
-                                    </div>
-                                </div>
-                                {data.images.length > 0 && (
-                                    <div className="text-sm text-green-600 mt-2">
-                                        {data.images.length} file dipilih.
+                                
+                                {previews.length > 0 && (
+                                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-4">
+                                        {previews.map((src, index) => (
+                                            <div key={index} className="relative aspect-square rounded-lg overflow-hidden border border-gray-200 group">
+                                                <img src={src} alt="Preview" className="w-full h-full object-cover" />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removeImage(index)}
+                                                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-90 hover:opacity-100 transition shadow-sm"
+                                                >
+                                                    <X className="w-3 h-3" />
+                                                </button>
+                                            </div>
+                                        ))}
                                     </div>
                                 )}
+
+                                <div className="border-2 border-dashed border-indigo-200 rounded-lg p-6 bg-indigo-50 hover:bg-indigo-100 transition text-center cursor-pointer relative">
+                                    <input 
+                                        type="file"
+                                        multiple 
+                                        accept="image/*"
+                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                        onChange={handleFileChange}
+                                        onClick={(e) => (e.currentTarget.value = '')}
+                                    />
+                                    <div className="flex flex-col items-center justify-center gap-2 text-indigo-500">
+                                        <UploadCloud className="w-10 h-10" />
+                                        <p className="font-medium text-sm">Klik untuk tambah foto</p>
+                                        <p className="text-xs text-gray-500">Bisa upload banyak sekaligus</p>
+                                    </div>
+                                </div>
                                 {errors.images && <p className="text-sm text-red-500">{errors.images}</p>}
                             </div>
 

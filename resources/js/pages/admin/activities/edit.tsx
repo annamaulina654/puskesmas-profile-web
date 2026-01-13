@@ -7,8 +7,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ArrowLeft, Save, UploadCloud, Image as IconImage } from 'lucide-react';
-import { FormEventHandler } from 'react';
+import { ArrowLeft, Save, UploadCloud, X } from 'lucide-react';
+import { FormEventHandler, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
@@ -29,6 +29,7 @@ interface ActivityProps {
 }
 
 export default function ActivityEdit({ activity }: ActivityProps) {
+    
     const { data, setData, post, processing, errors } = useForm({
         _method: 'PUT',
         title: activity.title,
@@ -36,8 +37,38 @@ export default function ActivityEdit({ activity }: ActivityProps) {
         category: activity.category,
         date: activity.date.split('T')[0],
         location: activity.location,
-        images: [] as File[],
+        new_images: [] as File[],
+        deleted_images: [] as string[], 
     });
+
+    const [existingImages, setExistingImages] = useState<string[]>(activity.images || []);
+    
+    const [newPreviews, setNewPreviews] = useState<string[]>([]);
+
+    const removeExistingImage = (imagePath: string) => {
+        setData('deleted_images', [...data.deleted_images, imagePath]);
+        
+        setExistingImages(existingImages.filter(img => img !== imagePath));
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const filesArray = Array.from(e.target.files);
+            
+            setData('new_images', [...data.new_images, ...filesArray]);
+
+            const previews = filesArray.map(file => URL.createObjectURL(file));
+            setNewPreviews([...newPreviews, ...previews]);
+        }
+    };
+
+    const removeNewImage = (index: number) => {
+        const updatedFiles = data.new_images.filter((_, i) => i !== index);
+        setData('new_images', updatedFiles);
+
+        const updatedPreviews = newPreviews.filter((_, i) => i !== index);
+        setNewPreviews(updatedPreviews);
+    };
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -67,35 +98,18 @@ export default function ActivityEdit({ activity }: ActivityProps) {
                             
                             <div className="space-y-2">
                                 <Label htmlFor="title">Nama Kegiatan</Label>
-                                <Input
-                                    id="title"
-                                    value={data.title}
-                                    onChange={(e) => setData('title', e.target.value)}
-                                    required
-                                />
+                                <Input id="title" value={data.title} onChange={(e) => setData('title', e.target.value)} required />
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <Label htmlFor="date">Tanggal Pelaksanaan</Label>
-                                    <Input
-                                        id="date"
-                                        type="date"
-                                        value={data.date}
-                                        onChange={(e) => setData('date', e.target.value)}
-                                        required
-                                    />
+                                    <Label htmlFor="date">Tanggal</Label>
+                                    <Input id="date" type="date" value={data.date} onChange={(e) => setData('date', e.target.value)} required />
                                 </div>
-
                                 <div className="space-y-2">
                                     <Label htmlFor="category">Kategori</Label>
-                                    <Select 
-                                        value={data.category}
-                                        onValueChange={(value) => setData('category', value)}
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Pilih Kategori" />
-                                        </SelectTrigger>
+                                    <Select value={data.category} onValueChange={(value) => setData('category', value)}>
+                                        <SelectTrigger><SelectValue /></SelectTrigger>
                                         <SelectContent>
                                             <SelectItem value="Posyandu">Posyandu</SelectItem>
                                             <SelectItem value="Penyuluhan">Penyuluhan</SelectItem>
@@ -108,72 +122,77 @@ export default function ActivityEdit({ activity }: ActivityProps) {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="location">Lokasi Kegiatan</Label>
-                                <Input
-                                    id="location"
-                                    value={data.location}
-                                    onChange={(e) => setData('location', e.target.value)}
-                                    required
-                                />
+                                <Label htmlFor="location">Lokasi</Label>
+                                <Input id="location" value={data.location} onChange={(e) => setData('location', e.target.value)} required />
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="description">Deskripsi Kegiatan</Label>
-                                <Textarea
-                                    id="description"
-                                    value={data.description}
-                                    onChange={(e) => setData('description', e.target.value)}
-                                    className="min-h-[120px]"
-                                    required
-                                />
+                                <Label htmlFor="description">Deskripsi</Label>
+                                <Textarea id="description" value={data.description} onChange={(e) => setData('description', e.target.value)} className="min-h-[120px]" required />
                             </div>
 
-                            <div className="space-y-2">
-                                <Label>Foto Saat Ini</Label>
-                                {activity.images && activity.images.length > 0 ? (
-                                    <div className="grid grid-cols-3 md:grid-cols-5 gap-4 mt-2">
-                                        {activity.images.map((img, index) => (
-                                            <div key={index} className="relative aspect-square rounded-md overflow-hidden border">
-                                                <img 
-                                                    src={`/storage/${img}`} 
-                                                    alt={`Foto ${index}`} 
-                                                    className="object-cover w-full h-full"
-                                                />
+                            <div className="space-y-4">
+                                <Label>Kelola Foto</Label>
+                                
+                                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                                    
+                                    {existingImages.map((img, index) => (
+                                        <div key={`old-${index}`} className="relative aspect-square rounded-lg overflow-hidden border border-gray-200 group">
+                                            <img src={`/storage/${img}`} alt="Foto Lama" className="w-full h-full object-cover" />
+                                            <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-[10px] text-center py-1">
+                                                Tersimpan
                                             </div>
-                                        ))}
-                                    </div>
-                                ) : (
-                                    <p className="text-sm text-gray-500 italic">Belum ada foto.</p>
-                                )}
-                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={() => removeExistingImage(img)}
+                                                className="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition shadow-sm"
+                                                title="Hapus foto ini"
+                                            >
+                                                <X className="w-3 h-3" />
+                                            </button>
+                                        </div>
+                                    ))}
 
-                            <div className="space-y-2">
-                                <Label className="text-indigo-600">Ganti / Upload Foto Baru (Opsional)</Label>
-                                <div className="border-2 border-dashed border-indigo-200 rounded-lg p-6 bg-indigo-50 hover:bg-indigo-100 transition text-center cursor-pointer relative">
-                                    <input 
-                                        type="file"
-                                        multiple 
-                                        accept="image/*"
-                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                        onChange={(e) => setData('images', Array.from(e.target.files || []))}
-                                    />
-                                    <div className="flex flex-col items-center justify-center gap-2 text-indigo-500">
-                                        <UploadCloud className="w-10 h-10" />
-                                        <p className="font-medium text-sm">Klik untuk upload foto pengganti</p>
-                                        <p className="text-xs text-gray-500">Peringatan: Foto lama akan dihapus jika Anda mengupload foto baru.</p>
+                                    {newPreviews.map((src, index) => (
+                                        <div key={`new-${index}`} className="relative aspect-square rounded-lg overflow-hidden border border-indigo-400 border-dashed group bg-indigo-50">
+                                            <img src={src} alt="Foto Baru" className="w-full h-full object-cover opacity-80" />
+                                            <div className="absolute bottom-0 left-0 right-0 bg-indigo-600/80 text-white text-[10px] text-center py-1">
+                                                Baru
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={() => removeNewImage(index)}
+                                                className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 shadow-sm"
+                                                title="Batal upload"
+                                            >
+                                                <X className="w-3 h-3" />
+                                            </button>
+                                        </div>
+                                    ))}
+
+                                    <div className="border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 hover:bg-gray-100 transition flex flex-col items-center justify-center cursor-pointer relative aspect-square">
+                                        <input 
+                                            type="file"
+                                            multiple 
+                                            accept="image/*"
+                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                            onChange={handleFileChange}
+                                            onClick={(e) => (e.currentTarget.value = '')}
+                                        />
+                                        <UploadCloud className="w-8 h-8 text-gray-400 mb-1" />
+                                        <span className="text-xs text-gray-500 font-medium">Tambah Foto</span>
                                     </div>
                                 </div>
-                                {data.images.length > 0 && (
-                                    <div className="text-sm text-green-600 mt-2">
-                                        {data.images.length} file baru dipilih.
-                                    </div>
-                                )}
+                                
+                                <p className="text-xs text-gray-500">
+                                    * Klik ikon tempat sampah / silang pada gambar untuk menghapus.
+                                </p>
                             </div>
 
                             <div className="flex justify-end pt-4">
                                 <Button type="submit" disabled={processing} className="w-full md:w-auto">
                                     <Save className="w-4 h-4 mr-2" />
-                                    {processing ? 'Menyimpan...' : 'Perbarui Kegiatan'}
+                                    {processing ? 'Menyimpan...' : 'Simpan Perubahan'}
                                 </Button>
                             </div>
                         </form>

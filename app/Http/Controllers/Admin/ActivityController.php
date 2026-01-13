@@ -10,7 +10,6 @@ use Inertia\Inertia;
 
 class ActivityController extends Controller
 {
-
     public function index()
     {
         $activities = Activity::latest()->get();
@@ -69,43 +68,46 @@ class ActivityController extends Controller
     public function update(Request $request, Activity $activity)
     {
         $data = $request->validate([
-            'title'       => 'required|string|max:255',
-            'description' => 'required|string',
-            'category'    => 'required|string',
-            'date'        => 'required|date',
-            'location'    => 'required|string',
-            'images'      => 'nullable|array',
-            'images.*'    => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+            'title'          => 'required|string|max:255',
+            'description'    => 'required|string',
+            'category'       => 'required|string',
+            'date'           => 'required|date',
+            'location'       => 'required|string',
+            
+            'new_images'     => 'nullable|array',
+            'new_images.*'   => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+            
+            'deleted_images' => 'nullable|array',
         ]);
 
-        $updateData = [
+        $currentImages = $activity->images ?? [];
+
+        if ($request->has('deleted_images')) {
+            foreach ($request->deleted_images as $imageToDelete) {
+                
+                if (Storage::disk('public')->exists($imageToDelete)) {
+                    Storage::disk('public')->delete($imageToDelete);
+                }
+
+                $currentImages = array_values(array_diff($currentImages, [$imageToDelete]));
+            }
+        }
+
+        if ($request->hasFile('new_images')) {
+            foreach ($request->file('new_images') as $file) {
+                $path = $file->store('activities', 'public');
+                $currentImages[] = $path;
+            }
+        }
+
+        $activity->update([
             'title'       => $data['title'],
             'description' => $data['description'],
             'category'    => $data['category'],
             'date'        => $data['date'],
             'location'    => $data['location'],
-        ];
-
-        if ($request->hasFile('images')) {
-            
-            if ($activity->images && is_array($activity->images)) {
-                foreach ($activity->images as $oldImage) {
-                    if (Storage::disk('public')->exists($oldImage)) {
-                        Storage::disk('public')->delete($oldImage);
-                    }
-                }
-            }
-
-            $newImagePaths = [];
-            foreach ($request->file('images') as $file) {
-                $path = $file->store('activities', 'public');
-                $newImagePaths[] = $path;
-            }
-
-            $updateData['images'] = $newImagePaths;
-        }
-
-        $activity->update($updateData);
+            'images'      => $currentImages,
+        ]);
 
         return redirect()->route('admin.activities.index')
             ->with('message', 'Kegiatan berhasil diperbarui!');
