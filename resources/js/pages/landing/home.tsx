@@ -7,7 +7,7 @@ import { ActivitiesSection } from "@/components/landing/activities-section"
 import { AnnouncementsSection } from "@/components/landing/announcements-section"
 import { CTASection } from "@/components/landing/cta-section"
 
-export default function Home({ activities }: { activities: any[] }) {
+export default function Home({ activities, announcements }: { activities: any[], announcements: any[] }) {
   return (
     <PublicLayout>
       <Head title="Beranda - UPT Puskesmas Kwanyar" />
@@ -16,7 +16,7 @@ export default function Home({ activities }: { activities: any[] }) {
       <ServicesSection />
       <StatsSection />
       <ActivitiesSection activities={activities} />
-      <AnnouncementsSection />
+      <AnnouncementsSection announcements={announcements} />
       <CTASection />
       
     </PublicLayout>

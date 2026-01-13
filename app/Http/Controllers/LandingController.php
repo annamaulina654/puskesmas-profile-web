@@ -14,8 +14,14 @@ class LandingController extends Controller
     {
         $latestActivities = Activity::orderBy('date', 'desc')->take(6)->get();
 
+        $latestAnnouncements = Announcement::where('is_active', true)
+            ->orderBy('date', 'desc')
+            ->take(4)
+            ->get();
+
         return Inertia::render('landing/home', [
-            'activities' => $latestActivities
+            'activities' => $latestActivities,
+            'announcements' => $latestAnnouncements
         ]);
     }
 
