@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Head } from "@inertiajs/react"
+import { Head, Link } from "@inertiajs/react"
 import PublicLayout from "@/layouts/public-layout"
 import { Calendar, Search, Bell, FileText, AlertCircle, ChevronRight, Info } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
@@ -30,7 +30,6 @@ const typeConfig: Record<
 export default function AnnouncementsPage({ announcements }: { announcements: Announcement[] }) {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedType, setSelectedType] = useState<string | null>(null)
-  const [expandedId, setExpandedId] = useState<number | null>(null)
 
   const filteredAnnouncements = announcements.filter((announcement) => {
     const matchesSearch =
@@ -115,51 +114,49 @@ export default function AnnouncementsPage({ announcements }: { announcements: An
               {filteredAnnouncements.map((announcement) => {
                 const config = typeConfig[announcement.type] || typeConfig.Default
                 const Icon = config.icon
-                const isExpanded = expandedId === announcement.id
                 const isNew = isNewPost(announcement.created_at)
 
                 return (
                   <Card
                     key={announcement.id}
-                    className="border-border hover:shadow-lg transition-all cursor-pointer overflow-hidden"
-                    onClick={() => setExpandedId(isExpanded ? null : announcement.id)}
+                    className="border-border hover:shadow-lg transition-all cursor-pointer overflow-hidden group"
                   >
-                    <CardContent className="p-6">
-                      <div className="flex items-start gap-4">
-                        <div
-                          className={`w-14 h-14 rounded-xl ${config.bgColor} flex items-center justify-center flex-shrink-0`}
-                        >
-                          <Icon className="w-7 h-7 text-white" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-2 flex-wrap">
-                            <Badge variant="secondary" className="text-xs">
-                              {announcement.type}
-                            </Badge>
-                            
-                            {isNew && (
-                              <Badge className="bg-primary text-primary-foreground text-xs">Baru</Badge>
-                            )}
-                            
-                            <div className="flex items-center gap-1 text-muted-foreground text-xs ml-auto">
-                              <Calendar className="w-3.5 h-3.5" />
-                              {formatDate(announcement.date)}
+                    <Link href={`/information/announcements/${announcement.id}`}>
+                        <CardContent className="p-6">
+                        <div className="flex items-start gap-4">
+                            <div
+                            className={`w-14 h-14 rounded-xl ${config.bgColor} flex items-center justify-center flex-shrink-0`}
+                            >
+                            <Icon className="w-7 h-7 text-white" />
                             </div>
-                          </div>
-                          <h3 className="text-lg font-semibold text-foreground mb-2 flex items-center gap-2">
-                            {announcement.title}
-                            <ChevronRight
-                              className={`w-5 h-5 text-muted-foreground transition-transform ${isExpanded ? "rotate-90" : ""}`}
-                            />
-                          </h3>
-                          <p
-                            className={`text-muted-foreground text-sm leading-relaxed whitespace-pre-line ${isExpanded ? "" : "line-clamp-2"}`}
-                          >
-                            {announcement.content}
-                          </p>
+                            <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-2 flex-wrap">
+                                <Badge variant="secondary" className="text-xs">
+                                {announcement.type}
+                                </Badge>
+                                
+                                {isNew && (
+                                <Badge className="bg-primary text-primary-foreground text-xs">Baru</Badge>
+                                )}
+                                
+                                <div className="flex items-center gap-1 text-muted-foreground text-xs ml-auto">
+                                <Calendar className="w-3.5 h-3.5" />
+                                {formatDate(announcement.date)}
+                                </div>
+                            </div>
+                            
+                            <h3 className="text-lg font-semibold text-foreground mb-2 flex items-center gap-2 group-hover:text-primary transition-colors">
+                                {announcement.title}
+                                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+                            </h3>
+                            
+                            <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">
+                                {announcement.content}
+                            </p>
+                            </div>
                         </div>
-                      </div>
-                    </CardContent>
+                        </CardContent>
+                    </Link>
                   </Card>
                 )
               })}

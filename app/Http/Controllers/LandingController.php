@@ -61,12 +61,30 @@ class LandingController extends Controller
         ]);
     }
 
+    public function showAnnouncement($id)
+    {
+        $announcement = Announcement::where('is_active', true)->findOrFail($id);
+
+        return Inertia::render('landing/information/announcement-detail', [
+            'announcement' => $announcement
+        ]);
+    }
+
     public function activities()
     {
         $activities = Activity::orderBy('date', 'desc')->get();
 
         return Inertia::render('landing/information/activities', [
             'activities' => $activities
+        ]);
+    }
+
+    public function showActivity($id)
+    {
+        $activity = Activity::findOrFail($id);
+
+        return Inertia::render('landing/information/activity-detail', [
+            'activity' => $activity
         ]);
     }
 

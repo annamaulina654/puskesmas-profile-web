@@ -96,9 +96,13 @@ export function AnnouncementsSection({ announcements }: { announcements: Announc
                                 <Badge className="bg-primary text-primary-foreground text-xs">Baru</Badge>
                             )}
                             </div>
-                            <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                            {announcement.title}
-                            </h3>
+                            
+                            <Link href={`/information/announcements/${announcement.id}`} className="block">
+                                <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                                {announcement.title}
+                                </h3>
+                            </Link>
+
                             <p className="text-muted-foreground text-sm line-clamp-2 mb-3">
                                 {announcement.content}
                             </p>

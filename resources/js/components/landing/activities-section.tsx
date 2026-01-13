@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link } from "@inertiajs/react"
-import { Calendar, ArrowRight, X, ImageIcon } from "lucide-react"
+import { Calendar, ArrowRight, ImageIcon } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -25,7 +25,6 @@ const categoryColors: Record<string, string> = {
 }
 
 export function ActivitiesSection({ activities }: { activities: Activity[] }) {
-  const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null)
 
   const getImageUrl = (path: string) => {
     if (!path) return "/images/placeholder.svg";
@@ -76,37 +75,38 @@ export function ActivitiesSection({ activities }: { activities: Activity[] }) {
                   key={activity.id}
                   className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 bg-card"
                 >
-                  <div 
-                    className="relative h-56 overflow-hidden cursor-pointer" 
-                    onClick={() => setSelectedActivity(activity)}
-                  >
-                    <img
-                      src={getMainImage(activity)}
-                      alt={activity.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    
-                    <Badge className={`absolute top-4 left-4 ${badgeColor} text-white border-0`}>
-                      {activity.category}
-                    </Badge>
-                    
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span className="px-4 py-2 bg-white/90 text-foreground rounded-full text-sm font-medium flex items-center gap-2">
-                         <ImageIcon className="w-4 h-4" /> Lihat Detail
-                      </span>
-                    </div>
-                  </div>
+                  <Link href={`/information/activities/${activity.id}`}>
+                      <div className="relative h-56 overflow-hidden cursor-pointer">
+                        <img
+                          src={getMainImage(activity)}
+                          alt={activity.title}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                        
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        
+                        <Badge className={`absolute top-4 left-4 ${badgeColor} text-white border-0`}>
+                          {activity.category}
+                        </Badge>
+                        
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <span className="px-4 py-2 bg-white/90 text-foreground rounded-full text-sm font-medium flex items-center gap-2">
+                              <ImageIcon className="w-4 h-4" /> Lihat Detail
+                          </span>
+                        </div>
+                      </div>
+                  </Link>
 
                   <CardContent className="p-6">
                     <div className="flex items-center gap-2 text-muted-foreground text-sm mb-3">
                       <Calendar className="w-4 h-4" />
                       {formatDate(activity.date)}
                     </div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                      {activity.title}
-                    </h3>
+                    <Link href={`/information/activities/${activity.id}`}>
+                        <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                        {activity.title}
+                        </h3>
+                    </Link>
                     <p className="text-muted-foreground text-sm line-clamp-2">
                         {activity.description}
                     </p>
@@ -136,41 +136,6 @@ export function ActivitiesSection({ activities }: { activities: Activity[] }) {
           </Button>
         </div>
       </div>
-
-      {selectedActivity && (
-        <div
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 animate-in fade-in duration-300"
-          onClick={() => setSelectedActivity(null)}
-        >
-          <button
-            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors p-2 bg-white/10 rounded-full z-50"
-            onClick={() => setSelectedActivity(null)}
-          >
-            <X className="w-8 h-8" />
-          </button>
-          
-          <div className="relative max-w-4xl max-h-[85vh] w-full flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={getMainImage(selectedActivity)}
-              alt={selectedActivity.title}
-              className="object-contain w-full h-auto max-h-[60vh] rounded-lg mx-auto shadow-2xl bg-black"
-            />
-            
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl mt-4 w-full max-w-2xl text-center">
-                <Badge className={`${categoryColors[selectedActivity.category] || categoryColors.Default} text-white border-0 mb-3`}>
-                    {selectedActivity.category}
-                </Badge>
-                <h3 className="text-white text-xl font-semibold mb-2">{selectedActivity.title}</h3>
-                <p className="text-white/80 text-sm mb-4">
-                    {formatDate(selectedActivity.date)}
-                </p>
-                <p className="text-white/90 text-sm leading-relaxed">
-                    {selectedActivity.description}
-                </p>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   )
 }
