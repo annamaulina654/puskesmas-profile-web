@@ -1,60 +1,18 @@
 import { useState } from "react"
 import { Link } from "@inertiajs/react"
-import { Calendar, ArrowRight, X } from "lucide-react"
+import { Calendar, ArrowRight, X, ImageIcon } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
-const activities = [
-  {
-    id: 1,
-    title: "Posyandu Balita Desa Maju",
-    date: "5 Januari 2026",
-    image: "/images/community-health-workers-weighing-baby-at-posyandu.jpg",
-    category: "Posyandu",
-    description: "Kegiatan penimbangan dan pemeriksaan kesehatan balita rutin bulanan",
-  },
-  {
-    id: 2,
-    title: "Vaksinasi COVID-19 Booster",
-    date: "28 Desember 2025",
-    image: "/images/nurse-giving-vaccine-injection-to-patient.jpg",
-    category: "Imunisasi",
-    description: "Program vaksinasi booster untuk masyarakat umum",
-  },
-  {
-    id: 3,
-    title: "Penyuluhan Kesehatan Jiwa",
-    date: "20 Desember 2025",
-    image: "/images/health-education-seminar-with-community-members.jpg",
-    category: "Edukasi",
-    description: "Sosialisasi pentingnya kesehatan mental di era modern",
-  },
-  {
-    id: 4,
-    title: "Senam Sehat Lansia",
-    date: "15 Desember 2025",
-    image: "/images/elderly-people-doing-exercise-together-outdoor.jpg",
-    category: "Olahraga",
-    description: "Program kebugaran rutin untuk warga lansia",
-  },
-  {
-    id: 5,
-    title: "Pemeriksaan Gratis PTM",
-    date: "10 Desember 2025",
-    image: "/images/doctor-checking-blood-pressure-of-patient.jpg",
-    category: "Pemeriksaan",
-    description: "Screening penyakit tidak menular untuk warga",
-  },
-  {
-    id: 6,
-    title: "Donor Darah PMI",
-    date: "5 Desember 2025",
-    image: "/images/blood-donation-event-with-volunteers.jpg",
-    category: "Sosial",
-    description: "Kegiatan donor darah kerjasama dengan PMI",
-  },
-]
+export interface Activity {
+  id: number;
+  title: string;
+  date: string;
+  images: string[] | null;
+  category: string;
+  description: string;
+}
 
 const categoryColors: Record<string, string> = {
   Posyandu: "bg-pink-500",
@@ -63,10 +21,32 @@ const categoryColors: Record<string, string> = {
   Olahraga: "bg-green-500",
   Pemeriksaan: "bg-amber-500",
   Sosial: "bg-red-500",
+  Default: "bg-slate-500",
 }
 
-export function ActivitiesSection() {
-  const [selectedImage, setSelectedImage] = useState<(typeof activities)[0] | null>(null)
+export function ActivitiesSection({ activities }: { activities: Activity[] }) {
+  const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null)
+
+  const getImageUrl = (path: string) => {
+    if (!path) return "/images/placeholder.svg";
+    if (path.startsWith('http') || path.startsWith('/images')) return path;
+    return `/storage/${path}`;
+  }
+
+  const getMainImage = (activity: Activity) => {
+    if (activity.images && activity.images.length > 0) {
+        return getImageUrl(activity.images[0]);
+    }
+    return "/images/placeholder.svg";
+  }
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+  }
 
   return (
     <section className="py-20 lg:py-28 bg-secondary/30">
@@ -82,53 +62,72 @@ export function ActivitiesSection() {
             Dokumentasi Kegiatan
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
-            Berbagai kegiatan dan program kesehatan yang telah kami laksanakan untuk masyarakat
+            Berbagai kegiatan dan program kesehatan yang telah kami laksanakan untuk masyarakat.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {activities.map((activity) => (
-            <Card
-              key={activity.id}
-              className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 bg-card"
-            >
-              <div className="relative h-56 overflow-hidden cursor-pointer" onClick={() => setSelectedImage(activity)}>
-                <img
-                  src={activity.image || "/images/placeholder.svg"}
-                  alt={activity.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <Badge className={`absolute top-4 left-4 ${categoryColors[activity.category]} text-white border-0`}>
-                  {activity.category}
-                </Badge>
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="px-4 py-2 bg-white/90 text-foreground rounded-full text-sm font-medium">
-                    Lihat Foto
-                  </span>
-                </div>
-              </div>
-              <CardContent className="p-6">
-                <div className="flex items-center gap-2 text-muted-foreground text-sm mb-3">
-                  <Calendar className="w-4 h-4" />
-                  {activity.date}
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                  {activity.title}
-                </h3>
-                <p className="text-muted-foreground text-sm line-clamp-2">{activity.description}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        {activities && activities.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {activities.map((activity) => {
+              const badgeColor = categoryColors[activity.category] || categoryColors.Default;
+              
+              return (
+                <Card
+                  key={activity.id}
+                  className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 bg-card"
+                >
+                  <div 
+                    className="relative h-56 overflow-hidden cursor-pointer" 
+                    onClick={() => setSelectedActivity(activity)}
+                  >
+                    <img
+                      src={getMainImage(activity)}
+                      alt={activity.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    <Badge className={`absolute top-4 left-4 ${badgeColor} text-white border-0`}>
+                      {activity.category}
+                    </Badge>
+                    
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <span className="px-4 py-2 bg-white/90 text-foreground rounded-full text-sm font-medium flex items-center gap-2">
+                         <ImageIcon className="w-4 h-4" /> Lihat Detail
+                      </span>
+                    </div>
+                  </div>
+
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-2 text-muted-foreground text-sm mb-3">
+                      <Calendar className="w-4 h-4" />
+                      {formatDate(activity.date)}
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                      {activity.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm line-clamp-2">
+                        {activity.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              )
+            })}
+          </div>
+        ) : (
+           <div className="text-center py-12 bg-white rounded-xl border border-dashed border-gray-300">
+               <ImageIcon className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+               <p className="text-muted-foreground">Belum ada kegiatan terbaru yang diunggah.</p>
+           </div>
+        )}
 
         <div className="text-center mt-12">
           <Button
             asChild
             size="lg"
             variant="outline"
-            className="rounded-full px-8 border-primary text-primary hover:bg-primary hover:text-primary-foreground bg-transparent"
+            className="rounded-full px-8 border-primary text-primary hover:bg-primary hover:text-primary-foreground bg-transparent transition-all"
           >
             <Link href="/information/activities">
               Lihat Semua Kegiatan
@@ -138,29 +137,36 @@ export function ActivitiesSection() {
         </div>
       </div>
 
-      {selectedImage && (
+      {selectedActivity && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
-          onClick={() => setSelectedImage(null)}
+          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 animate-in fade-in duration-300"
+          onClick={() => setSelectedActivity(null)}
         >
           <button
-            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
-            onClick={() => setSelectedImage(null)}
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors p-2 bg-white/10 rounded-full z-50"
+            onClick={() => setSelectedActivity(null)}
           >
             <X className="w-8 h-8" />
           </button>
-          <div className="relative max-w-4xl max-h-[80vh] w-full">
+          
+          <div className="relative max-w-4xl max-h-[85vh] w-full flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
             <img
-              src={selectedImage.image || "/images/placeholder.svg"}
-              alt={selectedImage.title}
-              className="object-contain w-full h-full max-h-[80vh] rounded-lg mx-auto"
+              src={getMainImage(selectedActivity)}
+              alt={selectedActivity.title}
+              className="object-contain w-full h-auto max-h-[60vh] rounded-lg mx-auto shadow-2xl bg-black"
             />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 rounded-b-lg">
-              <Badge className={`${categoryColors[selectedImage.category]} text-white border-0 mb-2`}>
-                {selectedImage.category}
-              </Badge>
-              <h3 className="text-white text-xl font-semibold">{selectedImage.title}</h3>
-              <p className="text-white/80 text-sm mt-1">{selectedImage.date}</p>
+            
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl mt-4 w-full max-w-2xl text-center">
+                <Badge className={`${categoryColors[selectedActivity.category] || categoryColors.Default} text-white border-0 mb-3`}>
+                    {selectedActivity.category}
+                </Badge>
+                <h3 className="text-white text-xl font-semibold mb-2">{selectedActivity.title}</h3>
+                <p className="text-white/80 text-sm mb-4">
+                    {formatDate(selectedActivity.date)}
+                </p>
+                <p className="text-white/90 text-sm leading-relaxed">
+                    {selectedActivity.description}
+                </p>
             </div>
           </div>
         </div>

@@ -12,7 +12,11 @@ class LandingController extends Controller
 {
     public function home()
     {
-        return Inertia::render('landing/home');
+        $latestActivities = Activity::orderBy('date', 'desc')->take(6)->get();
+
+        return Inertia::render('landing/home', [
+            'activities' => $latestActivities
+        ]);
     }
 
     public function about()
