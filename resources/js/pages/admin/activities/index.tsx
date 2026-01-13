@@ -15,7 +15,16 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { 
     Plus, 
     MoreHorizontal, 
@@ -45,15 +54,19 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function ActivityIndex({ activities }: { activities: Activity[] }) {
     const [search, setSearch] = useState('');
 
+    const [deleteId, setDeleteId] = useState<number | null>(null);
+
     const filteredData = activities.filter((item) =>
         item.title.toLowerCase().includes(search.toLowerCase()) ||
         item.category.toLowerCase().includes(search.toLowerCase()) ||
         item.location.toLowerCase().includes(search.toLowerCase())
     );
 
-    const handleDelete = (id: number) => {
-        if (confirm('Apakah Anda yakin ingin menghapus kegiatan ini?')) {
-            router.delete(`/admin/activities/${id}`);
+    const confirmDelete = () => {
+        if (deleteId) {
+            router.delete(`/admin/activities/${deleteId}`, {
+                onFinish: () => setDeleteId(null),
+            });
         }
     };
 
@@ -156,14 +169,13 @@ export default function ActivityIndex({ activities }: { activities: Activity[] }
                                                             <DropdownMenuLabel>Aksi</DropdownMenuLabel>
                                                             <DropdownMenuSeparator />
                                                             <DropdownMenuItem asChild>
-                                                                {/* URL Manual */}
                                                                 <Link href={`/admin/activities/${item.id}/edit`} className="cursor-pointer flex w-full items-center">
                                                                     <Pencil className="mr-2 h-4 w-4 text-yellow-600" /> Edit
                                                                 </Link>
                                                             </DropdownMenuItem>
                                                             <DropdownMenuItem
                                                                 className="text-red-600 focus:text-red-600 focus:bg-red-50 cursor-pointer"
-                                                                onClick={() => handleDelete(item.id)}
+                                                                onClick={() => setDeleteId(item.id)}
                                                             >
                                                                 <Trash className="mr-2 h-4 w-4" /> Hapus
                                                             </DropdownMenuItem>
@@ -189,6 +201,25 @@ export default function ActivityIndex({ activities }: { activities: Activity[] }
                     </CardContent>
                 </Card>
             </div>
+            <AlertDialog open={!!deleteId} onOpenChange={(open) => !open && setDeleteId(null)}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Tindakan ini tidak dapat dibatalkan. Data kegiatan dan foto dokumentasi akan dihapus permanen dari server.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Batal</AlertDialogCancel>
+                        <AlertDialogAction 
+                            onClick={confirmDelete} 
+                            className="bg-red-600 hover:bg-red-700 text-white"
+                        >
+                            Ya, Hapus
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </AppLayout>
     );
 }

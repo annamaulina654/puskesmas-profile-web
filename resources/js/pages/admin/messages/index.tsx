@@ -23,7 +23,16 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog"
-
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { 
     Search, 
     MoreHorizontal, 
@@ -56,15 +65,21 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
     const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+    const [deleteId, setDeleteId] = useState<number | null>(null);
     const filteredData = messages.filter((item) =>
         item.name.toLowerCase().includes(search.toLowerCase()) ||
         item.subject.toLowerCase().includes(search.toLowerCase()) ||
         item.email.toLowerCase().includes(search.toLowerCase())
     );
 
-    const handleDelete = (id: number) => {
-        if (confirm('Yakin ingin menghapus pesan ini?')) {
-            router.delete(`/admin/messages/${id}`);
+    const confirmDelete = () => {
+        if (deleteId) {
+            router.delete(`/admin/messages/${deleteId}`, {
+                onFinish: () => {
+                    setDeleteId(null);
+                    if (isDialogOpen) setIsDialogOpen(false); 
+                }
+            });
         }
     };
 
@@ -177,7 +192,7 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
                                                             <DropdownMenuSeparator />
                                                             <DropdownMenuItem
                                                                 className="text-red-600 focus:text-red-600 focus:bg-red-50 cursor-pointer"
-                                                                onClick={() => handleDelete(item.id)}
+                                                                onClick={() => setDeleteId(item.id)}
                                                             >
                                                                 <Trash className="mr-2 h-4 w-4" /> Hapus Pesan
                                                             </DropdownMenuItem>
@@ -250,8 +265,8 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
                             </Button>
                             <Button variant="destructive" onClick={() => {
                                 if (selectedMessage) {
-                                    handleDelete(selectedMessage.id);
                                     setIsDialogOpen(false);
+                                    setDeleteId(selectedMessage.id);
                                 }
                             }}>
                                 <Trash className="w-4 h-4 mr-2" /> Hapus Pesan
@@ -259,6 +274,25 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
+                <AlertDialog open={!!deleteId} onOpenChange={(open) => !open && setDeleteId(null)}>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                Pesan ini akan dihapus secara permanen dari kotak masuk Anda. Tindakan ini tidak dapat dibatalkan.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Batal</AlertDialogCancel>
+                            <AlertDialogAction 
+                                onClick={confirmDelete} 
+                                className="bg-red-600 hover:bg-red-700 text-white"
+                            >
+                                Ya, Hapus Pesan
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
 
             </div>
         </AppLayout>

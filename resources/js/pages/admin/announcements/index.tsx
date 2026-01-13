@@ -15,7 +15,16 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { 
     Plus, 
     MoreHorizontal, 
@@ -42,14 +51,18 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function AnnouncementIndex({ announcements }: { announcements: Announcement[] }) {
     const [search, setSearch] = useState('');
 
+    const [deleteId, setDeleteId] = useState<number | null>(null);
+
     const filteredData = announcements.filter((item) =>
         item.title.toLowerCase().includes(search.toLowerCase()) ||
         item.type.toLowerCase().includes(search.toLowerCase())
     );
 
-    const handleDelete = (id: number) => {
-        if (confirm('Apakah Anda yakin ingin menghapus pengumuman ini?')) {
-            router.delete(`/admin/announcements/${id}`);
+    const confirmDelete = () => {
+        if (deleteId) {
+            router.delete(`/admin/announcements/${deleteId}`, {
+                onFinish: () => setDeleteId(null),
+            });
         }
     };
 
@@ -141,7 +154,7 @@ export default function AnnouncementIndex({ announcements }: { announcements: An
                                                             </DropdownMenuItem>
                                                             <DropdownMenuItem
                                                                 className="text-red-600 focus:text-red-600 focus:bg-red-50 cursor-pointer"
-                                                                onClick={() => handleDelete(item.id)}
+                                                                onClick={() => setDeleteId(item.id)}
                                                             >
                                                                 <Trash className="mr-2 h-4 w-4" /> Hapus
                                                             </DropdownMenuItem>
@@ -167,6 +180,25 @@ export default function AnnouncementIndex({ announcements }: { announcements: An
                     </CardContent>
                 </Card>
             </div>
+            <AlertDialog open={!!deleteId} onOpenChange={(open) => !open && setDeleteId(null)}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Tindakan ini tidak dapat dibatalkan. Data pengumuman ini akan dihapus permanen dari database.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Batal</AlertDialogCancel>
+                        <AlertDialogAction 
+                            onClick={confirmDelete} 
+                            className="bg-red-600 hover:bg-red-700 text-white"
+                        >
+                            Ya, Hapus
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </AppLayout>
     );
 }
