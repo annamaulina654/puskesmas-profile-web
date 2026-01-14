@@ -15,6 +15,6 @@ class Message extends Model
         'phone',
         'subject',
         'message',
-        'is_read'
+        'is_read',
     ];
 }

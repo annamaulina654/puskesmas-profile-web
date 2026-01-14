@@ -20,6 +20,6 @@ class Activity extends Model
 
     protected $casts = [
         'date' => 'date',
-        'images' => 'array', 
+        'images' => 'array',
     ];
 }

@@ -14,7 +14,7 @@ class AnnouncementController extends Controller
         $announcements = Announcement::latest()->get();
 
         return Inertia::render('admin/announcements/index', [
-            'announcements' => $announcements
+            'announcements' => $announcements,
         ]);
     }
 
@@ -41,7 +41,7 @@ class AnnouncementController extends Controller
     public function edit(Announcement $announcement)
     {
         return Inertia::render('admin/announcements/edit', [
-            'announcement' => $announcement
+            'announcement' => $announcement,
         ]);
     }
 
@@ -63,6 +63,7 @@ class AnnouncementController extends Controller
     public function destroy(Announcement $announcement)
     {
         $announcement->delete();
+
         return redirect()->back();
     }
 }

@@ -15,7 +15,7 @@ class ActivityController extends Controller
         $activities = Activity::latest()->get();
 
         return Inertia::render('admin/activities/index', [
-            'activities' => $activities
+            'activities' => $activities,
         ]);
     }
 
@@ -27,13 +27,13 @@ class ActivityController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title'       => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'category'    => 'required|string',
-            'date'        => 'required|date',
-            'location'    => 'required|string',
-            'images'      => 'nullable|array',
-            'images.*'    => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+            'category' => 'required|string',
+            'date' => 'required|date',
+            'location' => 'required|string',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
         $imagePaths = [];
@@ -46,12 +46,12 @@ class ActivityController extends Controller
         }
 
         Activity::create([
-            'title'       => $data['title'],
+            'title' => $data['title'],
             'description' => $data['description'],
-            'category'    => $data['category'],
-            'date'        => $data['date'],
-            'location'    => $data['location'],
-            'images'      => $imagePaths,
+            'category' => $data['category'],
+            'date' => $data['date'],
+            'location' => $data['location'],
+            'images' => $imagePaths,
         ]);
 
         return redirect()->route('admin.activities.index')
@@ -61,22 +61,22 @@ class ActivityController extends Controller
     public function edit(Activity $activity)
     {
         return Inertia::render('admin/activities/edit', [
-            'activity' => $activity
+            'activity' => $activity,
         ]);
     }
 
     public function update(Request $request, Activity $activity)
     {
         $data = $request->validate([
-            'title'          => 'required|string|max:255',
-            'description'    => 'required|string',
-            'category'       => 'required|string',
-            'date'           => 'required|date',
-            'location'       => 'required|string',
-            
-            'new_images'     => 'nullable|array',
-            'new_images.*'   => 'image|mimes:jpeg,png,jpg,webp|max:2048',
-            
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category' => 'required|string',
+            'date' => 'required|date',
+            'location' => 'required|string',
+
+            'new_images' => 'nullable|array',
+            'new_images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+
             'deleted_images' => 'nullable|array',
         ]);
 
@@ -84,7 +84,7 @@ class ActivityController extends Controller
 
         if ($request->has('deleted_images')) {
             foreach ($request->deleted_images as $imageToDelete) {
-                
+
                 if (Storage::disk('public')->exists($imageToDelete)) {
                     Storage::disk('public')->delete($imageToDelete);
                 }
@@ -101,12 +101,12 @@ class ActivityController extends Controller
         }
 
         $activity->update([
-            'title'       => $data['title'],
+            'title' => $data['title'],
             'description' => $data['description'],
-            'category'    => $data['category'],
-            'date'        => $data['date'],
-            'location'    => $data['location'],
-            'images'      => $currentImages,
+            'category' => $data['category'],
+            'date' => $data['date'],
+            'location' => $data['location'],
+            'images' => $currentImages,
         ]);
 
         return redirect()->route('admin.activities.index')

@@ -30,7 +30,7 @@ interface ActivityProps {
 
 export default function ActivityEdit({ activity }: ActivityProps) {
     
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing } = useForm({
         _method: 'PUT',
         title: activity.title,
         description: activity.description,

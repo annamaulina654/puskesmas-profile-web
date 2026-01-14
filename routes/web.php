@@ -1,15 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use App\Http\Controllers\InformasiController;
-use App\Http\Controllers\ProfilController;
-use App\Http\Controllers\LandingController;
-use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Admin\ActivityController;
-use App\Models\Message;
+use App\Http\Controllers\Admin\AnnouncementController;
+use App\Http\Controllers\LandingController;
 use App\Models\Activity;
 use App\Models\Announcement;
+use App\Models\Message;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::controller(LandingController::class)->group(function () {
     Route::get('/', 'home')->name('home');
@@ -48,9 +46,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ]);
     })->name('dashboard');
 
-    Route::prefix('admin')->name('admin.')->group(function() {
-        
- 
+    Route::prefix('admin')->name('admin.')->group(function () {
+
         Route::resource('announcements', AnnouncementController::class);
 
         Route::resource('activities', ActivityController::class);

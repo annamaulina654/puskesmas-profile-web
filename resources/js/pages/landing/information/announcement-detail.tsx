@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Head, Link } from "@inertiajs/react"
 import PublicLayout from "@/layouts/public-layout"
 import { Calendar, ArrowLeft, Bell, AlertCircle, FileText, Info } from "lucide-react"

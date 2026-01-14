@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Head } from "@inertiajs/react"
 import PublicLayout from "@/layouts/public-layout"
 import { HeroSlider } from "@/components/landing/hero-slider"

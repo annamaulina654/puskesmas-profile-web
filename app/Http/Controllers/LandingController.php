@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Announcement;
 use App\Models\Activity;
+use App\Models\Announcement;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -21,7 +21,7 @@ class LandingController extends Controller
 
         return Inertia::render('landing/home', [
             'activities' => $latestActivities,
-            'announcements' => $latestAnnouncements
+            'announcements' => $latestAnnouncements,
         ]);
     }
 
@@ -57,7 +57,7 @@ class LandingController extends Controller
             ->get();
 
         return Inertia::render('landing/information/announcements', [
-            'announcements' => $announcements
+            'announcements' => $announcements,
         ]);
     }
 
@@ -66,7 +66,7 @@ class LandingController extends Controller
         $announcement = Announcement::where('is_active', true)->findOrFail($id);
 
         return Inertia::render('landing/information/announcement-detail', [
-            'announcement' => $announcement
+            'announcement' => $announcement,
         ]);
     }
 
@@ -75,7 +75,7 @@ class LandingController extends Controller
         $activities = Activity::orderBy('date', 'desc')->get();
 
         return Inertia::render('landing/information/activities', [
-            'activities' => $activities
+            'activities' => $activities,
         ]);
     }
 
@@ -84,7 +84,7 @@ class LandingController extends Controller
         $activity = Activity::findOrFail($id);
 
         return Inertia::render('landing/information/activity-detail', [
-            'activity' => $activity
+            'activity' => $activity,
         ]);
     }
 

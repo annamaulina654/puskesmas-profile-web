@@ -1,6 +1,6 @@
 import { Head } from "@inertiajs/react"
 import PublicLayout from "@/layouts/public-layout"
-import { Users, Calendar, Building, MapPin } from "lucide-react"
+import { Calendar, Building, MapPin } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
 const milestones = [
