@@ -61,7 +61,7 @@ jobs:
         run: |
            cp vendor/laravel-labs/starter-kit-browser-tests/phpunit.xml.dist .
            rm phpunit.xml
-           rm -Rf tests/
+           # rm -Rf tests/
            cp -rf vendor/laravel-labs/starter-kit-browser-tests/tests/ tests/
 
       - name: Build Assets
