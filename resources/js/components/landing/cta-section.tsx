@@ -22,10 +22,10 @@ export function CTASection() {
                 </div>
                 <div>
                   <div className="font-semibold text-foreground">Jam Operasional</div>
-                  <div className="text-sm text-muted-foreground">Senin - Sabtu</div>
+                  <div className="text-sm text-muted-foreground">-</div>
                 </div>
               </div>
-              <div className="text-2xl font-bold text-primary">07:30 - 14:30</div>
+              <div className="text-2xl font-bold text-primary">-</div>
               <div className="text-sm text-muted-foreground mt-1">UGD 24 Jam</div>
             </div>
           </div>

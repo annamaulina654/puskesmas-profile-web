@@ -12,13 +12,12 @@ const milestones = [
 
 const facilities = [
   "UGD 24 Jam",
-  "Rawat Inap",
-  "Layanan PONED (Persalinan)",
-  "Poli Umum",
-  "Poli KIA/KB",
-  "Poli Gigi",
+  "Rawat Inap 24 Jam",
+  "PONED Persalinan 24 Jam",
+  "Rawat Jalan",
+  "Ambulance 24 Jam",
+  "EKG",
   "Laboratorium",
-  "Farmasi",
 ]
 
 export default function AboutPage() {
@@ -95,10 +94,6 @@ export default function AboutPage() {
                   alt="Gedung UPT Puskesmas Kwanyar" 
                   className="w-full h-full object-cover" 
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-8">
-                    <p className="text-white text-sm font-medium">Renovasi Gedung Tahun 2019</p>
-                    <p className="text-white/80 text-xs">Sesuai Standar Kemenkes RI</p>
-                </div>
               </div>
             </div>
           </div>

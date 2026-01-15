@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from "react"
-import { Users, Calendar, Award, Heart } from "lucide-react"
+import { Calendar, Award, Heart, Stethoscope } from "lucide-react"
 
 const stats = [
-  { icon: Users, value: 15000, suffix: "+", label: "Pasien Dilayani", description: "per tahun" },
+  { icon: Stethoscope, value: 12, suffix: "", label: "Layanan & Poli", description: "tersedia lengkap" },
   { icon: Calendar, value: 25, suffix: "+", label: "Tahun Berdiri", description: "melayani masyarakat" },
   { icon: Award, value: 12, suffix: "", label: "Penghargaan", description: "prestasi nasional" },
   { icon: Heart, value: 50, suffix: "+", label: "Tenaga Medis", description: "profesional" },

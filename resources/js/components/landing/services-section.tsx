@@ -1,56 +1,66 @@
 import { Link } from "@inertiajs/react"
-import { Heart, Baby, Stethoscope, Pill, Syringe, Users, Microscope, Ambulance, ArrowRight } from "lucide-react"
+import { 
+  Baby, 
+  Stethoscope, 
+  Pill, 
+  Microscope, 
+  Ambulance, 
+  ArrowRight,
+  Smile,      
+  Bed,        
+  ShieldAlert 
+} from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
 const services = [
   {
+    icon: Ambulance,
+    title: "UGD 24 Jam",
+    description: "Layanan gawat darurat dan ambulance siap siaga 24 jam.",
+    color: "bg-red-100 text-red-600",
+  },
+  {
     icon: Stethoscope,
-    title: "Pemeriksaan Umum",
-    description: "Layanan pemeriksaan kesehatan umum dengan dokter berpengalaman",
+    title: "Poli Umum",
+    description: "Pemeriksaan dan pengobatan kesehatan umum untuk pasien dewasa dan anak >5 tahun.",
     color: "bg-primary/10 text-primary",
   },
   {
     icon: Baby,
-    title: "Kesehatan Ibu & Anak",
-    description: "Pelayanan kesehatan ibu hamil, menyusui, dan tumbuh kembang anak",
+    title: "KIA, KB & Imunisasi",
+    description: "Layanan ibu hamil, bersalin, nifas, bayi, balita, dan kontrasepsi.",
     color: "bg-pink-100 text-pink-600",
   },
   {
-    icon: Syringe,
-    title: "Imunisasi",
-    description: "Program imunisasi lengkap untuk bayi, anak, dan dewasa",
+    icon: Smile,
+    title: "Poli Gigi",
+    description: "Perawatan kesehatan gigi dan mulut (Tambal, Cabut, Scaling).",
+    color: "bg-orange-100 text-orange-600",
+  },
+  {
+    icon: Bed,
+    title: "Rawat Inap & Persalinan",
+    description: "Fasilitas rawat inap dan pelayanan persalinan 24 jam.",
+    color: "bg-teal-100 text-teal-600",
+  },
+  {
+    icon: ShieldAlert,
+    title: "Pencegahan Penyakit",
+    description: "Program Pencegahan Penanggulangan Penyakit (P3)",
     color: "bg-blue-100 text-blue-600",
-  },
-  {
-    icon: Heart,
-    title: "Program PTM",
-    description: "Pencegahan dan pengendalian penyakit tidak menular",
-    color: "bg-red-100 text-red-600",
-  },
-  {
-    icon: Pill,
-    title: "Farmasi",
-    description: "Penyediaan obat-obatan berkualitas dengan harga terjangkau",
-    color: "bg-amber-100 text-amber-600",
   },
   {
     icon: Microscope,
     title: "Laboratorium",
-    description: "Pemeriksaan laboratorium dengan peralatan modern",
+    description: "Pemeriksaan penunjang diagnostik (Darah, Urin, BTA, dll).",
     color: "bg-purple-100 text-purple-600",
   },
   {
-    icon: Users,
-    title: "Promosi Kesehatan",
-    description: "Edukasi dan penyuluhan kesehatan masyarakat",
-    color: "bg-teal-100 text-teal-600",
-  },
-  {
-    icon: Ambulance,
-    title: "UGD 24 Jam",
-    description: "Pelayanan gawat darurat siap melayani sepanjang waktu",
-    color: "bg-orange-100 text-orange-600",
+    icon: Pill,
+    title: "Pelayanan Obat", 
+    description: "Penyediaan obat-obatan sesuai resep dan standar pelayanan kefarmasian.",
+    color: "bg-amber-100 text-amber-600",
   },
 ]
 
@@ -60,7 +70,7 @@ export function ServicesSection() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 bg-primary/10 text-primary text-sm font-medium rounded-full mb-4">
-            Layanan Kami
+            Layanan Unggulan
           </span>
           <h2
             className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6"
@@ -69,7 +79,7 @@ export function ServicesSection() {
             Layanan Kesehatan Terpadu
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
-            Kami menyediakan berbagai layanan kesehatan berkualitas untuk memenuhi kebutuhan kesehatan Anda dan keluarga
+            UPT Puskesmas Kwanyar menyediakan berbagai fasilitas kesehatan lengkap untuk melayani kebutuhan masyarakat.
           </p>
         </div>
 
@@ -97,7 +107,7 @@ export function ServicesSection() {
         <div className="text-center mt-12">
           <Button asChild size="lg" className="bg-primary hover:bg-primary/90 rounded-full px-8">
             <Link href="/services">
-              Lihat Semua Layanan
+              Lihat Seluruh Layanan
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </Button>
