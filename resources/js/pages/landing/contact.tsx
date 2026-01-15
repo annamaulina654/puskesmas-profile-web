@@ -57,7 +57,7 @@ export default function Contact({ flash }: ContactProps) {
     {
       icon: Clock,
       title: "Jam Operasional",
-      content: "Senin - Sabtu: 07:30 - 14:30 | UGD: 24 Jam",
+      content: "Senin - Sabtu: - | UGD: 24 Jam",
     },
   ]
 
