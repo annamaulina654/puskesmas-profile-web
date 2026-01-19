@@ -44,7 +44,7 @@ export function Navbar() {
             <img 
               src="/images/images/image.png" 
               alt="Logo Puskesmas" 
-              className="w-12 h-12" 
+              className="h-12 w-auto object-contain" 
             />
             <div className="hidden sm:block">
               <h1 className="font-bold text-primary text-lg leading-tight">UPT</h1>

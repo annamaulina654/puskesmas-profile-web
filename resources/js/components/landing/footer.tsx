@@ -24,7 +24,7 @@ export function Footer() {
                 alt="Logo Puskesmas"
                 width="50"
                 height="50"
-                className="w-12 h-12 bg-white rounded-lg p-1"
+                className="h-12 w-12 object-contain bg-white rounded-lg p-1"
               />
               <div>
                 <h3 className="font-bold text-lg">UPT</h3>
