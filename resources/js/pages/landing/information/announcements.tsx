@@ -61,7 +61,7 @@ export default function AnnouncementsPage({ announcements }: { announcements: An
 
   return (
     <PublicLayout>
-      <Head title="Pengumuman - UPT Puskesmas Kwanyar" />
+      <Head title="Pengumuman" />
 
       <main className="min-h-screen">
         

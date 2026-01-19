@@ -19,7 +19,7 @@ const values = [
 export default function VisionMissionPage() {
   return (
     <PublicLayout>
-      <Head title="Visi & Misi - UPT Puskesmas Kwanyar" />
+      <Head title="Visi & Misi" />
 
       <main className="min-h-screen">
         

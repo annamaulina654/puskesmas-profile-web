@@ -2,12 +2,12 @@ import { Head } from "@inertiajs/react"
 import PublicLayout from "@/layouts/public-layout"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { UserCircle2 } from "lucide-react"
 
 const leadership = [
   {
     name: "Rudi Hartono, S.Kep., Ns",
     position: "Kepala UPT Puskesmas",
-    image: "/images/placeholder.svg",
   },
 ]
 
@@ -15,7 +15,7 @@ const clusters = [
   {
     id: "klaster1",
     name: "Klaster 1: Manajemen",
-    pj: "Salyah, S.Keb., Bdn",
+    pj: "Saiyah, S.Keb., Bdn",
     teams: [
       { name: "Manajemen SDM", pj: "Iwan Sugianto, A.Md. Kep" },
       { name: "Manajemen Mutu & Keselamatan Pasien", pj: "drg. Zulaikha Dwi Lestari" },
@@ -74,7 +74,7 @@ const clusters = [
 export default function OrganizationPage() {
   return (
     <PublicLayout>
-      <Head title="Struktur Organisasi - UPT Puskesmas Kwanyar" />
+      <Head title="Struktur Organisasi" />
 
       <main className="min-h-screen">
         
@@ -121,17 +121,15 @@ export default function OrganizationPage() {
 
             <div className="flex flex-wrap justify-center gap-8">
               {leadership.map((person, index) => (
-                <Card key={index} className="w-full max-w-xs border-0 shadow-lg overflow-hidden group hover:-translate-y-2 transition-all duration-300">
-                  <div className="relative h-72 overflow-hidden bg-gray-200">
-                    <img
-                      src={person.image}
-                      alt={person.name}
-                      className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <CardContent className="p-6 text-center bg-white relative z-10">
-                    <h3 className="text-xl font-bold text-foreground mb-1">{person.name}</h3>
-                    <p className="text-primary font-medium">{person.position}</p>
+                <Card key={index} className="w-full max-w-sm border-0 shadow-lg group hover:-translate-y-2 transition-all duration-300">
+                  <CardContent className="p-8 text-center flex flex-col items-center">
+                    <div className="w-24 h-24 mb-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                        <UserCircle2 className="w-16 h-16 text-primary group-hover:text-white transition-colors duration-300" />
+                    </div>
+                    
+                    <h3 className="text-2xl font-bold text-foreground mb-2">{person.name}</h3>
+                    <div className="h-1 w-12 bg-primary rounded-full mb-3" />
+                    <p className="text-muted-foreground font-medium uppercase tracking-wide text-sm">{person.position}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -159,7 +157,7 @@ export default function OrganizationPage() {
                             value={cluster.id}
                             className="px-4 py-2 rounded-lg data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-md transition-all text-sm md:text-base whitespace-nowrap"
                         >
-                        {cluster.name.split(':')[0]} {/* Ambil nama pendek: "Klaster 1" */}
+                        {cluster.name.split(':')[0]} 
                         </TabsTrigger>
                     ))}
                 </TabsList>

@@ -11,7 +11,7 @@ import { CTASection } from "@/components/landing/cta-section"
 export default function Home({ activities, announcements }: { activities: any[], announcements: any[] }) {
   return (
     <PublicLayout>
-      <Head title="Beranda - UPT Puskesmas Kwanyar" />
+      <Head title="Beranda" />
 
       <HeroSlider />
       <ServicesSection />

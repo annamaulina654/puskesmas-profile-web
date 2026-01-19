@@ -197,7 +197,7 @@ const supportServices = [
 export default function ServicesPage() {
   return (
     <PublicLayout>
-      <Head title="Layanan - UPT Puskesmas Kwanyar" />
+      <Head title="Layanan" />
 
       <main className="min-h-screen bg-slate-50">
         

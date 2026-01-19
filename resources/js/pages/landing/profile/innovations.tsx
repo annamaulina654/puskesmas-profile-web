@@ -75,7 +75,7 @@ const awards = [
 export default function InnovationsPage() {
   return (
     <PublicLayout>
-      <Head title="Inovasi & Penghargaan - UPT Puskesmas Kwanyar" />
+      <Head title="Inovasi & Penghargaan" />
 
       <main className="min-h-screen">
         

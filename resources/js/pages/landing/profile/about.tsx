@@ -23,7 +23,7 @@ const facilities = [
 export default function AboutPage() {
   return (
     <PublicLayout>
-      <Head title="Tentang Kami - UPT Puskesmas Kwanyar" />
+      <Head title="Tentang Kami" />
 
       <main className="min-h-screen">
         

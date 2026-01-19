@@ -57,7 +57,7 @@ export default function ActivitiesPage({ activities }: { activities: Activity[] 
 
   return (
     <PublicLayout>
-      <Head title="Kegiatan - UPT Puskesmas Kwanyar" />
+      <Head title="Kegiatan" />
 
       <main className="min-h-screen">
         

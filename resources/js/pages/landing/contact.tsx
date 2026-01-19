@@ -63,7 +63,7 @@ export default function Contact({ flash }: ContactProps) {
 
   return (
     <PublicLayout>
-      <Head title="Hubungi Kami - UPT Puskesmas Kwanyar" />
+      <Head title="Hubungi Kami" />
       
       <main className="min-h-screen">
         

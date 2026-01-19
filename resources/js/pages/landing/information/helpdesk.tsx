@@ -88,7 +88,7 @@ export default function HelpdeskPage() {
 
   return (
     <PublicLayout>
-      <Head title="Pusat Bantuan - UPT Puskesmas Kwanyar" />
+      <Head title="Pusat Bantuan" />
 
       <main className="min-h-screen">
         
