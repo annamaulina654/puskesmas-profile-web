@@ -1,5 +1,6 @@
 import { Link } from "@inertiajs/react"
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Youtube, Twitter } from "lucide-react"
+import { MapPin, Phone, Mail, Clock, Facebook, Instagram } from "lucide-react"
+import { TiktokIcon } from "@/components/tiktok-icon"
 
 const quickLinks = [
   { label: "Beranda", href: "/" },
@@ -37,28 +38,22 @@ export function Footer() {
             </p>
             <div className="flex gap-3">
               <Link
-                href="#"
+                href="https://www.facebook.com/profile.php?id=100089389995864&ref=_ig_profile_ac"
                 className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
               >
                 <Facebook className="w-5 h-5" />
               </Link>
               <Link
-                href="#"
+                href="https://www.instagram.com/puskesmas.kwanyar_real/"
                 className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
               >
                 <Instagram className="w-5 h-5" />
               </Link>
               <Link
-                href="#"
+                href="https://www.tiktok.com/@puskesmaskwanyar?is_from_webapp=1&sender_device=pc"
                 className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
               >
-                <Youtube className="w-5 h-5" />
-              </Link>
-              <Link
-                href="#"
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-              >
-                <Twitter className="w-5 h-5" />
+                <TiktokIcon className="w-5 h-5" />
               </Link>
             </div>
           </div>
@@ -93,7 +88,7 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-white/70 flex-shrink-0 mt-0.5" />
                 <span className="text-white/80 text-sm">
-                  Jalan Raya Dlemer Nomor 10 Kwanyar Kodepos 69164
+                  Jl. Raya Dlemer No. 10 Kwanyar Kodepos 69164
                 </span>
               </li>
               <li className="flex items-center gap-3">

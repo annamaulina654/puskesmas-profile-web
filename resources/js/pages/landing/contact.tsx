@@ -42,7 +42,7 @@ export default function Contact({ flash }: ContactProps) {
     {
       icon: MapPin,
       title: "Alamat",
-      content: "Jalan Raya Dlemer Nomor 10 Kwanyar Kodepos 69164",
+      content: "Jl. Raya Dlemer No. 10 Kwanyar Kodepos 69164",
     },
     {
       icon: Phone,

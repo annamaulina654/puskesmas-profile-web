@@ -10,7 +10,7 @@ export function CTASection() {
           <div className="relative">
             <div className="relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-2xl">
               <img 
-                src="/images/modern-health-clinic-reception-area-with-friendly-.jpg" 
+                src="/images/puskesmas-night.jpeg" 
                 alt="Puskesmas Sehat Sejahtera" 
                 className="w-full h-full object-cover" 
               />
@@ -52,7 +52,7 @@ export function CTASection() {
                 </div>
                 <div>
                   <div className="font-medium text-foreground">Alamat</div>
-                  <div className="text-muted-foreground">Jalan Raya Dlemer Nomor 10 Kwanyar Kodepos 69164</div>
+                  <div className="text-muted-foreground">Jl. Raya Dlemer No. 10 Kwanyar Kodepos 69164</div>
                 </div>
               </div>
               <div className="flex items-center gap-4">

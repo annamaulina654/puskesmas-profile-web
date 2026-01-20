@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 const slides = [
   {
     id: 1,
-    image: "/images/modern-healthcare-clinic-building-exterior-with-gr.jpg",
+    image: "/images/puskesmas-light.jpeg",
     title: "Selamat Datang di UPT Puskesmas Kwanyar",
     subtitle: "Melayani Kesehatan Masyarakat dengan Sepenuh Hati",
     cta: "Lihat Layanan",
@@ -14,7 +14,7 @@ const slides = [
   },
   {
     id: 2,
-    image: "/images/friendly-doctor-examining-patient-in-bright-clinic.jpg",
+    image: "/images/formal-achivement.jpeg",
     title: "Layanan Kesehatan Berkualitas",
     subtitle: "Tim medis profesional siap memberikan pelayanan terbaik untuk Anda dan keluarga",
     cta: "Tentang Kami",
@@ -22,7 +22,7 @@ const slides = [
   },
   {
     id: 3,
-    image: "/images/community-health-vaccination-program-with-nurses.jpg",
+    image: "/images/puskesmas-night.jpeg",
     title: "Program Kesehatan Masyarakat",
     subtitle: "Berbagai program inovatif untuk meningkatkan kualitas kesehatan komunitas",
     cta: "Lihat Kegiatan",
@@ -30,7 +30,7 @@ const slides = [
   },
   {
     id: 4,
-    image: "/images/mother-and-child-healthcare-checkup-at-clinic.jpg",
+    image: "/images/formal.jpeg",
     title: "Kesehatan Ibu dan Anak",
     subtitle: "Program khusus untuk kesejahteraan ibu hamil, menyusui, dan tumbuh kembang anak",
     cta: "Pelajari Lebih Lanjut",

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Head } from "@inertiajs/react"
 import PublicLayout from "@/layouts/public-layout"
-import { Search, ChevronDown, MessageCircle, Phone, Mail } from "lucide-react"
+import { Search, ChevronDown, Phone, Mail } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 
@@ -122,7 +122,8 @@ export default function HelpdeskPage() {
 
         <section className="py-10">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+              
               <Card className="border-primary/20 hover:shadow-lg transition-shadow">
                 <CardContent className="p-6 text-center">
                   <div className="w-14 h-14 mx-auto rounded-xl bg-primary/10 flex items-center justify-center mb-4">
@@ -132,15 +133,7 @@ export default function HelpdeskPage() {
                   <p className="text-primary font-medium">0823-3458-2474</p>
                 </CardContent>
               </Card>
-              <Card className="border-primary/20 hover:shadow-lg transition-shadow">
-                <CardContent className="p-6 text-center">
-                  <div className="w-14 h-14 mx-auto rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                    <MessageCircle className="w-7 h-7 text-primary" />
-                  </div>
-                  <h3 className="font-semibold text-foreground mb-2">WhatsApp</h3>
-                  <p className="text-primary font-medium">0812-3456-7890</p>
-                </CardContent>
-              </Card>
+
               <Card className="border-primary/20 hover:shadow-lg transition-shadow">
                 <CardContent className="p-6 text-center">
                   <div className="w-14 h-14 mx-auto rounded-xl bg-primary/10 flex items-center justify-center mb-4">

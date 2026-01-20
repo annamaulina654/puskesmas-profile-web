@@ -1,8 +1,10 @@
+import { useState } from "react"
 import { Head } from "@inertiajs/react"
 import PublicLayout from "@/layouts/public-layout"
-import { Lightbulb, Award } from "lucide-react"
+import { Lightbulb, Award, ChevronLeft, ChevronRight, ImageIcon } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 
 const innovations = [
   {
@@ -10,8 +12,8 @@ const innovations = [
     category: "Pelayanan",
     year: "Layanan",
     description:
-      "Solusi untuk menghindari antrian panjang. Melalui Mobile JKN dan mesin antrian, pasien lama tidak perlu menunggu lama dan waktu tunggu pasien baru menjadi lebih singkat (±10 menit).",
-    image: "/images/placeholder.svg",
+      "Solusi untuk menghindari antrian panjang. Melalui Mobile JKN dan mesin antrian, pasien lama tidak perlu menunggu lama.",
+    images: ["/images/jkn.jpg"],
     impact: "Waktu tunggu lebih singkat (±10 menit)",
   },
   {
@@ -19,8 +21,8 @@ const innovations = [
     category: "PTM",
     year: "Program",
     description:
-      "Pemberdayaan Keluarga Peduli Penderita Darah Tinggi. Inovasi untuk penderita hipertensi dengan pendekatan keluarga untuk mengubah gaya hidup sehat dan kepatuhan minum obat.",
-    image: "/images/placeholder.svg",
+      "Pemberdayaan Keluarga Peduli Penderita Darah Tinggi. Inovasi untuk penderita hipertensi dengan pendekatan keluarga.",
+    images: ["/images/dara-pelita-hati.jpeg"], 
     impact: "Pengendalian hipertensi berbasis keluarga",
   },
   {
@@ -28,8 +30,8 @@ const innovations = [
     category: "TB Paru",
     year: "Program",
     description:
-      "Skrining Cakupan Kontak Serumah untuk berantas Tuberkulosis. Upaya mengatasi rendahnya capaian kinerja dan sulitnya mengobati penderita BTA positif guna meningkatkan angka kesembuhan.",
-    image: "/images/placeholder.svg",
+      "Skrining Cakupan Kontak Serumah untuk berantas Tuberkulosis guna meningkatkan angka kesembuhan.",
+    images: ["/images/sicantik-bestiku.jpeg"],
     impact: "Meningkatkan angka kesembuhan TB",
   },
   {
@@ -37,8 +39,8 @@ const innovations = [
     category: "KIA",
     year: "Program",
     description:
-      "Pemeriksaan ANC Terpadu Cegah Kematian Ibu dan Bayi. Pelayanan antenatal komprehensif, konseling gizi, KB, serta deteksi dini kelainan pada ibu hamil.",
-    image: "/images/placeholder.svg",
+      "Pemeriksaan ANC Terpadu Cegah Kematian Ibu dan Bayi. Pelayanan antenatal komprehensif dan konseling gizi.",
+    images: ["/images/pemandu-cinta.jpeg"],
     impact: "Deteksi dini risiko tinggi ibu hamil",
   },
   {
@@ -46,8 +48,8 @@ const innovations = [
     category: "UKS",
     year: "Program",
     description:
-      "Pemeriksaan Kesehatan oleh Dokter Kecil di Sekolah. Siswa memeriksa gigi temannya sendiri untuk mengurangi rasa takut anak SD terhadap petugas kesehatan/dokter gigi.",
-    image: "/images/placeholder.svg",
+      "Pemeriksaan Kesehatan oleh Dokter Kecil di Sekolah. Siswa memeriksa gigi temannya sendiri.",
+    images: ["/images/peri-cilik.jpeg", "/images/peri-cilik1.jpeg"],
     impact: "Anak tidak takut periksa gigi",
   },
   {
@@ -55,8 +57,8 @@ const innovations = [
     category: "Perkesmas",
     year: "Program",
     description:
-      "Kunjungan Rumah Penderita Pneumoni. Asuhan keperawatan lanjutan di rumah pasien setelah rawat inap untuk evaluasi, pengobatan, dan pencegahan kekambuhan.",
-    image: "/images/placeholder.svg",
+      "Kunjungan Rumah Penderita Pneumoni. Asuhan keperawatan lanjutan di rumah pasien setelah rawat inap.",
+    images: ["/images/kurma-petani.jpeg", "/images/kurma-petani1.jpeg"],
     impact: "Pencegahan kekambuhan pasca rawat inap",
   },
 ]
@@ -111,18 +113,14 @@ export default function InnovationsPage() {
               {innovations.map((innovation, index) => (
                 <Card key={index} className="border-0 shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-300">
                   <div className={`grid lg:grid-cols-2 ${index % 2 === 1 ? "lg:flex-row-reverse" : ""}`}>
-                    <div className={`relative h-64 lg:h-auto ${index % 2 === 1 ? "lg:order-2" : ""}`}>
-                      <img
-                        src={innovation.image}
-                        alt={innovation.title}
-                        className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-black/10 lg:hidden"></div>
+                    
+                   <div className={`relative w-full h-64 lg:h-96 bg-slate-100 ${index % 2 === 1 ? "lg:order-2" : ""}`}>
+                        <InnovationImageSlider images={innovation.images} title={innovation.title} />
                     </div>
 
-                    <CardContent
-                      className={`p-8 lg:p-12 flex flex-col justify-center ${index % 2 === 1 ? "lg:order-1" : ""}`}
-                    >
+                      <CardContent
+                        className={`p-8 lg:p-12 flex flex-col justify-center h-full ${index % 2 === 1 ? "lg:order-1" : ""}`}
+                      >
                       <div className="flex items-center gap-2 mb-4">
                         <Badge className="bg-primary/10 text-primary hover:bg-primary/20">{innovation.category}</Badge>
                         <Badge variant="outline">{innovation.year}</Badge>
@@ -184,4 +182,77 @@ export default function InnovationsPage() {
       </main>
     </PublicLayout>
   )
+}
+
+function InnovationImageSlider({ images, title }: { images: string[], title: string }) {
+    const [currentIndex, setCurrentIndex] = useState(0)
+
+    const prevSlide = () => {
+        const isFirstSlide = currentIndex === 0
+        const newIndex = isFirstSlide ? images.length - 1 : currentIndex - 1
+        setCurrentIndex(newIndex)
+    }
+
+    const nextSlide = () => {
+        const isLastSlide = currentIndex === images.length - 1
+        const newIndex = isLastSlide ? 0 : currentIndex + 1
+        setCurrentIndex(newIndex)
+    }
+
+    if (images.length <= 1) {
+        return (
+            <img
+                src={images[0]}
+                alt={title}
+                className="object-cover w-full h-full"
+            />
+        )
+    }
+
+    return (
+        <div className="relative w-full h-full group">
+            <img
+                src={images[currentIndex]}
+                alt={`${title} - slide ${currentIndex + 1}`}
+                className="object-cover w-full h-full transition-all duration-500"
+            />
+            
+            <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors pointer-events-none" />
+
+            <Button 
+                variant="secondary"
+                size="icon"
+                className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full w-10 h-10 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                onClick={prevSlide}
+            >
+                <ChevronLeft className="w-6 h-6" />
+            </Button>
+
+            <Button 
+                variant="secondary"
+                size="icon"
+                className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full w-10 h-10 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                onClick={nextSlide}
+            >
+                <ChevronRight className="w-6 h-6" />
+            </Button>
+
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-black/30 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                {images.map((_, slideIndex) => (
+                    <div
+                        key={slideIndex}
+                        onClick={() => setCurrentIndex(slideIndex)}
+                        className={`w-2 h-2 rounded-full cursor-pointer transition-all ${
+                            currentIndex === slideIndex ? "bg-white w-4" : "bg-white/50 hover:bg-white/80"
+                        }`}
+                    />
+                ))}
+            </div>
+
+            <div className="absolute top-4 right-4 bg-black/60 text-white px-2.5 py-1 rounded-md text-xs font-medium flex items-center gap-1.5 backdrop-blur-md">
+                <ImageIcon className="w-3 h-3" />
+                {currentIndex + 1} / {images.length}
+            </div>
+        </div>
+    )
 }
