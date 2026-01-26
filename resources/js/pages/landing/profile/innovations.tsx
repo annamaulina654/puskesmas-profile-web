@@ -64,14 +64,46 @@ const innovations = [
 ]
 
 const awards = [
-  { title: "Juara II Lomba Pelayanan Publik (ISO)", year: "2008" },
-  { title: "Juara II Lomba Lingkungan Bersih Antar Puskesmas (HKN ke-49)", year: "2013" },
-  { title: "Penghargaan Keberhasilan Target PAD 94% (Retribusi Terbaik)", year: "2019" },
-  { title: "Bidan Terbaik Sesuai Prosedur Rujukan Kasus Kebidanan", year: "2021" },
-  { title: "Penghargaan Menkes: Instansi Berkomitmen Mewujudkan 'Herd Immunity'", year: "2022" },
-  { title: "Puskesmas Berprestasi Tingkat Kabupaten Bangkalan (HKN ke-58)", year: "2022" },
-  { title: "Puskesmas Pertama Terakreditasi 'PARIPURNA'", year: "2023" },
-  { title: "Puskesmas Terbaik Se-Kabupaten Bangkalan (Madura Awards)", year: "2024" },
+  {
+    title: "Juara II Lomba Pelayanan Publik (ISO)",
+    year: "2008",
+    images: ["/images/formal-achivement.jpeg"],
+  },
+  {
+    title: "Juara II Lomba Lingkungan Bersih Antar Puskesmas (HKN ke-49)",
+    year: "2013",
+    images: ["/images/placeholder.svg"],
+  },
+  {
+    title: "Penghargaan Keberhasilan Target PAD 94% (Retribusi Terbaik)",
+    year: "2019",
+    images: ["/images/placeholder.svg"],
+  },
+  {
+    title: "Bidan Terbaik Sesuai Prosedur Rujukan Kasus Kebidanan",
+    year: "2021",
+    images: ["/images/placeholder.svg"],
+  },
+  {
+    title: "Penghargaan Menkes: Instansi Berkomitmen Mewujudkan 'Herd Immunity'",
+    year: "2022",
+    images: ["/images/placeholder.svg"],
+  },
+  {
+    title: "Puskesmas Berprestasi Tingkat Kabupaten Bangkalan (HKN ke-58)",
+    year: "2022",
+    images: ["/images/placeholder.svg"],
+  },
+  {
+    title: "Puskesmas Pertama Terakreditasi 'PARIPURNA'",
+    year: "2023",
+    images: ["/images/formal-achivement.jpeg"],
+  },
+  {
+    title: "Puskesmas Terbaik Se-Kabupaten Bangkalan (Madura Awards)",
+    year: "2024",
+    images: ["/images/ma1.jpeg", "/images/ma2.jpeg", "/images/ma3.jpeg"],
+  },
 ]
 
 export default function InnovationsPage() {
@@ -147,30 +179,26 @@ export default function InnovationsPage() {
 
         <section className="py-20 bg-secondary/30">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="text-center mb-16">
-              <h2
-                className="text-3xl md:text-4xl font-bold text-foreground mb-4"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                Penghargaan
-              </h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                Bukti komitmen kami dalam menjaga mutu pelayanan kesehatan
-              </p>
-            </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {awards.map((award, index) => (
-                <Card key={index} className="text-center border-0 shadow-lg hover:-translate-y-1 transition-transform duration-300">
-                  <CardContent className="p-8 flex flex-col items-center h-full">
-                    <div className="w-16 h-16 mx-auto rounded-full bg-amber-100 flex items-center justify-center mb-6">
-                      <Award className="w-8 h-8 text-amber-600" />
+                <Card key={index} className="border-0 shadow-lg hover:-translate-y-1 transition-transform duration-300 overflow-hidden h-full flex flex-col group">
+                  
+                  <div className="relative h-48 bg-slate-100">
+                    
+                    <InnovationImageSlider images={award.images} title={award.title} />
+                    
+                    <div className="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur-sm text-primary font-bold px-3 py-1 rounded-full shadow-sm text-sm border border-primary/10">
+                        {award.year}
+                    </div>
+                  </div>
+
+                  <CardContent className="p-6 flex flex-col items-center text-center flex-grow">
+                    <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mb-4 -mt-10 border-4 border-white shadow-md relative z-10">
+                      <Award className="w-6 h-6 text-amber-600" />
                     </div>
                     <div className="flex-grow flex flex-col justify-center">
-                        <h3 className="font-semibold text-foreground mb-3 text-lg leading-snug">{award.title}</h3>
-                    </div>
-                    <div className="mt-4 pt-4 border-t w-full">
-                        <p className="text-primary font-bold text-xl">{award.year}</p>
+                        <h3 className="font-semibold text-foreground text-lg leading-snug">{award.title}</h3>
                     </div>
                   </CardContent>
                 </Card>
@@ -184,75 +212,69 @@ export default function InnovationsPage() {
   )
 }
 
-function InnovationImageSlider({ images, title }: { images: string[], title: string }) {
-    const [currentIndex, setCurrentIndex] = useState(0)
+function InnovationImageSlider({ images, title }: { images: string[]; title: string }) {
+  const [currentIndex, setCurrentIndex] = useState(0)
 
-    const prevSlide = () => {
-        const isFirstSlide = currentIndex === 0
-        const newIndex = isFirstSlide ? images.length - 1 : currentIndex - 1
-        setCurrentIndex(newIndex)
-    }
+  const prevSlide = () => {
+    const isFirstSlide = currentIndex === 0
+    const newIndex = isFirstSlide ? images.length - 1 : currentIndex - 1
+    setCurrentIndex(newIndex)
+  }
 
-    const nextSlide = () => {
-        const isLastSlide = currentIndex === images.length - 1
-        const newIndex = isLastSlide ? 0 : currentIndex + 1
-        setCurrentIndex(newIndex)
-    }
+  const nextSlide = () => {
+    const isLastSlide = currentIndex === images.length - 1
+    const newIndex = isLastSlide ? 0 : currentIndex + 1
+    setCurrentIndex(newIndex)
+  }
 
-    if (images.length <= 1) {
-        return (
-            <img
-                src={images[0]}
-                alt={title}
-                className="object-cover w-full h-full"
-            />
-        )
-    }
+  if (images.length <= 1) {
+    return <img src={images[0]} alt={title} className="h-full w-full object-cover" />
+  }
 
-    return (
-        <div className="relative w-full h-full group">
-            <img
-                src={images[currentIndex]}
-                alt={`${title} - slide ${currentIndex + 1}`}
-                className="object-cover w-full h-full transition-all duration-500"
-            />
-            
-            <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors pointer-events-none" />
+  return (
+    <div className="group relative h-full w-full">
+      <img
+        src={images[currentIndex]}
+        alt={`${title} - slide ${currentIndex + 1}`}
+        className="h-full w-full object-cover transition-all duration-500"
+      />
 
-            <Button 
-                variant="secondary"
-                size="icon"
-                className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full w-10 h-10 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                onClick={prevSlide}
-            >
-                <ChevronLeft className="w-6 h-6" />
-            </Button>
+      <div className="pointer-events-none absolute inset-0 bg-black/10 transition-colors group-hover:bg-transparent" />
 
-            <Button 
-                variant="secondary"
-                size="icon"
-                className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full w-10 h-10 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                onClick={nextSlide}
-            >
-                <ChevronRight className="w-6 h-6" />
-            </Button>
+      <Button
+        variant="secondary"
+        size="icon"
+        className="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-white/80 text-gray-800 opacity-0 shadow-lg transition-opacity duration-300 hover:bg-white group-hover:opacity-100"
+        onClick={prevSlide}
+      >
+        <ChevronLeft className="h-6 w-6" />
+      </Button>
 
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-black/30 backdrop-blur-sm px-3 py-1.5 rounded-full">
-                {images.map((_, slideIndex) => (
-                    <div
-                        key={slideIndex}
-                        onClick={() => setCurrentIndex(slideIndex)}
-                        className={`w-2 h-2 rounded-full cursor-pointer transition-all ${
-                            currentIndex === slideIndex ? "bg-white w-4" : "bg-white/50 hover:bg-white/80"
-                        }`}
-                    />
-                ))}
-            </div>
+      <Button
+        variant="secondary"
+        size="icon"
+        className="absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-white/80 text-gray-800 opacity-0 shadow-lg transition-opacity duration-300 hover:bg-white group-hover:opacity-100"
+        onClick={nextSlide}
+      >
+        <ChevronRight className="h-6 w-6" />
+      </Button>
 
-            <div className="absolute top-4 right-4 bg-black/60 text-white px-2.5 py-1 rounded-md text-xs font-medium flex items-center gap-1.5 backdrop-blur-md">
-                <ImageIcon className="w-3 h-3" />
-                {currentIndex + 1} / {images.length}
-            </div>
-        </div>
-    )
+      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-black/30 px-3 py-1.5 backdrop-blur-sm">
+        {images.map((_, slideIndex) => (
+          <div
+            key={slideIndex}
+            onClick={() => setCurrentIndex(slideIndex)}
+            className={`h-2 w-2 cursor-pointer rounded-full transition-all ${
+              currentIndex === slideIndex ? "w-4 bg-white" : "bg-white/50 hover:bg-white/80"
+            }`}
+          />
+        ))}
+      </div>
+
+      <div className="absolute left-4 top-4 flex items-center gap-1.5 rounded-md bg-black/60 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-md z-10">
+        <ImageIcon className="h-3 w-3" />
+        {currentIndex + 1} / {images.length}
+      </div>
+    </div>
+  )
 }

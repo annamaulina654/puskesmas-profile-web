@@ -2,9 +2,9 @@ import { useEffect, useState, useRef } from "react"
 import { Calendar, Award, Heart, Stethoscope } from "lucide-react"
 
 const stats = [
-  { icon: Stethoscope, value: 12, suffix: "", label: "Layanan & Poli", description: "tersedia lengkap" },
+  { icon: Stethoscope, value: 25, suffix: "+", label: "Layanan & Poli", description: "tersedia lengkap" },
   { icon: Calendar, value: 25, suffix: "+", label: "Tahun Berdiri", description: "melayani masyarakat" },
-  { icon: Award, value: 12, suffix: "", label: "Penghargaan", description: "prestasi nasional" },
+  { icon: Award, value: 12, suffix: "+", label: "Penghargaan", description: "prestasi nasional" },
   { icon: Heart, value: 50, suffix: "+", label: "Tenaga Medis", description: "profesional" },
 ]
 

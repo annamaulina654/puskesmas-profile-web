@@ -10,7 +10,7 @@ export function CTASection() {
           <div className="relative">
             <div className="relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-2xl">
               <img 
-                src="/images/puskesmas-night.jpeg" 
+                src="/images/puskesmas-light.jpeg" 
                 alt="Puskesmas Sehat Sejahtera" 
                 className="w-full h-full object-cover" 
               />

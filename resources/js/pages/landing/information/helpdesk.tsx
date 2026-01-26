@@ -11,11 +11,11 @@ const faqs = [
     questions: [
       {
         q: "Bagaimana cara mendaftar sebagai pasien baru?",
-        a: "Untuk mendaftar sebagai pasien baru, Anda perlu membawa KTP, Kartu Keluarga, dan Kartu BPJS (jika ada) ke loket pendaftaran. Pendaftaran juga dapat dilakukan secara online melalui aplikasi SIMPUS.",
+        a: "Untuk mendaftar sebagai pasien baru, Anda perlu membawa KTP, Kartu Keluarga, dan Kartu BPJS (jika ada) ke loket pendaftaran. Pendaftaran juga dapat dilakukan secara online melalui aplikasi mobile JKN.",
       },
       {
         q: "Apakah bisa mendaftar secara online?",
-        a: "Ya, Anda dapat mendaftar secara online melalui aplikasi SIMPUS yang tersedia di Google Play Store dan App Store. Pendaftaran online dibuka setiap hari mulai pukul 06.00 WIB.",
+        a: "Ya, Anda dapat mendaftar secara online melalui aplikasi mobile JKN yang tersedia di Google Play Store dan App Store. Pendaftaran online dibuka setiap hari mulai pukul 07.00 WIB.",
       },
       {
         q: "Dokumen apa saja yang diperlukan untuk berobat?",
@@ -32,7 +32,7 @@ const faqs = [
       },
       {
         q: "Jam operasional Puskesmas?",
-        a: "Pelayanan reguler buka Senin-Sabtu pukul 07.30-14.30 WIB. UGD beroperasi 24 jam setiap hari termasuk hari libur.",
+        a: "Pelayanan reguler buka - pukul - WIB. UGD beroperasi 24 jam setiap hari termasuk hari libur.",
       },
       {
         q: "Apakah ada layanan home visit?",
@@ -46,10 +46,6 @@ const faqs = [
       {
         q: "Apakah pelayanan gratis untuk peserta BPJS?",
         a: "Ya, seluruh layanan kesehatan di Puskesmas gratis untuk peserta BPJS Kesehatan aktif. Pastikan kartu BPJS Anda dalam status aktif.",
-      },
-      {
-        q: "Berapa biaya untuk pasien umum?",
-        a: "Biaya layanan untuk pasien umum bervariasi sesuai jenis layanan. Konsultasi dokter umum Rp 25.000, pemeriksaan laboratorium mulai dari Rp 15.000.",
       },
     ],
   },
