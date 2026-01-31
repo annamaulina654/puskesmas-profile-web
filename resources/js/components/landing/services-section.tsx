@@ -17,49 +17,49 @@ const services = [
   {
     icon: Ambulance,
     title: "UGD 24 Jam",
-    description: "Layanan gawat darurat dan ambulance siap siaga 24 jam.",
+    description: "Penanganan kasus gawat darurat medis dan kesiapsiagaan ambulance 24 jam.",
     color: "bg-red-100 text-red-600",
+  },
+  {
+    icon: Bed,
+    title: "Persalinan 24 Jam",
+    description: "Pertolongan persalinan normal, perawatan nifas, dan bayi baru lahir (Neonatal).",
+    color: "bg-pink-100 text-pink-600",
   },
   {
     icon: Stethoscope,
     title: "Poli Umum",
-    description: "Pemeriksaan dan pengobatan kesehatan umum untuk pasien dewasa dan anak >5 tahun.",
+    description: "Pemeriksaan dan pengobatan penyakit umum untuk dewasa dan lansia.",
     color: "bg-primary/10 text-primary",
   },
   {
     icon: Baby,
-    title: "KIA, KB & Imunisasi",
-    description: "Layanan ibu hamil, bersalin, nifas, bayi, balita, dan kontrasepsi.",
-    color: "bg-pink-100 text-pink-600",
+    title: "Kesehatan Ibu & Anak",
+    description: "Layanan ANC (Ibu Hamil), Imunisasi, MTBS, dan Tumbuh Kembang (SDIDTK).",
+    color: "bg-purple-100 text-purple-600",
   },
   {
     icon: Smile,
-    title: "Poli Gigi",
-    description: "Perawatan kesehatan gigi dan mulut (Tambal, Cabut, Scaling).",
+    title: "Kesehatan Gigi",
+    description: "Penambalan, pencabutan, dan pembersihan karang gigi (Scaling).",
     color: "bg-orange-100 text-orange-600",
   },
   {
-    icon: Bed,
-    title: "Rawat Inap & Persalinan",
-    description: "Fasilitas rawat inap dan pelayanan persalinan 24 jam.",
+    icon: Microscope,
+    title: "Laboratorium",
+    description: "Pemeriksaan Hematologi, Urinalisa, Kimia Klinik, dan Mikrobiologi.",
     color: "bg-teal-100 text-teal-600",
   },
   {
     icon: ShieldAlert,
     title: "Pencegahan Penyakit",
-    description: "Program Pencegahan Penanggulangan Penyakit (P3)",
+    description: "Penanggulangan TBC, HIV, Kusta, dan penyakit menular lainnya.",
     color: "bg-blue-100 text-blue-600",
   },
   {
-    icon: Microscope,
-    title: "Laboratorium",
-    description: "Pemeriksaan penunjang diagnostik (Darah, Urin, BTA, dll).",
-    color: "bg-purple-100 text-purple-600",
-  },
-  {
     icon: Pill,
-    title: "Pelayanan Obat", 
-    description: "Penyediaan obat-obatan sesuai resep dan standar pelayanan kefarmasian.",
+    title: "Farmasi", 
+    description: "Pelayanan resep obat, peracikan, dan pemberian informasi obat (PIO).",
     color: "bg-amber-100 text-amber-600",
   },
 ]
@@ -79,7 +79,7 @@ export function ServicesSection() {
             Layanan Kesehatan Terpadu
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
-            UPT Puskesmas Kwanyar menyediakan berbagai fasilitas kesehatan lengkap untuk melayani kebutuhan masyarakat.
+            UPT Puskesmas Kwanyar menyediakan fasilitas kesehatan berbasis klaster untuk melayani kebutuhan seluruh siklus hidup masyarakat.
           </p>
         </div>
 
@@ -87,7 +87,7 @@ export function ServicesSection() {
           {services.map((service, index) => (
             <Card
               key={index}
-              className="group hover:shadow-xl transition-all duration-300 border-border hover:border-primary/30 overflow-hidden"
+              className="group hover:shadow-xl transition-all duration-300 border-border hover:border-primary/30 overflow-hidden bg-card"
             >
               <CardContent className="p-6">
                 <div

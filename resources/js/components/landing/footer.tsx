@@ -11,7 +11,14 @@ const quickLinks = [
   { label: "Kontak", href: "/contact" },
 ]
 
-const services = ["Pemeriksaan Umum", "Kesehatan Ibu & Anak", "Imunisasi", "Laboratorium", "Farmasi", "UGD 24 Jam"]
+const services = [
+  "UGD 24 Jam",
+  "Persalinan 24 Jam",
+  "Poli Umum",
+  "Poli KIA & KB",
+  "Poli Gigi",
+  "Laboratorium",
+]
 
 export function Footer() {
   return (

@@ -3,7 +3,10 @@ import PublicLayout from "@/layouts/public-layout"
 import { 
   Target, 
   Eye, 
-  Quote
+  Quote,
+  ClipboardCheck, 
+  Stethoscope, 
+  HandHeart
 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
@@ -13,36 +16,24 @@ const missions = [
   "Meningkatkan intensitas sosialisasi tentang Pelayanan di Puskesmas Kwanyar."
 ]
 
-const taqwimValues = [
-  { 
-    letter: "T", 
-    word: "TAWADLU'", 
-    meaning: "Sikap merendah, rendah hati & ramah dalam melayani." 
+const tataNilai = [
+  {
+    title: "DISIPLIN",
+    description: "Taat dan patuh pada peraturan yang diterapkan.",
+    icon: ClipboardCheck,
+    color: "bg-blue-100 text-blue-600",
   },
-  { 
-    letter: "A", 
-    word: "AMANAH", 
-    meaning: "Melaksanakan tugas & tanggung jawab dengan tepat dan jujur." 
+  {
+    title: "PROFESIONAL",
+    description: "Memberikan pelayanan sesuai dengan disiplin ilmu dan kompetensi.",
+    icon: Stethoscope,
+    color: "bg-emerald-100 text-emerald-600",
   },
-  { 
-    letter: "Q", 
-    word: "QONA'AH", 
-    meaning: "Menerima adanya / melaksanakan tugas dengan ikhlas." 
-  },
-  { 
-    letter: "W", 
-    word: "WIHDAH", 
-    meaning: "Membangun persatuan, kekompakan & sehati dalam bertugas." 
-  },
-  { 
-    letter: "I", 
-    word: "ISTIQOMAH", 
-    meaning: "Berkesinambungan sesuai dengan tujuan & konsisten." 
-  },
-  { 
-    letter: "M", 
-    word: "MUKHLIS", 
-    meaning: "Menjadi manusia yang ikhlas dalam pengabdian." 
+  {
+    title: "TANGGUNG JAWAB",
+    description: "Petugas melaksanakan pekerjaan sebagai perwujudan kesadaran akan kewajibannya.",
+    icon: HandHeart,
+    color: "bg-orange-100 text-orange-600",
   },
 ]
 
@@ -144,33 +135,54 @@ export default function VisionMissionPage() {
           </div>
         </section>
 
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-4 lg:px-8">
+        <section className="py-24 bg-slate-50 relative overflow-hidden">
+          {/* Dekorasi Background Halus */}
+          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent"></div>
+          
+          <div className="container mx-auto px-4 lg:px-8 relative z-10">
+            
+            {/* Header Section */}
             <div className="text-center mb-16">
               <h2
-                className="text-3xl md:text-4xl font-bold text-foreground mb-6"
+                className="text-3xl md:text-5xl font-bold text-slate-800 mb-6"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
-                Semboyan & Tata Nilai: TAQWIM
+                Tata Nilai Puskesmas
               </h2>
-              <p className="text-muted-foreground text-lg max-w-4xl mx-auto leading-relaxed">
-                <span className="font-semibold text-primary">TAQWIM</span> telah menjadi jiwa Puskesmas dalam memberikan pelayanan pada masyarakat dan menjadi stabilisator agar antar petugas dapat saling kontrol, dengan harapan penderita dan keluarganya merasa <span className="font-bold text-foreground">PUAS</span> akan pelayanan yang diberikan.
+              <p className="text-slate-600 text-lg max-w-3xl mx-auto leading-relaxed">
+                Puskesmas Kwanyar menjunjung tinggi tata nilai berikut sebagai landasan utama dalam memberikan pelayanan prima kepada masyarakat.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {taqwimValues.map((value, index) => (
-                <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-border hover:border-primary/50">
-                  <CardContent className="p-6 flex items-start gap-4">
-                    <div className="w-16 h-16 rounded-xl bg-primary flex items-center justify-center flex-shrink-0 text-white font-bold text-4xl shadow-md group-hover:scale-110 transition-transform duration-300">
-                      {value.letter}
+            {/* Cards Grid */}
+            <div className="grid md:grid-cols-3 gap-8">
+              {tataNilai.map((value, index) => (
+                <Card key={index} className="group relative overflow-hidden border-none shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-white">
+                  <CardContent className="p-8 flex flex-col items-center text-center h-full">
+                    
+                    {/* Nomor Background (Estetik) */}
+                    <span className="absolute top-2 right-4 text-6xl font-black text-slate-100 group-hover:text-slate-50 transition-colors select-none -z-0">
+                      0{index + 1}
+                    </span>
+
+                    {/* Icon Circle */}
+                    <div className={`w-20 h-20 rounded-2xl ${value.color} flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300 relative z-10`}>
+                      <value.icon className="w-10 h-10" />
                     </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-primary mb-2">{value.word}</h3>
-                      <p className="text-muted-foreground text-sm leading-relaxed">
-                        {value.meaning}
+
+                    {/* Content */}
+                    <div className="relative z-10">
+                      <h3 className="text-2xl font-bold text-slate-800 mb-3 group-hover:text-primary transition-colors">
+                        {value.title}
+                      </h3>
+                      <p className="text-slate-500 leading-relaxed">
+                        {value.description}
                       </p>
                     </div>
+
+                    {/* Garis Bawah Aksen */}
+                    <div className={`absolute bottom-0 left-0 w-full h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ${value.color.replace('bg-', 'bg-').replace('text-', '')}`} />
+                    
                   </CardContent>
                 </Card>
               ))}

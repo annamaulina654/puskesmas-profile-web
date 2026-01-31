@@ -22,7 +22,7 @@ const slides = [
   },
   {
     id: 3,
-    image: "/images/puskesmas-night.jpeg",
+    image: "/images/puskesmas-light.jpeg",
     title: "Program Kesehatan Masyarakat",
     subtitle: "Berbagai program inovatif untuk meningkatkan kualitas kesehatan komunitas",
     cta: "Lihat Kegiatan",
