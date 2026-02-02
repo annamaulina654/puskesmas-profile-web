@@ -10,7 +10,6 @@ import {
   Microscope,
   Ambulance,
   Smile,
-  Eye,
   Activity,
   ShieldAlert,
   Briefcase,
@@ -26,7 +25,6 @@ import {
   Leaf,
   ClipboardCheck,
   Search,
-  PersonStanding,
 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -56,17 +54,13 @@ const clusters = [
       { name: "ANC (Antenatal Care)", desc: "Pemeriksaan kehamilan rutin.", icon: Heart },
       { name: "Persalinan & Nifas", desc: "Pertolongan persalinan normal & perawatan pasca lahir.", icon: Baby },
       { name: "Neonatal Esensial", desc: "Perawatan khusus bayi baru lahir.", icon: Smile },
-      { name: "Pelayanan Gizi Ibu & Anak", desc: "Konsultasi gizi & pantau pertumbuhan.", icon: Droplets },
+      { name: "Pelayanan Gizi Ibu & Anak", desc: "Konsultasi gizi, konsultasi laktasi, & pantau pertumbuhan.", icon: Droplets },
       { name: "Imunisasi", desc: "Pelayanan imunisasi dasar dan lanjutan.", icon: Syringe },
       { name: "SDIDTK", desc: "Stimulasi, Deteksi, Intervensi Dini Tumbuh Kembang.", icon: Accessibility },
       { name: "MTBS", desc: "Manajemen Terpadu Balita Sakit.", icon: Stethoscope },
-      { name: "Skrining Kesehatan", desc: "Penyakit, Jiwa, & Kekerasan (Perempuan/Anak).", icon: Search },
-      { name: "Kesehatan Gigi Anak", desc: "Pemeriksaan gigi dasar untuk anak.", icon: Smile },
-      { name: "Gadar Matneo", desc: "Kegawatdaruratan maternal & neonatal.", icon: Ambulance },
-      { name: "Komunikasi Antar Pribadi (KAP)", desc: "Konseling personal.", icon: Users },
-      { name: "Perkesmas", desc: "Kunjungan rumah (Home Care).", icon: PersonStanding },
+      { name: "Pembuatan Surat Sehat", desc: "Untuk anak usia 0-17 tahun", icon: Search },
       { name: "USG & SHK", desc: "Ultrasonografi & Skrining Hipotiroid.", icon: Activity },
-      { name: "Konsultasi Laktasi", desc: "Edukasi & bimbingan menyusui.", icon: Heart },
+      { name: "Pelayanan CKG", desc: "Pelayanan Cek Kesehatan Gratis Anak satu kali dalam satu tahun", icon: Activity },
     ]
   },
   {
@@ -75,14 +69,14 @@ const clusters = [
     description: "Melayani kelompok usia produktif dan lanjut usia.",
     icon: Users,
     services: [
+      { name: "Pelayanan CKG", desc: "Pelayanan Cek Kesehatan Gratis satu kali dalam satu tahun", icon: Stethoscope },
       { name: "Pengobatan Umum", desc: "Pemeriksaan & pengobatan penyakit umum.", icon: Stethoscope },
-      { name: "Skrining Kesehatan Rutin", desc: "PM, PTM, Jiwa, Kebugaran, Layak Hamil (Catin), Geriatri.", icon: ClipboardCheck },
-      { name: "Skrining Katarak", desc: "Pemeriksaan kesehatan mata lansia.", icon: Eye },
       { name: "Pelayanan KB", desc: "Keluarga Berencana.", icon: Users },
-      { name: "Gizi Dewasa & Lansia", desc: "Konsultasi diet dan gizi.", icon: Droplets },
       { name: "Kesehatan Gigi Dewasa", desc: "Perawatan gigi & mulut usia dewasa.", icon: Smile },
-      { name: "Kesehatan Kerja", desc: "K3 bagi pekerja.", icon: Briefcase },
-      { name: "Perkesmas", desc: "Perawatan kesehatan masyarakat.", icon: PersonStanding },
+      { name: "Surat Keterangan Sehat", desc: "-", icon: Leaf },
+      { name: "Pemeriksaan catin", desc: "-", icon: Leaf },
+      { name: "Rujukan berjenjang", desc: "Inspeksi sanitasi & konsultasi kesling.", icon: Leaf },
+      { name: "Pemeriksaan Kekerasan terhadap perempuan dan anak", desc: "-", icon: Leaf },
     ]
   },
   {
@@ -93,8 +87,6 @@ const clusters = [
     services: [
       { name: "Penyakit Menular Langsung", desc: "TBC, HIV/AIDS, Kusta, Frambusia, Diare, Hepatitis, ISPA/Covid-19.", icon: Thermometer },
       { name: "Surveilans & Respon", desc: "Pemantauan penyebaran penyakit.", icon: Activity },
-      { name: "Penyelidikan Epidemiologi", desc: "Pelacakan kasus wabah.", icon: Search },
-      { name: "Kesehatan Lingkungan", desc: "Inspeksi sanitasi & konsultasi kesling.", icon: Leaf },
     ]
   },
 ]
@@ -124,12 +116,16 @@ const lintasKlaster = [
   {
     title: "Pelayanan Kefarmasian",
     icon: Pill,
-    description: "Pelayanan resep obat dan informasi obat (PIO)."
+    description: "Pelayanan resep obat dan penyampaian informasi obat (PIO)."
   },
   {
     title: "UGD 24 Jam",
     icon: Ambulance,
-    description: "Penanganan kasus gawat darurat siap 24 jam."
+    items: [
+      "Penanganan kasus gawat darurat siap 24 jam.",
+      "Pelayanan Sirkumsisi / Khitan",
+      "Perawatan Luka",
+    ]
   },
   {
     title: "Rawat Inap",

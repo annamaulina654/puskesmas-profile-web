@@ -17,11 +17,14 @@ const clusters = [
     name: "Klaster 1: Manajemen",
     pj: "Saiyah, S.Keb., Bdn",
     teams: [
+      { name: "Manajemen inti Puskesmas", pj: "QURRATUL AINI, S.Kep., Ns" },
+      { name: "Manajemen Ketatausahaan", pj: "Anis Ekawati, A.Md.Keb" },
       { name: "Manajemen SDM", pj: "Iwan Sugianto, A.Md. Kep" },
-      { name: "Manajemen Mutu & Keselamatan Pasien", pj: "drg. Zulaikha Dwi Lestari" },
-      { name: "Manajemen Keuangan & Aset", pj: "Mala" },
+      { name: "Manajemen Sarana, Prasarana dan Perbekalan Kesehatan", pj: "Imam Wahyudi, AMAK" },
+      { name: "Manajemen Manajemen Mutu pelayanan", pj: "drg. Zulaikha Dwi Lestari" },
+      { name: "Manajemen Keuangan dan Aset/BMD", pj: "Akhmad Junaidi, S.Kep.,Ns" },
       { name: "Manajemen Sistem Informasi Digital", pj: "Nurul Hidayati, A.Md.Keb" },
-      { name: "Manajemen Jejaring & Pustu", pj: "Haris Sugianto, S.Kep., Ns" },
+      { name: "Manajemen Jejaring", pj: "Haris Sugianto, S.Kep., Ns" },
     ]
   },
   {
@@ -29,33 +32,27 @@ const clusters = [
     name: "Klaster 2: Ibu & Anak",
     pj: "Yefri Lisma Utari, S.ST",
     teams: [
-      { name: "Kesehatan Ibu Hamil, Bersalin, Nifas", pj: "Yefri Lisma Utari, S.ST" },
-      { name: "Kesehatan Bayi & Balita", pj: "Yefri Lisma Utari, S.ST" },
-      { name: "Imunisasi", pj: "Tiyani, S.Tr.Kes" },
-      { name: "Gizi", pj: "Devi Nur Ariska, Gz" },
-      { name: "Kesehatan Remaja & Anak Sekolah", pj: "Dian Muslimah, A.Md.Keb" },
+      { name: "Ibu Hamil, Bersalin, Nifas", pj: "Yefri Lisma Utari, S.ST" },
+      { name: "Balita dan Anak Pra-sekolah", pj: "Yefri Lisma Utari, S.ST" },
+      { name: "Anak Usia Sekolah dan Remaja", pj: "Yefri Lisma Utari, S.ST" },
     ]
   },
   {
     id: "klaster3",
-    name: "Klaster 3: Dewasa & Lansia",
-    pj: "dr. Qurratul Aini",
+    name: "Klaster 3: Usia Dewasa & Lansia",
+    pj: "dr. Qurrotu Aini",
     teams: [
-      { name: "Kesehatan Jiwa", pj: "Suprapto, S.Kep., Ns" },
-      { name: "Penyakit Menular (P2M)", pj: "Shofiyyatuddaimah, S.Kep., Ns" },
-      { name: "Penyakit Tidak Menular (PTM)", pj: "Aulia Agustiningsih, A.Md. Keb" },
-      { name: "Kesehatan Gigi & Mulut", pj: "drg. Zulaikha Dwi Lestari" },
-      { name: "Kesehatan Lansia", pj: "Fuad Helmi, S.Kep., Ns" },
+      { name: "Usia Dewasa", pj: "Kusmiyati, S.Kep.,Ns" },
+      { name: "Lanjut Usia", pj: "Fuad Helmi, S.Kep.,NS" },
     ]
   },
   {
     id: "klaster4",
-    name: "Klaster 4: P2M & Kesling",
+    name: "Klaster 4: Penanggulangan Penyakit Menular",
     pj: "Shofiyyatuddaimah, S.Kep., Ns",
     teams: [
-      { name: "Surveilans & KLB", pj: "Fahrur Rozy, A.Md.Kep" },
       { name: "Kesehatan Lingkungan", pj: "Ibnatil Fitriya, S.Tr.Kes" },
-      { name: "Surveilans Penyakit Menular", pj: "Aris Susanti, S.Kep., Ns" },
+      { name: "Surveilans dan respon", pj: "Fahrur Rozy, A.Md.Kep" },
     ]
   },
   {
@@ -63,10 +60,14 @@ const clusters = [
     name: "Lintas Klaster",
     pj: "drg. Zulaikha Dwi Lestari",
     teams: [
-      { name: "Gawat Darurat (UGD)", pj: "Ach. Muzammil, S.Kep., Ns" },
-      { name: "Rawat Inap", pj: "Ummu Fadilah, S.Kep., Ns" },
-      { name: "Kefarmasian", pj: "Apt. Maulidatul Islamiyah, S.Farm" },
-      { name: "Laboratorium (Labkesmas)", pj: "Lismawati, S.Tr.Kes" },
+      { name: "Promosi kesehatan", pj: "Ummu Fadilah, S.Kep., Ns" },
+      { name: "Pelayanan kesehatan gigi dan mulut", pj: "drg. Zulaikha Dwi Lestari" },
+      { name: "Pelayanan Gawat darurat", pj: "Ach. Muzammil, S.Kep., Ns" },
+      { name: "Pelayanan Kefarmasian", pj: "Apt. Maulidatul Islamiyah, S.Farm" },
+      { name: "Pelayanan Labkesmas", pj: "Lismawati, S.Tr.Kes" },
+      { name: "Pelayanan Rawat Inap", pj: "Ummu Fadilah, S.Kep.,Ns" },
+      { name: "Penanggulangan respon krisis kesehatan", pj: "Ummu Fadilah, S.Kep., Ns" },
+      { name: "Pelayanan fisioterapi", pj: "dr. Qurrotu Aini" },
     ]
   }
 ]

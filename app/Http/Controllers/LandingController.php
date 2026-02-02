@@ -95,7 +95,12 @@ class LandingController extends Controller
 
     public function contact()
     {
-        return Inertia::render('landing/contact');
+        return Inertia::render('landing/information/contact');
+    }
+
+    public function serviceHours()
+    {
+        return Inertia::render('landing/information/service-hours');
     }
 
     public function storeContact(Request $request)

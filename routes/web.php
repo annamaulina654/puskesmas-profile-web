@@ -26,6 +26,8 @@ Route::controller(LandingController::class)->group(function () {
         Route::get('/announcements', 'announcements')->name('public.announcements');
         Route::get('/activities', 'activities')->name('public.activities');
         Route::get('/helpdesk', 'helpdesk')->name('public.helpdesk');
+        Route::get('/contact', 'contact')->name('public.contact');
+        Route::get('/service-hours', 'serviceHours')->name('public.service-hours');
 
         Route::get('/announcements/{id}', 'showAnnouncement')->name('public.announcement.show');
         Route::get('/activities/{id}', 'showActivity')->name('public.activity.show');

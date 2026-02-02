@@ -30,6 +30,8 @@ const informationSubmenus = [
   { title: "Pengumuman", href: "/information/announcements", description: "Informasi terkini dan pengumuman resmi" },
   { title: "Kegiatan", href: "/information/activities", description: "Dokumentasi kegiatan dan program kami" },
   { title: "Helpdesk", href: "/information/helpdesk", description: "Pusat bantuan dan FAQ" },
+  { title: "Kontak", href: "/information/contact", description: "Hubungi kami untuk pertanyaan lanjut" },
+  { title: "Jam Pelayanan", href: "/information/service-hours", description: "Jam pelayanan Puskesmas Kwanyar" },
 ]
 
 export function Navbar() {
