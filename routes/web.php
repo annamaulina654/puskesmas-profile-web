@@ -12,12 +12,14 @@ use Inertia\Inertia;
 Route::controller(LandingController::class)->group(function () {
     Route::get('/', 'home')->name('home');
     Route::get('/services', 'services')->name('public.services');
+    Route::get('/services/{slug}', 'serviceDetail')->name('public.service-detail');
     Route::get('/complaints', 'complaints')->name('public.complaints'); 
     Route::post('/complaints', 'storeComplaint')->name('complaints.store');
 
     Route::prefix('profile')->group(function () {
         Route::get('/vision-mission', 'visionMission')->name('public.vision-mission');
         Route::get('/organization', 'organization')->name('public.organization');
+        Route::get('/staff', 'staff')->name('public.staff');
         Route::get('/innovations', 'innovations')->name('public.innovations');
         Route::get('/about', 'about')->name('public.about');
     });
@@ -28,6 +30,7 @@ Route::controller(LandingController::class)->group(function () {
         Route::get('/helpdesk', 'helpdesk')->name('public.helpdesk');
         Route::get('/contact', 'contact')->name('public.contact');
         Route::get('/service-hours', 'serviceHours')->name('public.service-hours');
+        Route::get('/rates', 'rates')->name('public.rates');
 
         Route::get('/announcements/{id}', 'showAnnouncement')->name('public.announcement.show');
         Route::get('/activities/{id}', 'showActivity')->name('public.activity.show');

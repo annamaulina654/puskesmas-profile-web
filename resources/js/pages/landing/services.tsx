@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Head } from "@inertiajs/react"
+import { Link } from "@inertiajs/react"
 import PublicLayout from "@/layouts/public-layout"
 import {
   Heart,
@@ -51,16 +52,16 @@ const clusters = [
     description: "Melayani ibu hamil, bersalin, nifas, bayi, balita, anak pra-sekolah, usia sekolah, dan remaja.",
     icon: Baby,
     services: [
-      { name: "ANC (Antenatal Care)", desc: "Pemeriksaan kehamilan rutin.", icon: Heart },
-      { name: "Persalinan & Nifas", desc: "Pertolongan persalinan normal & perawatan pasca lahir.", icon: Baby },
-      { name: "Neonatal Esensial", desc: "Perawatan khusus bayi baru lahir.", icon: Smile },
-      { name: "Pelayanan Gizi Ibu & Anak", desc: "Konsultasi gizi, konsultasi laktasi, & pantau pertumbuhan.", icon: Droplets },
-      { name: "Imunisasi", desc: "Pelayanan imunisasi dasar dan lanjutan.", icon: Syringe },
-      { name: "SDIDTK", desc: "Stimulasi, Deteksi, Intervensi Dini Tumbuh Kembang.", icon: Accessibility },
-      { name: "MTBS", desc: "Manajemen Terpadu Balita Sakit.", icon: Stethoscope },
-      { name: "Pembuatan Surat Sehat", desc: "Untuk anak usia 0-17 tahun", icon: Search },
-      { name: "USG & SHK", desc: "Ultrasonografi & Skrining Hipotiroid.", icon: Activity },
-      { name: "Pelayanan CKG", desc: "Pelayanan Cek Kesehatan Gratis Anak satu kali dalam satu tahun", icon: Activity },
+      { name: "ANC (Antenatal Care)", slug: "anc", desc: "Pemeriksaan kehamilan rutin.", icon: Heart },
+      { name: "Persalinan & Nifas", slug: "persalinan-nifas", desc: "Pertolongan persalinan normal & perawatan pasca lahir.", icon: Baby },
+      { name: "Neonatal Esensial", slug: "neonatal-esensial", desc: "Perawatan khusus bayi baru lahir.", icon: Smile },
+      { name: "Pelayanan Gizi Ibu & Anak", slug: "pelayanan-gizi-ibu-anak", desc: "Konsultasi gizi, konsultasi laktasi, & pantau pertumbuhan.", icon: Droplets },
+      { name: "Imunisasi", slug: "imunisasi", desc: "Pelayanan imunisasi dasar dan lanjutan.", icon: Syringe },
+      { name: "SDIDTK", slug: "sdidtk", desc: "Stimulasi, Deteksi, Intervensi Dini Tumbuh Kembang.", icon: Accessibility },
+      { name: "MTBS", slug: "mtbs", desc: "Manajemen Terpadu Balita Sakit.", icon: Stethoscope },
+      { name: "Pembuatan Surat Sehat", slug: "pembuatan-surat-sehat", desc: "Untuk anak usia 0-17 tahun", icon: Search },
+      { name: "USG & SHK", slug: "usg-shk", desc: "Ultrasonografi & Skrining Hipotiroid.", icon: Activity },
+      { name: "Pelayanan CKG", slug: "pelayanan-ckg", desc: "Pelayanan Cek Kesehatan Gratis Anak satu kali dalam satu tahun", icon: Activity },
     ]
   },
   {
@@ -69,14 +70,14 @@ const clusters = [
     description: "Melayani kelompok usia produktif dan lanjut usia.",
     icon: Users,
     services: [
-      { name: "Pelayanan CKG", desc: "Pelayanan Cek Kesehatan Gratis satu kali dalam satu tahun", icon: Stethoscope },
-      { name: "Pengobatan Umum", desc: "Pemeriksaan & pengobatan penyakit umum.", icon: Stethoscope },
-      { name: "Pelayanan KB", desc: "Keluarga Berencana.", icon: Users },
-      { name: "Kesehatan Gigi Dewasa", desc: "Perawatan gigi & mulut usia dewasa.", icon: Smile },
-      { name: "Surat Keterangan Sehat", desc: "-", icon: Leaf },
-      { name: "Pemeriksaan catin", desc: "-", icon: Leaf },
-      { name: "Rujukan berjenjang", desc: "Inspeksi sanitasi & konsultasi kesling.", icon: Leaf },
-      { name: "Pemeriksaan Kekerasan terhadap perempuan dan anak", desc: "-", icon: Leaf },
+      { name: "Pelayanan CKG", slug: "pelayanan-ckg", desc: "Pelayanan Cek Kesehatan Gratis satu kali dalam satu tahun", icon: Stethoscope },
+      { name: "Pengobatan Umum", slug: "pengobatan-umum", desc: "Pemeriksaan & pengobatan penyakit umum.", icon: Stethoscope },
+      { name: "Pelayanan KB", slug: "pelayanan-kb", desc: "Keluarga Berencana.", icon: Users },
+      { name: "Kesehatan Gigi Dewasa", slug: "kesehatan-gigi-dewasa", desc: "Perawatan gigi & mulut usia dewasa.", icon: Smile },
+      { name: "Surat Keterangan Sehat", slug: "surat-keterangan-sehat", desc: "-", icon: Leaf },
+      { name: "Pemeriksaan catin", slug: "pemeriksaan-catin", desc: "-", icon: Leaf },
+      { name: "Rujukan berjenjang", slug: "rujukan-berjenjang", desc: "Inspeksi sanitasi & konsultasi kesling.", icon: Leaf },
+      { name: "Pemeriksaan Kekerasan terhadap perempuan dan anak", slug: "pemeriksaan-kekerasan-perempuan-anak", desc: "-", icon: Leaf },
     ]
   },
   {
@@ -85,8 +86,8 @@ const clusters = [
     description: "Fokus pada pencegahan, pengendalian penyakit, dan kesehatan lingkungan.",
     icon: ShieldAlert,
     services: [
-      { name: "Penyakit Menular Langsung", desc: "TBC, HIV/AIDS, Kusta, Frambusia, Diare, Hepatitis, ISPA/Covid-19.", icon: Thermometer },
-      { name: "Surveilans & Respon", desc: "Pemantauan penyebaran penyakit.", icon: Activity },
+      { name: "Penyakit Menular Langsung", slug: "penyakit-menular-langsung", desc: "TBC, HIV/AIDS, Kusta, Frambusia, Diare, Hepatitis, ISPA/Covid-19.", icon: Thermometer },
+      { name: "Surveilans & Respon", slug: "surveilans-respon", desc: "Pemantauan penyebaran penyakit.", icon: Activity },
     ]
   },
 ]
@@ -94,6 +95,7 @@ const clusters = [
 const lintasKlaster = [
   {
     title: "Pelayanan Gigi & Mulut",
+    slug: "pelayanan-gigi-mulut",
     icon: Smile,
     items: [
       "Perawatan gigi",
@@ -104,6 +106,7 @@ const lintasKlaster = [
   },
   {
     title: "Laboratorium (Labkesmas)",
+    slug: "laboratorium-labkesmas",
     icon: Microscope,
     items: [
       "Hematologi: Darah Rutin (Hb, Lekosit, dll)",
@@ -115,11 +118,13 @@ const lintasKlaster = [
   },
   {
     title: "Pelayanan Kefarmasian",
+    slug: "pelayanan-kefarmasian",
     icon: Pill,
     description: "Pelayanan resep obat dan penyampaian informasi obat (PIO)."
   },
   {
     title: "UGD 24 Jam",
+    slug: "ugd-24-jam",
     icon: Ambulance,
     items: [
       "Penanganan kasus gawat darurat siap 24 jam.",
@@ -129,16 +134,19 @@ const lintasKlaster = [
   },
   {
     title: "Rawat Inap",
+    slug: "rawat-inap",
     icon: BedDouble,
     description: "Perawatan pasien rawat inap tingkat pertama."
   },
   {
     title: "Fisioterapi",
+    slug: "fisioterapi",
     icon: Accessibility,
     description: "Terapi fisik dan rehabilitasi medik dasar."
   },
   {
     title: "Promkes & Krisis",
+    slug: "promkes-krisis",
     icon: Megaphone,
     description: "Edukasi kesehatan masyarakat dan respon bencana."
   }
@@ -167,7 +175,10 @@ export default function ServicesPage() {
         </section>
 
         <section className="py-16 container mx-auto px-4 lg:px-8 space-y-20">
-            {clusters.map((cluster, index) => (
+          {clusters.map((cluster, index) => {
+              const isManajemen = cluster.id === "klaster-1";
+
+              return (
                 <div key={cluster.id} className={`grid md:grid-cols-[1fr,2.5fr] gap-8 md:gap-12 items-start ${index !== 0 ? 'border-t border-gray-200 pt-16' : ''}`}>
                     
                     <div className="flex flex-col justify-center h-full">
@@ -179,43 +190,54 @@ export default function ServicesPage() {
                              {cluster.id.split(":")[0].replace("-", " ")}
                            </span>
                         </div>
-                        
                         <h2 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">
                             {cluster.title.split(":")[1]}
                         </h2>
-                        
                         <p className="text-gray-500 leading-relaxed text-base">
                             {cluster.description}
                         </p>
                     </div>
 
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {cluster.services.map((service: any, idx) => (
-                            <Card key={idx} className="group hover:shadow-lg transition-all duration-300 border-gray-200 hover:border-primary/50 bg-white h-full relative overflow-hidden">
-                                {/* Dekorasi Hover */}
-                                <div className="absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-bl-full -mr-8 -mt-8 transition-all group-hover:bg-primary/10"></div>
-                                
-                                <CardContent className="p-5 flex flex-col h-full relative z-10">
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-300 text-primary">
-                                            <service.icon className="w-5 h-5 transition-colors" />
-                                        </div>
-                                        <h3 className="font-bold text-gray-800 text-sm group-hover:text-primary transition-colors leading-tight">
-                                            {service.name}
-                                        </h3>
-                                    </div>
-                                    
-                                    {service.desc && (
-                                        <p className="text-xs text-gray-500 leading-relaxed line-clamp-3 mt-auto">
-                                            {service.desc}
-                                        </p>
+                        {cluster.services.map((service: any, idx) => {
+                            
+                            const CardContentRender = () => (
+                                <Card className={`group border-gray-200 bg-white h-full relative overflow-hidden ${!isManajemen ? 'hover:shadow-lg hover:border-primary/50 transition-all duration-300 cursor-pointer' : ''}`}>
+                                    {!isManajemen && (
+                                        <div className="absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-bl-full -mr-8 -mt-8 transition-all group-hover:bg-primary/10"></div>
                                     )}
-                                </CardContent>
-                            </Card>
-                        ))}
+                                    
+                                    <CardContent className="p-5 flex flex-col h-full relative z-10">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-300 text-primary">
+                                                <service.icon className="w-5 h-5 transition-colors" />
+                                            </div>
+                                            <h3 className="font-bold text-gray-800 text-sm group-hover:text-primary transition-colors leading-tight">
+                                                {service.name}
+                                            </h3>
+                                        </div>
+                                        
+                                        {service.desc && (
+                                            <p className="text-xs text-gray-500 leading-relaxed line-clamp-3 mt-auto">
+                                                {service.desc}
+                                            </p>
+                                        )}
+                                    </CardContent>
+                                </Card>
+                            );
+
+                            return isManajemen || !service.slug ? (
+                                <div key={idx}><CardContentRender /></div>
+                            ) : (
+                                <Link key={idx} href={`/services/${service.slug}`}>
+                                    <CardContentRender />
+                                </Link>
+                            );
+                        })}
                     </div>
                 </div>
-            ))}
+                )
+            })}
         </section>
 
         <section className="py-20 bg-white border-t border-gray-100">
@@ -234,6 +256,7 @@ export default function ServicesPage() {
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {lintasKlaster.map((item: any, idx) => (
+                      <Link key={idx} href={`/services/${item.slug}`} className="block h-full">
                         <Card key={idx} className="border-gray-200 hover:border-orange-500/50 hover:shadow-md transition-all duration-300 bg-orange-50/30">
                             <CardHeader className="flex flex-row items-center gap-4 pb-3">
                                 <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 shadow-sm">
@@ -260,6 +283,7 @@ export default function ServicesPage() {
                                 )}
                             </CardContent>
                         </Card>
+                      </Link>
                     ))}
                 </div>
             </div>

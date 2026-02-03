@@ -22,6 +22,11 @@ const profileSubmenus = [
     href: "/profile/organization",
     description: "Tim profesional yang siap melayani Anda",
   },
+  {
+    title: "Kepegawaian",
+    href: "/profile/staff",
+    description: "Data dokter, perawat, dan staf puskesmas",
+  },
   { title: "Inovasi", href: "/profile/innovations", description: "Program inovatif untuk kesehatan masyarakat" },
   { title: "Tentang Kami", href: "/profile/about", description: "Sejarah dan profil Puskesmas" },
 ]
@@ -30,6 +35,11 @@ const informationSubmenus = [
   { title: "Pengumuman", href: "/information/announcements", description: "Informasi terkini dan pengumuman resmi" },
   { title: "Kegiatan", href: "/information/activities", description: "Dokumentasi kegiatan dan program kami" },
   { title: "Helpdesk", href: "/information/helpdesk", description: "Pusat bantuan dan FAQ" },
+  {
+    title: "Tarif Pelayanan",
+    href: "/information/rates",
+    description: "Daftar biaya retribusi pelayanan kesehatan",
+  },
   { title: "Kontak", href: "/information/contact", description: "Hubungi kami untuk pertanyaan lanjut" },
   { title: "Jam Pelayanan", href: "/information/service-hours", description: "Jam pelayanan Puskesmas Kwanyar" },
 ]
