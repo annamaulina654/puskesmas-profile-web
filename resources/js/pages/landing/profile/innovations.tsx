@@ -1,10 +1,18 @@
 import { useState } from "react"
 import { Head } from "@inertiajs/react"
 import PublicLayout from "@/layouts/public-layout"
-import { Lightbulb, Award, ChevronLeft, ChevronRight, ImageIcon } from "lucide-react"
+import { Lightbulb, Award, ChevronLeft, ChevronRight, ImageIcon, Smartphone, Clock, CheckCircle2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 const innovations = [
   {
@@ -12,9 +20,20 @@ const innovations = [
     category: "Pelayanan",
     year: "Layanan",
     description:
-      "Solusi untuk menghindari antrian panjang. Melalui Mobile JKN dan mesin antrian, pasien lama tidak perlu menunggu lama.",
+      "Solusi cerdas menghindari antrian panjang. Integrasi Mobile JKN dan mesin anjungan mandiri membuat kunjungan berobat menjadi lebih cepat dan terencana.",
     images: ["/images/jkn.jpg"],
-    impact: "Waktu tunggu lebih singkat (±10 menit)",
+    impact: "Waktu tunggu pendaftaran dipangkas (±5 menit)",
+    guide: {
+      estimate: "± 5 Menit",
+      steps: [
+        "Unduh aplikasi Mobile JKN di Play Store / App Store.",
+        "Buka aplikasi dan pilih menu 'Antrean Online'.",
+        "Pilih 'Faskes Tingkat Pertama (Kwanyar)'.",
+        "Pilih poli tujuan dan tanggal kunjungan di 'Puskesmas Kwanyar'.",
+        "Isi keluhan singkat, lalu klik 'Simpan'.",
+        "Nomor antrean terbit. Tunjukkan saat datang ke Puskesmas.",
+      ]
+    }
   },
   {
     title: "DARA PELITA HATI",
@@ -112,7 +131,6 @@ export default function InnovationsPage() {
       <Head title="Inovasi & Penghargaan" />
 
       <main className="min-h-screen">
-        
         <section className="pt-32 pb-16 bg-primary">
           <div className="container mx-auto px-4 lg:px-8 text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4" style={{ fontFamily: "var(--font-heading)" }}>
@@ -146,7 +164,7 @@ export default function InnovationsPage() {
                 <Card key={index} className="border-0 shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-300">
                   <div className={`grid lg:grid-cols-2 ${index % 2 === 1 ? "lg:flex-row-reverse" : ""}`}>
                     
-                   <div className={`relative w-full h-64 lg:h-96 bg-slate-100 ${index % 2 === 1 ? "lg:order-2" : ""}`}>
+                    <div className={`relative w-full h-64 lg:h-auto bg-slate-100 ${index % 2 === 1 ? "lg:order-2" : ""}`}>
                         <InnovationImageSlider images={innovation.images} title={innovation.title} />
                     </div>
 
@@ -162,13 +180,62 @@ export default function InnovationsPage() {
                         {innovation.description}
                       </p>
                       
-                      <div className="flex items-start gap-3 p-4 bg-primary/5 rounded-xl border border-primary/10">
+                      <div className="flex items-start gap-3 p-4 bg-primary/5 rounded-xl border border-primary/10 mb-6">
                         <Award className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                         <div>
                             <span className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Dampak / Tujuan</span>
                             <p className="text-foreground font-medium">{innovation.impact}</p>
                         </div>
                       </div>
+
+                      {innovation.guide && (
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button variant="outline" className="w-fit gap-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors">
+                              <Smartphone className="w-4 h-4" />
+                              Lihat Cara Daftar Online
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-md">
+                            <DialogHeader>
+                              <DialogTitle className="flex items-center gap-2 text-xl">
+                                <Smartphone className="w-6 h-6 text-primary" />
+                                Panduan Mobile JKN
+                              </DialogTitle>
+                              <DialogDescription>
+                                Ikuti langkah mudah berikut untuk mendaftar antrean secara online.
+                              </DialogDescription>
+                            </DialogHeader>
+                            
+                            <div className="bg-slate-50 p-4 rounded-lg border border-slate-100 flex items-center gap-3 mb-2">
+                                <div className="bg-white p-2 rounded-full shadow-sm">
+                                    <Clock className="w-5 h-5 text-orange-500" />
+                                </div>
+                                <div>
+                                    <p className="text-xs text-muted-foreground font-semibold uppercase">Estimasi Waktu</p>
+                                    <p className="font-bold text-gray-800">{innovation.guide.estimate}</p>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4 py-2">
+                                {innovation.guide.steps.map((step, i) => (
+                                    <div key={i} className="flex gap-3">
+                                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold mt-0.5">
+                                            {i + 1}
+                                        </div>
+                                        <p className="text-sm text-gray-600 leading-snug">{step}</p>
+                                    </div>
+                                ))}
+                            </div>
+                            
+                            <div className="mt-2 p-3 bg-green-50 text-green-700 text-sm rounded-lg flex gap-2 items-start border border-green-100">
+                                <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                                <p>Pastikan Anda sudah memiliki akun BPJS Kesehatan yang aktif.</p>
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+                      )}
+
                     </CardContent>
                   </div>
                 </Card>
