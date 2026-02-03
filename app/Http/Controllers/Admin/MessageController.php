@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Message;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class MessageController extends Controller
@@ -17,6 +18,24 @@ class MessageController extends Controller
         return Inertia::render('admin/messages/index', [
             'messages' => $messages,
         ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'reply' => 'required|string',
+        ]);
+
+        $message = Message::findOrFail($id);
+
+        $message->update([
+            'reply' => $request->reply,
+            'replied_at' => now(),
+            'is_read' => true,
+            'admin_name' => 'Admin Puskesmas',
+        ]);
+
+        return redirect()->back()->with('success', 'Balasan berhasil dipublikasikan!');
     }
 
     public function markAsRead($id)

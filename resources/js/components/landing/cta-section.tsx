@@ -7,6 +7,7 @@ export function CTASection() {
     <section className="py-20 lg:py-28 bg-secondary/30">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
+          
           <div className="relative">
             <div className="relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-2xl">
               <img 
@@ -15,22 +16,37 @@ export function CTASection() {
                 className="w-full h-full object-cover" 
               />
             </div>
-            <div className="absolute -bottom-6 -right-6 lg:right-8 bg-card p-6 rounded-2xl shadow-xl max-w-xs">
+            
+            <div className="absolute -bottom-6 -right-6 lg:right-8 bg-card p-6 rounded-2xl shadow-xl max-w-xs border border-border/50">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                   <Clock className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <div className="font-semibold text-foreground">Jam Operasional</div>
-                  <div className="text-sm text-muted-foreground">-</div>
+                  <div className="font-bold text-foreground text-sm">Jam Pendaftaran</div>
+                  <div className="text-xs text-muted-foreground">Senin - Kamis</div>
                 </div>
               </div>
-              <div className="text-2xl font-bold text-primary">-</div>
-              <div className="text-sm text-muted-foreground mt-1">UGD 24 Jam</div>
+              
+              <div className="text-3xl font-bold text-primary tracking-tight">
+                07.15 - 12.00
+              </div>
+              
+              <div className="my-3 h-px bg-border"></div>
+
+              <div className="flex flex-col gap-1">
+                 <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground">Jumat - Sabtu</span>
+                    <span className="font-medium text-foreground">s/d 10.00 / 11.00</span>
+                 </div>
+                 <div className="mt-1 bg-red-100 text-red-700 px-3 py-1.5 rounded-lg text-xs font-bold text-center border border-red-200">
+                    UGD & PERSALINAN 24 JAM
+                 </div>
+              </div>
             </div>
           </div>
 
-          <div className="lg:pl-8">
+          <div className="lg:pl-8 mt-12 lg:mt-0">
             <span className="inline-block px-4 py-2 bg-primary/10 text-primary text-sm font-medium rounded-full mb-4">
               Hubungi Kami
             </span>
@@ -79,7 +95,7 @@ export function CTASection() {
                 variant="outline"
                 className="rounded-full px-8 border-primary text-primary hover:bg-primary hover:text-primary-foreground bg-transparent"
               >
-                <Link href="/information/helpdesk">Pusat Bantuan</Link>
+                <Link href="/information/service-hours">Lihat Jadwal Lengkap</Link>
               </Button>
             </div>
           </div>

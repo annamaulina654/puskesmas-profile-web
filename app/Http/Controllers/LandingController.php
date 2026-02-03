@@ -50,6 +50,40 @@ class LandingController extends Controller
         return Inertia::render('landing/services');
     }
 
+    public function complaints()
+    {
+        $publishedComplaints = Message::where('is_public', true)
+            ->whereNotNull('reply')
+            ->orderBy('replied_at', 'desc')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'category' => $item->subject,
+                    'message' => $item->message,
+                    'reply' => $item->reply,
+                    'admin_name' => $item->admin_name ?? 'Admin Puskesmas',
+                    
+                    'date' => \Carbon\Carbon::parse($item->created_at)
+                        ->setTimezone('Asia/Jakarta')
+                        ->locale('id')
+                        ->isoFormat('D MMMM Y'),
+                    
+                    'reply_date' => $item->replied_at 
+                        ? \Carbon\Carbon::parse($item->replied_at)
+                            ->setTimezone('Asia/Jakarta')
+                            ->locale('id')
+                            ->isoFormat('D MMMM Y, HH:mm') 
+                        : '-',
+                ];
+            });
+
+        return Inertia::render('landing/complaints', [
+            'publishedComplaints' => $publishedComplaints
+        ]);
+    }
+
     public function announcements()
     {
         $announcements = Announcement::where('is_active', true)
@@ -103,7 +137,7 @@ class LandingController extends Controller
         return Inertia::render('landing/information/service-hours');
     }
 
-    public function storeContact(Request $request)
+    public function storeComplaint(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -111,7 +145,10 @@ class LandingController extends Controller
             'phone' => 'nullable|string|max:20',
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
+            'is_public' => 'boolean',
         ]);
+
+        $validated['is_public'] = $request->boolean('is_public');
 
         Message::create($validated);
 

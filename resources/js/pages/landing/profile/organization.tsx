@@ -85,7 +85,7 @@ export default function OrganizationPage() {
               Struktur Organisasi
             </h1>
             <p className="text-white/90 text-lg max-w-2xl mx-auto">
-              Tim profesional UPT Puskesmas Kwanyar tahun 2025
+              Tim profesional UPT Puskesmas Kwanyar tahun 2026
             </p>
           </div>
         </section>
@@ -97,7 +97,7 @@ export default function OrganizationPage() {
                 Bagan Organisasi
               </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                Struktur organisasi berdasarkan SK Kepala Puskesmas Tahun 2025
+                Struktur organisasi berdasarkan SK Kepala Puskesmas Tahun 2026
               </p>
             </div>
             <div className="relative max-w-5xl mx-auto p-4 border rounded-2xl bg-white shadow-xl">

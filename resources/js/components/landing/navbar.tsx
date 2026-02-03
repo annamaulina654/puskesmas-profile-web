@@ -124,10 +124,10 @@ export function Navbar() {
                 <NavigationMenuItem>
                   <NavigationMenuLink asChild>
                     <Link 
-                      href="/contact" 
+                      href="/complaints" 
                       className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
                     >
-                      Kontak
+                      Pengaduan
                     </Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
@@ -138,7 +138,7 @@ export function Navbar() {
           <div className="flex items-center gap-4">
             <div className="hidden lg:block">
                 <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                <Link href="/contact">Hubungi Kami</Link>
+                <Link href="/complaints">Pengaduan</Link>
                 </Button>
             </div>
 
@@ -223,16 +223,16 @@ export function Navbar() {
               </div>
 
               <Link
-                href="/contact"
+                href="/complaints"
                 className="px-4 py-3 text-sm font-medium hover:bg-secondary rounded-md"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Kontak
+                Pengaduan
               </Link>
 
               <div className="px-4 pt-4">
                 <Button asChild className="w-full bg-primary hover:bg-primary/90">
-                  <Link href="/contact">Hubungi Kami</Link>
+                  <Link href="/complaints">Pengaduan</Link>
                 </Button>
               </div>
             </div>

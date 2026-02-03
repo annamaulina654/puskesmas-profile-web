@@ -12,8 +12,8 @@ use Inertia\Inertia;
 Route::controller(LandingController::class)->group(function () {
     Route::get('/', 'home')->name('home');
     Route::get('/services', 'services')->name('public.services');
-    Route::get('/contact', 'contact')->name('public.contact');
-    Route::post('/contact', 'storeContact')->name('contact.store');
+    Route::get('/complaints', 'complaints')->name('public.complaints'); 
+    Route::post('/complaints', 'storeComplaint')->name('complaints.store');
 
     Route::prefix('profile')->group(function () {
         Route::get('/vision-mission', 'visionMission')->name('public.vision-mission');
@@ -57,6 +57,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/messages', [App\Http\Controllers\Admin\MessageController::class, 'index'])->name('messages.index');
         Route::delete('/messages/{id}', [App\Http\Controllers\Admin\MessageController::class, 'destroy'])->name('messages.destroy');
         Route::put('/messages/{id}/read', [App\Http\Controllers\Admin\MessageController::class, 'markAsRead'])->name('messages.read');
+        Route::put('/messages/{id}', [App\Http\Controllers\Admin\MessageController::class, 'update'])->name('messages.update');
     });
 
 });

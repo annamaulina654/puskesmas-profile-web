@@ -14,10 +14,10 @@ const quickLinks = [
 const services = [
   "UGD 24 Jam",
   "Persalinan 24 Jam",
-  "Poli Umum",
-  "Poli KIA & KB",
+  "Poli Umum (Dewasa & Lansia)",
+  "Kesehatan Ibu & Anak (KIA)",
   "Poli Gigi",
-  "Laboratorium",
+  "Laboratorium & Farmasi",
 ]
 
 export function Footer() {
@@ -88,14 +88,13 @@ export function Footer() {
               ))}
             </ul>
           </div>
-
           <div>
-            <h4 className="font-semibold text-lg mb-6">Kontak</h4>
+            <h4 className="font-semibold text-lg mb-6 text-white">Hubungi Kami</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-white/70 flex-shrink-0 mt-0.5" />
-                <span className="text-white/80 text-sm">
-                  Jl. Raya Dlemer No. 10 Kwanyar Kodepos 69164
+                <span className="text-white/80 text-sm leading-relaxed">
+                  Jl. Raya Dlemer No. 10 Kwanyar, Bangkalan, Jawa Timur 69164
                 </span>
               </li>
               <li className="flex items-center gap-3">
@@ -104,13 +103,28 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-white/70 flex-shrink-0" />
-                <span className="text-white/80 text-sm">pkm.kwanyarbangkalan@gmail.com</span>
+                <span className="text-white/80 text-sm break-all">pkm.kwanyarbangkalan@gmail.com</span>
               </li>
-              <li className="flex items-start gap-3">
+              
+              <li className="flex items-start gap-3 mt-4 pt-4 border-t border-white/10">
                 <Clock className="w-5 h-5 text-white/70 flex-shrink-0 mt-0.5" />
-                <div className="text-white/80 text-sm">
-                  <div>Senin - Sabtu: - </div>
-                  <div>UGD: 24 Jam</div>
+                <div className="text-white/80 text-sm space-y-1">
+                  <div className="font-medium text-white">Jam Pendaftaran:</div>
+                  <div className="flex justify-between gap-4">
+                    <span>Senin - Kamis</span>
+                    <span>07.15 - 12.00</span>
+                  </div>
+                  <div className="flex justify-between gap-4">
+                    <span>Jumat</span>
+                    <span>07.15 - 10.00</span>
+                  </div>
+                   <div className="flex justify-between gap-4">
+                    <span>Sabtu</span>
+                    <span>07.15 - 11.00</span>
+                  </div>
+                  <div className="mt-2 pt-2 font-bold text-yellow-300 border-t border-white/10">
+                    UGD & Persalinan: 24 Jam
+                  </div>
                 </div>
               </li>
             </ul>

@@ -4,6 +4,8 @@ import { type BreadcrumbItem } from '@/types';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import {
     DropdownMenu,
@@ -39,8 +41,12 @@ import {
     MailOpen, 
     Eye,
     CalendarClock,
-    User
+    User,
+    Phone,
+    CheckCircle2,
+    Reply
 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 interface Message {
     id: number;
@@ -50,6 +56,9 @@ interface Message {
     subject: string;
     message: string;
     is_read: boolean | number;
+    is_public: boolean;
+    reply?: string; 
+    replied_at?: string;
     created_at: string;
 }
 
@@ -62,8 +71,13 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
     const [search, setSearch] = useState('');
     const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    
+    const [isReplyMode, setIsReplyMode] = useState(false);
+    const [replyText, setReplyText] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [deleteId, setDeleteId] = useState<number | null>(null);
+    
     const filteredData = messages.filter((item) =>
         item.name.toLowerCase().includes(search.toLowerCase()) ||
         item.subject.toLowerCase().includes(search.toLowerCase()) ||
@@ -83,6 +97,8 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
 
     const handleViewMessage = (msg: Message) => {
         setSelectedMessage(msg);
+        setReplyText(msg.reply || "");
+        setIsReplyMode(false);
         setIsDialogOpen(true);
 
         if (!msg.is_read) {
@@ -92,6 +108,31 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
             });
         }
     };
+
+    const submitReply = () => {
+        if (!selectedMessage) return;
+
+        setIsSubmitting(true);
+        router.put(`/admin/messages/${selectedMessage.id}`, {
+            reply: replyText
+        }, {
+            onSuccess: () => {
+                setIsReplyMode(false);
+                setIsDialogOpen(false);
+                setIsSubmitting(false);
+            },
+            onError: () => {
+                setIsSubmitting(false);
+            }
+        });
+    };
+
+    const openWhatsApp = (phone: string | null) => {
+        if (!phone) return;
+        let formatted = phone.replace(/\D/g, '');
+        if (formatted.startsWith('0')) formatted = '62' + formatted.slice(1);
+        window.open(`https://wa.me/${formatted}`, '_blank');
+    }
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -163,6 +204,16 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
                                                     <span className={`${!item.is_read ? 'font-semibold text-gray-900' : 'text-gray-600'}`}>
                                                         {item.subject}
                                                     </span>
+                                                    {item.reply && (
+                                                        <Badge variant="outline" className="ml-2 text-[10px] text-green-600 border-green-200 bg-green-50">
+                                                            <CheckCircle2 className="w-3 h-3 mr-1" /> Dibalas
+                                                        </Badge>
+                                                    )}
+                                                    {item.is_public && (
+                                                        <Badge variant="outline" className="ml-2 text-[10px] text-blue-600 border-blue-200 bg-blue-50">
+                                                            Publik
+                                                        </Badge>
+                                                    )}
                                                     <p className="text-xs text-gray-400 truncate max-w-[250px] mt-0.5">
                                                         {item.message}
                                                     </p>
@@ -216,11 +267,15 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
                 </Card>
 
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                    <DialogContent className="sm:max-w-lg">
+                    <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
                         <DialogHeader>
-                            <DialogTitle>Detail Pesan</DialogTitle>
+                            <DialogTitle>
+                                {isReplyMode ? "Tindak Lanjut & Balas" : "Detail Pesan"}
+                            </DialogTitle>
                             <DialogDescription>
-                                Pesan dari pengunjung website Puskesmas.
+                                {isReplyMode 
+                                    ? "Catat balasan resmi untuk ditampilkan di website (jika publik)." 
+                                    : "Pesan dari pengunjung website Puskesmas."}
                             </DialogDescription>
                         </DialogHeader>
                         
@@ -230,14 +285,23 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
                                     <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0">
                                         <User className="w-5 h-5" />
                                     </div>
-                                    <div className="space-y-1">
-                                        <h4 className="font-semibold text-sm">{selectedMessage.name}</h4>
-                                        <p className="text-xs text-gray-500 flex items-center gap-1">
-                                            {selectedMessage.email} 
-                                            {selectedMessage.phone && <span className="text-gray-300">|</span>} 
-                                            {selectedMessage.phone}
+                                    <div className="space-y-1 w-full">
+                                        <div className="flex justify-between items-start">
+                                            <h4 className="font-semibold text-sm">{selectedMessage.name}</h4>
+                                            {selectedMessage.phone && (
+                                                <Button 
+                                                    size="sm" variant="outline" className="h-6 text-xs gap-1 text-green-600 border-green-200 bg-green-50 hover:bg-green-100"
+                                                    onClick={() => openWhatsApp(selectedMessage.phone)}
+                                                >
+                                                    <Phone className="w-3 h-3" /> Chat WA
+                                                </Button>
+                                            )}
+                                        </div>
+                                        <p className="text-xs text-gray-500 flex flex-col gap-0.5">
+                                            <span>{selectedMessage.email}</span>
+                                            <span>{selectedMessage.phone || "-"}</span>
                                         </p>
-                                        <p className="text-xs text-gray-400">
+                                        <p className="text-xs text-gray-400 mt-1">
                                             {new Date(selectedMessage.created_at).toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'short' })}
                                         </p>
                                     </div>
@@ -250,28 +314,80 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
 
                                 <div className="space-y-2">
                                     <div className="font-medium text-sm text-gray-500">Isi Pesan:</div>
-                                    <div className="text-sm leading-relaxed p-3 bg-white border rounded-md min-h-[100px] whitespace-pre-wrap">
+                                    <div className="text-sm leading-relaxed p-3 bg-white border rounded-md min-h-[80px] whitespace-pre-wrap">
                                         {selectedMessage.message}
                                     </div>
                                 </div>
+
+                                {isReplyMode ? (
+                                    <div className="space-y-3 pt-4 border-t mt-2 animate-in fade-in slide-in-from-bottom-2">
+                                        <Label htmlFor="reply" className="text-blue-600 font-semibold">Isi Balasan (Publik)</Label>
+                                        <Textarea 
+                                            id="reply"
+                                            value={replyText}
+                                            onChange={(e) => setReplyText(e.target.value)}
+                                            placeholder="Tuliskan ringkasan jawaban/tindak lanjut..."
+                                            rows={4}
+                                            className="focus-visible:ring-blue-500"
+                                        />
+                                        <div className="flex justify-end gap-2">
+                                            <Button variant="outline" onClick={() => setIsReplyMode(false)}>Batal</Button>
+                                            <Button onClick={submitReply} disabled={isSubmitting} className="bg-blue-600 hover:bg-blue-700">
+                                                {isSubmitting ? "Menyimpan..." : "Simpan & Publikasikan"}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    selectedMessage.reply && (
+                                        <div className="mt-4 p-4 bg-green-50 border border-green-100 rounded-lg">
+                                            <div className="flex items-center gap-2 mb-2 text-green-700 font-semibold text-sm">
+                                                <CheckCircle2 className="w-4 h-4" /> Telah Ditanggapi
+                                            </div>
+                                            <p className="text-sm text-gray-700">{selectedMessage.reply}</p>
+                                            <div className="mt-2 text-right">
+                                                <Button 
+                                                    variant="link" 
+                                                    className="text-xs text-blue-600 h-auto p-0"
+                                                    onClick={() => setIsReplyMode(true)}
+                                                >
+                                                    Edit Balasan
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    )
+                                )}
                             </div>
                         )}
 
-                        <DialogFooter>
-                            <Button variant="secondary" onClick={() => setIsDialogOpen(false)}>
-                                Tutup
-                            </Button>
-                            <Button variant="destructive" onClick={() => {
-                                if (selectedMessage) {
-                                    setIsDialogOpen(false);
-                                    setDeleteId(selectedMessage.id);
-                                }
-                            }}>
-                                <Trash className="w-4 h-4 mr-2" /> Hapus Pesan
-                            </Button>
-                        </DialogFooter>
+                        {!isReplyMode && (
+                            <DialogFooter className="gap-2 sm:gap-0">
+                                <Button 
+                                    variant="outline" 
+                                    className="border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"
+                                    onClick={() => {
+                                        if (selectedMessage) {
+                                            setIsDialogOpen(false);
+                                            setDeleteId(selectedMessage.id);
+                                        }
+                                    }}
+                                >
+                                    <Trash className="w-4 h-4 mr-2" /> Hapus
+                                </Button>
+                                
+                                {!selectedMessage?.reply && (
+                                    <Button onClick={() => setIsReplyMode(true)} className="bg-blue-600 hover:bg-blue-700">
+                                        <Reply className="w-4 h-4 mr-2" /> Tindak Lanjut
+                                    </Button>
+                                )}
+                                
+                                <Button variant="secondary" onClick={() => setIsDialogOpen(false)}>
+                                    Tutup
+                                </Button>
+                            </DialogFooter>
+                        )}
                     </DialogContent>
                 </Dialog>
+
                 <AlertDialog open={!!deleteId} onOpenChange={(open) => !open && setDeleteId(null)}>
                     <AlertDialogContent>
                         <AlertDialogHeader>
