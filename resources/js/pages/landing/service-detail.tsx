@@ -1,114 +1,134 @@
 import { Head, Link } from "@inertiajs/react"
 import PublicLayout from "@/layouts/public-layout"
-import { Clock, Calendar, ArrowLeft, CheckCircle2 } from "lucide-react"
+import { ArrowLeft, Clock, ImageIcon, CalendarDays } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 
-interface ServiceDetailProps {
-  service: {
-    name: string;
-    description: string;
-    category: string;
-    schedule: { day: string; time: string }[];
-    requirements: string[];
-    images: string[];
-  }
+interface ScheduleItem {
+  label: string;
+  time: string;
 }
 
-export default function ServiceDetail({ service }: ServiceDetailProps) {
+interface ServiceData {
+  title: string;
+  description: string;
+  schedule?: string | ScheduleItem[]; 
+  points?: string[];
+  images: string[];
+}
+
+export default function ServiceDetail({ service }: { service: ServiceData }) {
   return (
     <PublicLayout>
-      <Head title={service.name} />
+      <Head title={service.title} />
 
       <main className="min-h-screen bg-slate-50">
-        <section className="pt-32 pb-10 bg-primary">
+        
+        <section className="pt-32 pb-12 bg-primary">
           <div className="container mx-auto px-4 lg:px-8">
-            <Button asChild variant="ghost" className="text-white/80 hover:text-white hover:bg-white/10 mb-6 pl-0">
-                <Link href="/services">
-                    <ArrowLeft className="w-4 h-4 mr-2" /> Kembali ke Daftar Layanan
-                </Link>
-            </Button>
-            <Badge className="bg-white/20 text-white hover:bg-white/30 border-none mb-4">
-                {service.category}
-            </Badge>
-            <h1 className="text-3xl md:text-5xl font-bold text-white mb-4" style={{ fontFamily: "var(--font-heading)" }}>
-              {service.name}
+            <Link 
+                href="/services" 
+                className="inline-flex items-center text-white/80 hover:text-white mb-6 transition-colors"
+            >
+                <ArrowLeft className="w-4 h-4 mr-2" /> Kembali ke Daftar Layanan
+            </Link>
+            
+            <h1 className="text-3xl md:text-5xl font-bold text-white mb-6" style={{ fontFamily: "var(--font-heading)" }}>
+              {service.title}
             </h1>
+            
+            {service.schedule && (
+                <>
+                  {Array.isArray(service.schedule) ? (
+                    <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 max-w-md">
+                        <div className="flex items-center gap-2 mb-3 text-yellow-300 border-b border-white/10 pb-2">
+                            <CalendarDays className="w-5 h-5" />
+                            <span className="font-bold">Jadwal Praktik & Pelayanan</span>
+                        </div>
+                        <ul className="space-y-2">
+                            {service.schedule.map((item, idx) => (
+                                <li key={idx} className="flex justify-between items-start text-sm gap-4">
+                                    <span className="text-white/90 font-medium">{item.label}</span>
+                                    <span className="text-white font-bold text-right bg-white/20 px-2 py-0.5 rounded text-xs">
+                                        {item.time}
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2 text-white/90 bg-white/10 w-fit px-4 py-2 rounded-full backdrop-blur-sm border border-white/10">
+                        <Clock className="w-4 h-4 text-yellow-300" />
+                        <span className="font-bold text-yellow-300">Jadwal: {service.schedule}</span>
+                    </div>
+                  )}
+                </>
+            )}
+            
           </div>
         </section>
 
         <section className="py-12 container mx-auto px-4 lg:px-8">
-            <div className="grid lg:grid-cols-[2fr,1fr] gap-10">
+            <div className="grid lg:grid-cols-3 gap-8">
                 
-                <div className="space-y-10">
-                    
-                    <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div className="lg:col-span-1">
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-24">
                         <h3 className="text-xl font-bold text-gray-900 mb-4">Tentang Layanan</h3>
                         <p className="text-gray-600 leading-relaxed text-lg">
                             {service.description}
                         </p>
-
-                        <div className="mt-6 pt-6 border-t border-gray-100">
-                            <h4 className="font-semibold text-gray-900 mb-3">Persyaratan Pasien:</h4>
-                            <ul className="grid sm:grid-cols-2 gap-2">
-                                {service.requirements.map((req, i) => (
-                                    <li key={i} className="flex items-center gap-2 text-gray-600 text-sm">
-                                        <CheckCircle2 className="w-4 h-4 text-green-500" /> {req}
+                        
+                        {service.points && (
+                            <ul className="mt-4 space-y-2">
+                                {service.points.map((p, i) => (
+                                    <li key={i} className="text-sm text-gray-600 flex gap-2">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5"></div>
+                                        {p}
                                     </li>
                                 ))}
                             </ul>
-                        </div>
-                    </div>
+                        )}
 
-                    <div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-6">Galeri Kegiatan</h3>
-                        <div className="grid sm:grid-cols-2 gap-4">
-                            {service.images.map((img, idx) => (
-                                <div key={idx} className="aspect-video rounded-xl overflow-hidden shadow-md group">
-                                    <img 
-                                        src={img} 
-                                        alt={`Kegiatan ${service.name} ${idx + 1}`} 
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                    />
-                                </div>
-                            ))}
+                        <div className="mt-6 pt-6 border-t border-gray-100">
+                            <Badge variant="outline" className="text-primary border-primary bg-primary/5">
+                                Tersedia untuk Pasien BPJS & Umum
+                            </Badge>
                         </div>
                     </div>
                 </div>
 
-                <div className="lg:sticky lg:top-24 h-fit">
-                    <Card className="border-0 shadow-lg bg-white overflow-hidden">
-                        <div className="bg-orange-50 p-4 border-b border-orange-100">
-                            <div className="flex items-center gap-2 text-orange-700 font-bold text-lg">
-                                <Clock className="w-5 h-5" /> Jadwal Pelayanan
-                            </div>
+                <div className="lg:col-span-2 space-y-6">
+                    <div className="flex items-center gap-2 mb-4">
+                        <ImageIcon className="w-5 h-5 text-primary" />
+                        <h3 className="text-xl font-bold text-gray-900">Galeri Kegiatan & Fasilitas</h3>
+                    </div>
+
+                    {service.images && service.images.length > 0 ? (
+                        <div className="grid sm:grid-cols-2 gap-4">
+                            {service.images.map((img, index) => (
+                                <div key={index} className="group relative overflow-hidden rounded-xl shadow-md aspect-video bg-gray-200 cursor-pointer">
+                                    <img 
+                                        src={img} 
+                                        alt={`${service.title} ${index + 1}`}
+                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                        onError={(e) => {
+                                            e.currentTarget.src = "https://placehold.co/600x400/e2e8f0/94a3b8?text=Foto+Layanan";
+                                        }}
+                                    />
+                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                                </div>
+                            ))}
                         </div>
-                        <CardContent className="p-0">
-                            <table className="w-full text-sm text-left">
-                                <tbody className="divide-y divide-gray-100">
-                                    {service.schedule.map((item, idx) => (
-                                        <tr key={idx} className="hover:bg-slate-50">
-                                            <td className="px-6 py-4 font-medium text-gray-700 flex items-center gap-2">
-                                                <Calendar className="w-4 h-4 text-gray-400" />
-                                                {item.day}
-                                            </td>
-                                            <td className="px-6 py-4 text-right font-bold text-primary">
-                                                {item.time}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                            <div className="p-4 bg-gray-50 text-xs text-gray-500 text-center border-t border-gray-100">
-                                *Jadwal dapat berubah sewaktu-waktu.
-                            </div>
-                        </CardContent>
-                    </Card>
+                    ) : (
+                        <div className="h-40 bg-gray-50 rounded-xl flex flex-col items-center justify-center text-gray-400 border border-dashed border-gray-300">
+                            <ImageIcon className="w-8 h-8 mb-2 opacity-50" />
+                            <p>Dokumentasi foto belum tersedia.</p>
+                        </div>
+                    )}
                 </div>
 
             </div>
         </section>
+
       </main>
     </PublicLayout>
   )
