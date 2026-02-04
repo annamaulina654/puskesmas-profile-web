@@ -61,14 +61,14 @@ class LandingController extends Controller
             ['name' => 'Sanitarian', 'count' => 1],
             ['name' => 'Petugas Promkes', 'count' => 1],
             ['name' => 'Petugas Laborat', 'count' => 5],
-            ['name' => 'Petugas Pendaftaran', 'count' => 3],
+            ['name' => 'Petugas Unit Pendaftaran', 'count' => 3],
             ['name' => 'Kasir', 'count' => 1],
             ['name' => 'Tata Usaha', 'count' => 1],
-            ['name' => 'IT / Sistem Informasi', 'count' => 1],
-            ['name' => 'SKM (Sarjana Kesmas)', 'count' => 1],
+            ['name' => 'IT', 'count' => 1],
+            ['name' => 'SKM', 'count' => 1],
             ['name' => 'Akuntan', 'count' => 1],
             ['name' => 'Administrasi', 'count' => 1],
-            ['name' => 'Keamanan (Satpam)', 'count' => 2],
+            ['name' => 'Keamanan', 'count' => 2],
             ['name' => 'Sopir Ambulance', 'count' => 3],
             ['name' => 'Petugas Kebersihan', 'count' => 5],
         ];
@@ -110,7 +110,7 @@ class LandingController extends Controller
     {
         return [
             'manajemen-puskesmas' => [
-                'title' => 'Manajemen Terpadu Puskesmas',
+                'title' => 'Manajemen Puskesmas',
                 'description' => 'Sistem tata kelola administrasi dan manajemen operasional yang mendukung seluruh pelayanan kesehatan agar berjalan efektif, efisien, dan bermutu.',
                 'images' => [
                     '/images/layanan/manajemen1.jpg', 
@@ -151,7 +151,7 @@ class LandingController extends Controller
                 'images' => ['/images/layanan/neo.jpg']
             ],
             'pelayanan-gizi-ibu-anak' => [
-                'title' => 'Pelayanan Gizi & Laktasi',
+                'title' => 'Pelayanan Gizi Ibu dan Anak',
                 'description' => 'Konseling gizi untuk ibu hamil KEK, balita stunting, gizi buruk, serta konseling menyusui (ASI Eksklusif).',
                 'images' => [
                     '/images/layanan/gizi1.jpg',
@@ -195,7 +195,7 @@ class LandingController extends Controller
             'pembuatan-surat-sehat' => [
                 'title' => 'Surat Keterangan Sehat Anak',
                 'description' => 'Pemeriksaan fisik untuk persyaratan administrasi sekolah atau lomba bagi anak usia 0-17 tahun.',
-                'images' => ['/images/layanan/admin.jpg']
+                'images' => ['/images/layanan/ss.jpg']
             ],
             'usg-shk' => [
                 'title' => 'USG & Skrining Hipotiroid',
@@ -215,6 +215,12 @@ class LandingController extends Controller
                         'time' => 'Setiap Hari (Jam Pelayanan)'
                     ]
                 ],
+                'images' => [
+                    '/images/layanan/usg1.jpg',
+                    '/images/layanan/usg2.jpg',
+                    '/images/layanan/usg3.jpg',
+                    '/images/layanan/usg4.jpg',
+                ]
             ],
             'pelayanan-ckg' => [
                 'title' => 'Cek Kesehatan Gratis (CKG)',
@@ -259,12 +265,12 @@ class LandingController extends Controller
                 ]
             ],
             'rujukan-berjenjang' => [
-                'title' => 'Rujukan & Sanitasi',
+                'title' => 'Rujukan Berjenjang',
                 'description' => 'Layanan administrasi rujukan BPJS ke RS dan konsultasi kesehatan lingkungan.',
                 'images' => ['/images/layanan/rb.jpg']
             ],
             'pemeriksaan-kekerasan-perempuan-anak' => [
-                'title' => 'Layanan KTPA',
+                'title' => 'Pemeriksaan Kekerasan terhadap Perempuan dan Anak',
                 'description' => 'Pemeriksaan medis awal dan visum bagi korban kekerasan terhadap perempuan dan anak.',
                 'images' => [
                     '/images/layanan/kpa1.jpg',
@@ -281,7 +287,8 @@ class LandingController extends Controller
                     '/images/layanan/pm3.jfif',
                     '/images/layanan/pm4.jpg',
                     '/images/layanan/pm5.jpeg',
-                    '/images/layanan/pm6.jpg'
+                    '/images/layanan/pm6.jpg',
+                    '/images/layanan/pm7.jpg',
                 ]
             ],
             'surveilans-respon' => [
@@ -297,7 +304,7 @@ class LandingController extends Controller
             ],
 
             'pelayanan-gigi-mulut' => [
-                'title' => 'Poli Gigi & Mulut',
+                'title' => 'Pelayanan Gigi & Mulut',
                 'description' => 'Pelayanan kesehatan gigi dan mulut yang komprehensif.',
                 'images' => [
                     '/images/layanan/pgd.jpg',

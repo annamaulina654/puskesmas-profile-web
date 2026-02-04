@@ -44,16 +44,16 @@ const clusters = [
     services: [
       { name: "Manajemen Ketatausahaan", slug: "manajemen-puskesmas", icon: FileText },
       { name: "Manajemen SDM", slug: "manajemen-puskesmas", icon: UserCog },
-      { name: "Manajemen Sarana & Prasarana", slug: "manajemen-puskesmas", icon: Building2 },
+      { name: "Manajemen Sarana, Prasarana, dan Perbekalan keshatan", slug: "manajemen-puskesmas", icon: Building2 },
       { name: "Manajemen Mutu Pelayanan", slug: "manajemen-puskesmas", icon: ClipboardCheck },
       { name: "Manajemen Keuangan & Aset", slug: "manajemen-puskesmas", icon: Banknote },
-      { name: "Manajemen Sistem Informasi", slug: "manajemen-puskesmas", icon: Monitor },
+      { name: "Manajemen Sistem Informasi Digital", slug: "manajemen-puskesmas", icon: Monitor },
       { name: "Manajemen Jejaring", slug: "manajemen-puskesmas", icon: Network },
     ]
   },
   {
     id: "klaster-2",
-    title: "Klaster 2: Ibu, Anak & Remaja",
+    title: "Klaster 2: Ibu dan Anak",
     description: "Melayani ibu hamil, bersalin, nifas, bayi, balita, anak pra-sekolah, usia sekolah, dan remaja.",
     icon: Baby,
     services: [
@@ -66,32 +66,32 @@ const clusters = [
       { name: "MTBS", slug: "mtbs", desc: "Manajemen Terpadu Balita Sakit.", icon: Thermometer },
       { name: "Pembuatan Surat Sehat", slug: "pembuatan-surat-sehat", desc: "Untuk anak usia 0-17 tahun.", icon: FileCheck },
       { name: "USG & SHK", slug: "usg-shk", desc: "Ultrasonografi & Skrining Hipotiroid.", icon: Scan },
-      { name: "Pelayanan CKG Anak", slug: "pelayanan-ckg", desc: "Cek Kesehatan Gratis satu kali setahun.", icon: HeartPulse },
+      { name: "Pelayanan CKG", slug: "pelayanan-ckg", desc: "Cek Kesehatan Gratis satu kali setahun.", icon: HeartPulse },
     ]
   },
   {
     id: "klaster-3",
-    title: "Klaster 3: Dewasa & Lansia",
+    title: "Klaster 3: Usia Dewasa & Lansia",
     description: "Melayani kelompok usia produktif dan lanjut usia.",
     icon: Users,
     services: [
-      { name: "Pelayanan CKG Dewasa", slug: "pelayanan-ckg", desc: "Cek Kesehatan Gratis satu kali setahun.", icon: HeartPulse },
+      { name: "Pelayanan CKG", slug: "pelayanan-ckg", desc: "Cek Kesehatan Gratis satu kali setahun.", icon: HeartPulse },
       { name: "Pengobatan Umum", slug: "pengobatan-umum", desc: "Pemeriksaan & pengobatan penyakit umum.", icon: Stethoscope },
       { name: "Pelayanan KB", slug: "pelayanan-kb", desc: "Keluarga Berencana.", icon: Users },
       { name: "Kesehatan Gigi Dewasa", slug: "kesehatan-gigi-dewasa", desc: "Perawatan gigi & mulut usia dewasa.", icon: Smile },
       { name: "Surat Keterangan Sehat", slug: "surat-keterangan-sehat", icon: FileCheck }, 
       { name: "Pemeriksaan Catin", slug: "pemeriksaan-catin", icon: HeartHandshake },
-      { name: "Rujukan & Sanitasi", slug: "rujukan-berjenjang", desc: "Rujukan BPJS & Konsultasi Kesling.", icon: Ambulance },
-      { name: "Layanan KTPA", slug: "pemeriksaan-kekerasan-perempuan-anak", desc: "Kekerasan Terhadap Perempuan & Anak", icon: Shield },
+      { name: "Rujukan Berjenjang", slug: "rujukan-berjenjang", desc: "Rujukan BPJS & Konsultasi Kesling.", icon: Ambulance },
+      { name: "Pemeriksaan Kekerasan terhadap Perempuan dan Anak", slug: "pemeriksaan-kekerasan-perempuan-anak", desc: "Kekerasan Terhadap Perempuan & Anak", icon: Shield },
     ]
   },
   {
     id: "klaster-4",
-    title: "Klaster 4: Penanggulangan Penyakit",
+    title: "Klaster 4: Penanggulangan Penyakit Menular",
     description: "Fokus pada pencegahan, pengendalian penyakit, dan kesehatan lingkungan.",
     icon: ShieldAlert,
     services: [
-      { name: "Penyakit Menular (P2P)", slug: "penyakit-menular-langsung", desc: "TBC, HIV/AIDS, Kusta, Diare, ISPA, dll.", icon: Thermometer },
+      { name: "Penyakit Menular Langsung", slug: "penyakit-menular-langsung", desc: "TBC, HIV/AIDS, Kusta, Diare, ISPA, dll.", icon: Thermometer },
       { name: "Surveilans & Respon", slug: "surveilans-respon", desc: "Pemantauan wabah & penyebaran penyakit.", icon: Microscope },
     ]
   },
@@ -216,7 +216,7 @@ export default function ServicesPage() {
                                         </div>
                                         <div>
                                             <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
-                                                Manajemen Terpadu Puskesmas
+                                                Manajemen Puskesmas
                                             </h3>
                                             <p className="text-gray-500 leading-relaxed mb-4">
                                                 Klik disini untuk melihat detail.
