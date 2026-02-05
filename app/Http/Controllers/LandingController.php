@@ -249,7 +249,10 @@ class LandingController extends Controller
             'kesehatan-gigi-dewasa' => [
                 'title' => 'Kesehatan Gigi Dewasa',
                 'description' => 'Pemeriksaan gigi, penambalan, pencabutan, dan pembersihan karang gigi (scalling).',
-                'images' => ['/images/layanan/gigi.jpg']
+                'images' => [
+                    '/images/layanan/ppgd.jpg',
+                    '/images/layanan/pgd.jpg',
+                ]
             ],
             'surat-keterangan-sehat' => [
                 'title' => 'Surat Keterangan Sehat',
@@ -306,25 +309,61 @@ class LandingController extends Controller
             'pelayanan-gigi-mulut' => [
                 'title' => 'Pelayanan Gigi & Mulut',
                 'description' => 'Pelayanan kesehatan gigi dan mulut yang komprehensif.',
-                'images' => [
-                    '/images/layanan/pgd.jpg',
-                    '/images/layanan/pgs.jpg',
-                    '/images/layanan/pkg.jpg',
-                    '/images/layanan/ppga.jpg',
-                    '/images/layanan/ppgd.jpg',
-                    '/images/layanan/ppgs.jpg'
+                'detailed_items' => [
+                    [
+                        'name' => 'Perawatan Gigi',
+                        'images' => [
+                            '/images/layanan/ppgd.jpg',
+                        ]
+                    ],
+                    [
+                        'name' => 'Penambalan Gigi',
+                        'images' => [
+                            '/images/layanan/ppga.jpg'
+                        ]
+                    ],
+                    [
+                        'name' => 'Pencabutan Gigi',
+                        'images' => [
+                            '/images/layanan/pgs.jpg',
+                            '/images/layanan/pgd.jpg',
+                            '/images/layanan/ppgs.jpg',
+                        ]
+                    ],
+                    [
+                        'name' => 'Pembersihan Karang Gigi (Scaling)',
+                        'images' => [
+                            '/images/layanan/pkg.jpg'
+                        ]
+                    ],
                 ]
             ],
             'laboratorium-labkesmas' => [
                 'title' => 'Laboratorium',
                 'description' => 'Pemeriksaan penunjang medis: Darah Lengkap, Urine, Gula Darah, Kolesterol, Asam Urat, BTA, dll.',
-                'images' => [
-                    '/images/layanan/hdl.jpg',
-                    '/images/layanan/kimia.jpg',
-                    '/images/layanan/lphl.jpg',
-                    '/images/layanan/lptbc.jpg',
-                    '/images/layanan/tbc.jpg',
-                ]
+                'detailed_items' => [
+                    [
+                        'name' => 'Hematologi: Darah Lengkap',
+                        'images' => [
+                            '/images/layanan/lphl.jpg',
+                            '/images/layanan/hdl.jpg',
+                        ]
+                    ],
+                    [
+                        'name' => 'Kimia Klinik',
+                        'images' => [
+                            '/images/layanan/kimia.jpg'
+                        ]
+                    ],
+                    [
+                        'name' => 'Pemeriksaan TBC',
+                        'images' => [
+                            '/images/layanan/lptbc.jpg',
+                            '/images/layanan/tbc.jpg',
+                            '/images/layanan/ppgs.jpg',
+                        ]
+                    ],
+                ],
             ],
             'pelayanan-kefarmasian' => [
                 'title' => 'Farmasi / Apotek',
@@ -338,12 +377,27 @@ class LandingController extends Controller
             'ugd-24-jam' => [
                 'title' => 'UGD 24 Jam',
                 'description' => 'Unit Gawat Darurat siap siaga 24 jam menangani kecelakaan dan kegawatdaruratan medis.',
-                'images' => [
-                    '/images/layanan/infus.jpeg',
-                    '/images/layanan/ppr.jpeg',
-                    '/images/layanan/rawat-luka.jpeg',
-                    '/images/layanan/sir.jpeg'
-                ]
+                'detailed_items' => [
+                    [
+                        'name' => 'Penanganan kasus gawat darurat siap 24 jam.',
+                        'images' => [
+                            '/images/layanan/infus.jpeg',
+                            '/images/layanan/ppr.jpeg',
+                        ]
+                    ],
+                    [
+                        'name' => 'Pelayanan Sirkumsisi / Khitan',
+                        'images' => [
+                            '/images/layanan/sir.jpeg'
+                        ]
+                    ],
+                    [
+                        'name' => 'Perawatan Luka',
+                        'images' => [
+                            '/images/layanan/rawat-luka.jpeg',
+                        ]
+                    ],
+                ],
             ],
             'rawat-inap' => [
                 'title' => 'Rawat Inap',

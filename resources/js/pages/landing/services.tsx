@@ -114,11 +114,9 @@ const lintasKlaster = [
     slug: "laboratorium-labkesmas",
     icon: Microscope,
     items: [
-      "Hematologi: Darah Rutin (Hb, Lekosit, dll)",
-      "Urinalisa: Urine Lengkap & Tes Hamil",
-      "Kimia Klinik: Kolesterol, Asam Urat, GDA",
-      "Mikrobiologi: BTA & TCM",
-      "Imunoserologi: HIV, Sipilis, Hepatitis B"
+      "Hematologi: Darah Lengkap",
+      "Kimia Klinik",
+      "Pemeriksaan TBC",
     ]
   },
   {
