@@ -89,28 +89,46 @@ export default function ActivityEdit({ activity }: ActivityProps) {
                     <ArrowLeft className="w-4 h-4 mr-1" /> Kembali
                 </Link>
 
-                <Card>
+                <Card className="bg-white border-gray-200 shadow-sm">
                     <CardHeader>
-                        <CardTitle>Edit Kegiatan</CardTitle>
+                        <CardTitle className="text-gray-900">Edit Kegiatan</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={submit} className="space-y-6" encType="multipart/form-data">
                             
                             <div className="space-y-2">
-                                <Label htmlFor="title">Nama Kegiatan</Label>
-                                <Input id="title" value={data.title} onChange={(e) => setData('title', e.target.value)} required />
+                                <Label htmlFor="title" className="text-gray-700">Nama Kegiatan</Label>
+                                <Input 
+                                    id="title" 
+                                    value={data.title} 
+                                    onChange={(e) => setData('title', e.target.value)} 
+                                    required 
+                                    className="bg-white border-gray-300 text-gray-900"
+                                />
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <Label htmlFor="date">Tanggal</Label>
-                                    <Input id="date" type="date" value={data.date} onChange={(e) => setData('date', e.target.value)} required />
+                                    <Label htmlFor="date" className="text-gray-700">Tanggal</Label>
+                                    <Input 
+                                        id="date" 
+                                        type="date" 
+                                        value={data.date} 
+                                        onChange={(e) => setData('date', e.target.value)} 
+                                        required 
+                                        className="bg-white border-gray-300 text-gray-900"
+                                    />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="category">Kategori</Label>
-                                    <Select value={data.category} onValueChange={(value) => setData('category', value)}>
-                                        <SelectTrigger><SelectValue /></SelectTrigger>
-                                        <SelectContent>
+                                    <Label htmlFor="category" className="text-gray-700">Kategori</Label>
+                                    <Select 
+                                        value={data.category} 
+                                        onValueChange={(value) => setData('category', value)}
+                                    >
+                                        <SelectTrigger className="bg-white border-gray-300 text-gray-900">
+                                            <SelectValue />
+                                        </SelectTrigger>
+                                        <SelectContent className="bg-white border-gray-200">
                                             <SelectItem value="Posyandu">Posyandu</SelectItem>
                                             <SelectItem value="Penyuluhan">Penyuluhan</SelectItem>
                                             <SelectItem value="Vaksinasi">Vaksinasi</SelectItem>
@@ -122,75 +140,89 @@ export default function ActivityEdit({ activity }: ActivityProps) {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="location">Lokasi</Label>
-                                <Input id="location" value={data.location} onChange={(e) => setData('location', e.target.value)} required />
+                                <Label htmlFor="location" className="text-gray-700">Lokasi</Label>
+                                <Input 
+                                    id="location" 
+                                    value={data.location} 
+                                    onChange={(e) => setData('location', e.target.value)} 
+                                    required 
+                                    className="bg-white border-gray-300 text-gray-900"
+                                />
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="description">Deskripsi</Label>
-                                <Textarea id="description" value={data.description} onChange={(e) => setData('description', e.target.value)} className="min-h-[120px]" required />
+                                <Label htmlFor="description" className="text-gray-700">Deskripsi</Label>
+                                <Textarea 
+                                    id="description" 
+                                    value={data.description} 
+                                    onChange={(e) => setData('description', e.target.value)} 
+                                    className="min-h-[120px] bg-white border-gray-300 text-gray-900" 
+                                    required 
+                                />
                             </div>
 
                             <div className="space-y-4">
-                                <Label>Kelola Foto</Label>
+                                <Label className="text-gray-700">Kelola Foto</Label>
                                 
-                                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                                    
-                                    {existingImages.map((img, index) => (
-                                        <div key={`old-${index}`} className="relative aspect-square rounded-lg overflow-hidden border border-gray-200 group">
-                                            <img src={`/storage/${img}`} alt="Foto Lama" className="w-full h-full object-cover" />
-                                            <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-[10px] text-center py-1">
-                                                Tersimpan
+                                {(existingImages.length > 0 || newPreviews.length > 0) && (
+                                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                                        
+                                        {existingImages.map((img, index) => (
+                                            <div key={`old-${index}`} className="relative aspect-square rounded-lg overflow-hidden border border-gray-200 group bg-gray-50">
+                                                <img src={`/storage/${img}`} alt="Foto Lama" className="w-full h-full object-cover" />
+                                                <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-[10px] text-center py-1">
+                                                    Tersimpan
+                                                </div>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removeExistingImage(img)}
+                                                    className="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition shadow-sm"
+                                                    title="Hapus foto ini"
+                                                >
+                                                    <X className="w-3 h-3" />
+                                                </button>
                                             </div>
-                                            <button
-                                                type="button"
-                                                onClick={() => removeExistingImage(img)}
-                                                className="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition shadow-sm"
-                                                title="Hapus foto ini"
-                                            >
-                                                <X className="w-3 h-3" />
-                                            </button>
-                                        </div>
-                                    ))}
+                                        ))}
 
-                                    {newPreviews.map((src, index) => (
-                                        <div key={`new-${index}`} className="relative aspect-square rounded-lg overflow-hidden border border-indigo-400 border-dashed group bg-indigo-50">
-                                            <img src={src} alt="Foto Baru" className="w-full h-full object-cover opacity-80" />
-                                            <div className="absolute bottom-0 left-0 right-0 bg-indigo-600/80 text-white text-[10px] text-center py-1">
-                                                Baru
+                                        {newPreviews.map((src, index) => (
+                                            <div key={`new-${index}`} className="relative aspect-square rounded-lg overflow-hidden border border-indigo-400 border-dashed group bg-indigo-50">
+                                                <img src={src} alt="Foto Baru" className="w-full h-full object-cover opacity-80" />
+                                                <div className="absolute bottom-0 left-0 right-0 bg-indigo-600/80 text-white text-[10px] text-center py-1">
+                                                    Baru
+                                                </div>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removeNewImage(index)}
+                                                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 shadow-sm"
+                                                    title="Batal upload"
+                                                >
+                                                    <X className="w-3 h-3" />
+                                                </button>
                                             </div>
-                                            <button
-                                                type="button"
-                                                onClick={() => removeNewImage(index)}
-                                                className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 shadow-sm"
-                                                title="Batal upload"
-                                            >
-                                                <X className="w-3 h-3" />
-                                            </button>
-                                        </div>
-                                    ))}
-
-                                    <div className="border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 hover:bg-gray-100 transition flex flex-col items-center justify-center cursor-pointer relative aspect-square">
-                                        <input 
-                                            type="file"
-                                            multiple 
-                                            accept="image/*"
-                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                            onChange={handleFileChange}
-                                            onClick={(e) => (e.currentTarget.value = '')}
-                                        />
-                                        <UploadCloud className="w-8 h-8 text-gray-400 mb-1" />
-                                        <span className="text-xs text-gray-500 font-medium">Tambah Foto</span>
+                                        ))}
                                     </div>
+                                )}
+
+                                <div className="border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 hover:bg-gray-100 transition flex flex-col items-center justify-center cursor-pointer relative p-6">
+                                    <input 
+                                        type="file"
+                                        multiple 
+                                        accept="image/*"
+                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                        onChange={handleFileChange}
+                                        onClick={(e) => (e.currentTarget.value = '')}
+                                    />
+                                    <UploadCloud className="w-8 h-8 text-gray-400 mb-1" />
+                                    <span className="text-xs text-gray-500 font-medium">Tambah Foto Lagi</span>
                                 </div>
                                 
                                 <p className="text-xs text-gray-500">
-                                    * Klik ikon tempat sampah / silang pada gambar untuk menghapus.
+                                    * Klik ikon silang pada gambar untuk menghapus.
                                 </p>
                             </div>
 
                             <div className="flex justify-end pt-4">
-                                <Button type="submit" disabled={processing} className="w-full md:w-auto">
+                                <Button type="submit" disabled={processing} className="w-full md:w-auto bg-primary text-white hover:bg-primary/90">
                                     <Save className="w-4 h-4 mr-2" />
                                     {processing ? 'Menyimpan...' : 'Simpan Perubahan'}
                                 </Button>

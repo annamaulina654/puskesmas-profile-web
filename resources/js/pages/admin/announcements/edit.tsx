@@ -53,47 +53,49 @@ export default function AnnouncementEdit({ announcement }: AnnouncementProps) {
                     <ArrowLeft className="w-4 h-4 mr-1" /> Kembali
                 </Link>
 
-                <Card>
+                <Card className="bg-white border-gray-200 shadow-sm">
                     <CardHeader>
-                        <CardTitle>Edit Pengumuman</CardTitle>
+                        <CardTitle className="text-gray-900">Edit Pengumuman</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={submit} className="space-y-6">
                             
                             <div className="space-y-2">
-                                <Label htmlFor="title">Judul Pengumuman</Label>
+                                <Label htmlFor="title" className="text-gray-700">Judul Pengumuman</Label>
                                 <Input
                                     id="title"
                                     value={data.title}
                                     onChange={(e) => setData('title', e.target.value)}
                                     required
+                                    className="bg-white border-gray-300 text-gray-900 focus:border-primary focus:ring-primary"
                                 />
                                 {errors.title && <p className="text-sm text-red-500">{errors.title}</p>}
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <Label htmlFor="date">Tanggal</Label>
+                                    <Label htmlFor="date" className="text-gray-700">Tanggal</Label>
                                     <Input
                                         id="date"
                                         type="date"
                                         value={data.date}
                                         onChange={(e) => setData('date', e.target.value)}
                                         required
+                                        className="bg-white border-gray-300 text-gray-900"
                                     />
                                     {errors.date && <p className="text-sm text-red-500">{errors.date}</p>}
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="type">Kategori</Label>
+                                    <Label htmlFor="type" className="text-gray-700">Kategori</Label>
                                     <Select 
                                         value={data.type}
                                         onValueChange={(value) => setData('type', value)}
                                     >
-                                        <SelectTrigger>
+                                        <SelectTrigger className="bg-white border-gray-300 text-gray-900">
                                             <SelectValue placeholder="Pilih Kategori" />
                                         </SelectTrigger>
-                                        <SelectContent>
+                                        <SelectContent className="bg-white border-gray-200">
                                             <SelectItem value="Penting">Penting</SelectItem>
                                             <SelectItem value="Program">Program</SelectItem>
                                             <SelectItem value="Prestasi">Prestasi</SelectItem>
@@ -105,32 +107,32 @@ export default function AnnouncementEdit({ announcement }: AnnouncementProps) {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="content">Isi Pengumuman</Label>
+                                <Label htmlFor="content" className="text-gray-700">Isi Pengumuman</Label>
                                 <Textarea
                                     id="content"
                                     value={data.content}
                                     onChange={(e) => setData('content', e.target.value)}
-                                    className="min-h-[150px]"
+                                    className="min-h-[150px] bg-white border-gray-300 text-gray-900"
                                     required
                                 />
                                 {errors.content && <p className="text-sm text-red-500">{errors.content}</p>}
                             </div>
 
-                            <div className="flex items-center space-x-2 border p-4 rounded-md bg-gray-50">
+                            <div className="flex items-center space-x-2 border border-gray-200 p-4 rounded-md bg-gray-50">
                                 <input
                                     type="checkbox"
                                     id="is_active"
-                                    className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
-                                    checked={data.is_active}
+                                    className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary bg-white"
+                                    checked={Boolean(data.is_active)}
                                     onChange={(e) => setData('is_active', e.target.checked)}
                                 />
-                                <Label htmlFor="is_active" className="cursor-pointer">
+                                <Label htmlFor="is_active" className="cursor-pointer text-gray-700">
                                     Tampilkan Pengumuman (Status Aktif)
                                 </Label>
                             </div>
 
                             <div className="flex justify-end pt-4">
-                                <Button type="submit" disabled={processing} className="w-full md:w-auto">
+                                <Button type="submit" disabled={processing} className="w-full md:w-auto bg-primary text-white hover:bg-primary/90">
                                     <Save className="w-4 h-4 mr-2" />
                                     {processing ? 'Menyimpan...' : 'Perbarui Pengumuman'}
                                 </Button>

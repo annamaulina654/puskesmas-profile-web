@@ -53,7 +53,7 @@ export default function Dashboard({ stats, recent_messages, recent_activities }:
                 
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+                        <h1 className="text-2xl font-bold tracking-tight text-gray-900">
                             Selamat Datang, Admin!
                         </h1>
                         <p className="text-muted-foreground text-sm mt-1">
@@ -110,7 +110,7 @@ export default function Dashboard({ stats, recent_messages, recent_activities }:
                         </CardContent>
                     </Card>
 
-                    <Card className="shadow-sm bg-green-50/50 dark:bg-green-900/10 border-green-100">
+                    <Card className="shadow-sm bg-green-50/50 border-green-100">
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-sm font-medium text-green-700">Status Website</CardTitle>
                             <ActivityIcon className="h-4 w-4 text-green-600" />
@@ -126,7 +126,7 @@ export default function Dashboard({ stats, recent_messages, recent_activities }:
 
                 <div className="grid gap-6 md:grid-cols-7">
                     
-                    <Card className="md:col-span-4 shadow-sm border-gray-200 dark:border-gray-800">
+                    <Card className="md:col-span-4 shadow-sm border-gray-200">
                         <CardHeader>
                             <div className="flex items-center justify-between">
                                 <div>
@@ -142,7 +142,7 @@ export default function Dashboard({ stats, recent_messages, recent_activities }:
                             <div className="space-y-4">
                                 {recent_messages.length > 0 ? (
                                     recent_messages.map((msg) => (
-                                        <div key={msg.id} className="flex items-start gap-4 p-3 rounded-lg border bg-white dark:bg-gray-900 hover:bg-gray-50 transition-colors">
+                                        <div key={msg.id} className="flex items-start gap-4 p-3 rounded-lg border bg-white hover:bg-gray-50 transition-colors">
                                             <div className={`mt-1 p-2 rounded-full ${msg.is_read ? 'bg-gray-100' : 'bg-blue-100'}`}>
                                                 <User className={`h-4 w-4 ${msg.is_read ? 'text-gray-500' : 'text-blue-600'}`} />
                                             </div>
@@ -153,7 +153,7 @@ export default function Dashboard({ stats, recent_messages, recent_activities }:
                                                         {new Date(msg.created_at).toLocaleDateString('id-ID')}
                                                     </span>
                                                 </div>
-                                                <p className="text-sm text-gray-600 dark:text-gray-300 font-medium line-clamp-1">
+                                                <p className="text-sm text-gray-600 font-medium line-clamp-1">
                                                     {msg.subject}
                                                 </p>
                                                 {!msg.is_read && (
@@ -166,7 +166,7 @@ export default function Dashboard({ stats, recent_messages, recent_activities }:
                                     ))
                                 ) : (
                                     <div className="text-center py-8 text-muted-foreground text-sm">
-                                        Belum ada pesan masuk.
+                                            Belum ada pesan masuk.
                                     </div>
                                 )}
                             </div>

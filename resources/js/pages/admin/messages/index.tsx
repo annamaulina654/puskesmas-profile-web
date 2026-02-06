@@ -142,7 +142,7 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
                 
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                        <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+                        <h1 className="text-2xl font-bold tracking-tight text-gray-900">
                             Kotak Masuk
                         </h1>
                         <p className="text-muted-foreground text-sm mt-1">
@@ -154,18 +154,18 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
                         <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                         <Input
                             placeholder="Cari pengirim atau subjek..."
-                            className="pl-9 bg-white dark:bg-gray-800"
+                            className="pl-9 bg-white"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </div>
                 </div>
 
-                <Card className="overflow-hidden border-gray-200 dark:border-gray-800 shadow-sm">
+                <Card className="overflow-hidden border-gray-200 shadow-sm">
                     <CardContent className="p-0">
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm text-left">
-                                <thead className="bg-gray-50 dark:bg-gray-800/50 text-gray-500 border-b border-gray-200 dark:border-gray-700">
+                                <thead className="bg-gray-50 text-gray-500 border-b border-gray-200">
                                     <tr>
                                         <th className="px-6 py-4 font-medium uppercase text-xs tracking-wider w-[50px]">Status</th>
                                         <th className="px-6 py-4 font-medium uppercase text-xs tracking-wider">Pengirim</th>
@@ -174,7 +174,7 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
                                         <th className="px-6 py-4 font-medium uppercase text-xs tracking-wider text-right">Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-gray-100 dark:divide-gray-800 bg-white dark:bg-gray-900">
+                                <tbody className="divide-y divide-gray-100 bg-white">
                                     {filteredData.length > 0 ? (
                                         filteredData.map((item) => (
                                             <tr 
@@ -231,6 +231,7 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
                                                         <DropdownMenuTrigger asChild>
                                                             <Button variant="ghost" size="icon" className="h-8 w-8">
                                                                 <MoreHorizontal className="h-4 w-4" />
+                                                                <span className="sr-only">Open menu</span>
                                                             </Button>
                                                         </DropdownMenuTrigger>
                                                         <DropdownMenuContent align="end">
@@ -267,7 +268,7 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
                 </Card>
 
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                    <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+                    <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto bg-white">
                         <DialogHeader>
                             <DialogTitle>
                                 {isReplyMode ? "Tindak Lanjut & Balas" : "Detail Pesan"}
@@ -328,7 +329,7 @@ export default function MessageIndex({ messages }: { messages: Message[] }) {
                                             onChange={(e) => setReplyText(e.target.value)}
                                             placeholder="Tuliskan ringkasan jawaban/tindak lanjut..."
                                             rows={4}
-                                            className="focus-visible:ring-blue-500"
+                                            className="focus-visible:ring-blue-500 bg-white"
                                         />
                                         <div className="flex justify-end gap-2">
                                             <Button variant="outline" onClick={() => setIsReplyMode(false)}>Batal</Button>
