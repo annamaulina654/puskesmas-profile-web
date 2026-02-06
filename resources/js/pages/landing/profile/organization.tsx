@@ -8,6 +8,7 @@ const leadership = [
   {
     name: "Rudi Hartono, S.Kep., Ns",
     position: "Kepala UPT Puskesmas",
+    image: "/images/bapak.jpeg",
   },
 ]
 
@@ -122,10 +123,26 @@ export default function OrganizationPage() {
 
             <div className="flex flex-wrap justify-center gap-8">
               {leadership.map((person, index) => (
-                <Card key={index} className="w-full max-w-sm border-0 shadow-lg group hover:-translate-y-2 transition-all duration-300">
+                <Card key={index} className="w-full max-w-sm border-0 shadow-lg group hover:-translate-y-2 transition-all duration-300 overflow-hidden">
                   <CardContent className="p-8 text-center flex flex-col items-center">
-                    <div className="w-24 h-24 mb-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                        <UserCircle2 className="w-16 h-16 text-primary group-hover:text-white transition-colors duration-300" />
+                    
+                    <div className="w-40 h-40 mb-6 rounded-full border-4 border-white shadow-lg overflow-hidden relative group-hover:border-primary/20 transition-colors duration-300">
+                        {person.image ? (
+                            <img 
+                                src={person.image} 
+                                alt={person.name}
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                onError={(e) => {
+                                    e.currentTarget.style.display = 'none';
+                                    e.currentTarget.parentElement!.classList.add('bg-primary/10', 'flex', 'items-center', 'justify-center');
+                                    e.currentTarget.parentElement!.innerHTML = '<svg class="w-20 h-20 text-primary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/></svg>';
+                                }}
+                            />
+                        ) : (
+                            <div className="w-full h-full bg-primary/10 flex items-center justify-center">
+                                <UserCircle2 className="w-20 h-20 text-primary" />
+                            </div>
+                        )}
                     </div>
                     
                     <h3 className="text-2xl font-bold text-foreground mb-2">{person.name}</h3>

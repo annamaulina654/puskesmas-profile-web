@@ -113,8 +113,9 @@ class LandingController extends Controller
                 'title' => 'Manajemen Puskesmas',
                 'description' => 'Sistem tata kelola administrasi dan manajemen operasional yang mendukung seluruh pelayanan kesehatan agar berjalan efektif, efisien, dan bermutu.',
                 'images' => [
-                    '/images/layanan/manajemen1.jpg', 
-                    '/images/layanan/manajemen2.jpg'
+                    '/images/layanan/man1.jpeg', 
+                    '/images/layanan/man2.jpeg',
+                    '/images/layanan/man3.jpeg'
                 ],
                 'points' => [
                     'Manajemen Ketatausahaan',
@@ -130,18 +131,18 @@ class LandingController extends Controller
                 'title' => 'ANC (Antenatal Care)',
                 'description' => 'Pemeriksaan kehamilan rutin terpadu (10T) untuk memastikan kesehatan ibu dan janin tetap optimal hingga masa persalinan.',
                 'images' => [
-                    '/images/layanan/anc1.jpeg', 
                     '/images/layanan/anc2.jpeg',
+                    '/images/layanan/anc0.jpeg',
+                    '/images/layanan/anc9.jpeg',
+                    '/images/layanan/kia.jpeg',
                 ]
             ],
             'persalinan-nifas' => [
                 'title' => 'Persalinan & Nifas',
                 'description' => 'Layanan persalinan normal yang siaga 24 jam dengan bidan profesional dan fasilitas yang memadai.',
                 'images' => [
-                    '/images/layanan/pn1.jpeg',
+                    '/images/layanan/pnn.jpeg',
                     '/images/layanan/pn2.jpg',
-                    '/images/layanan/pn3.jpg',
-                    '/images/layanan/pn4.jpg',
                     '/images/layanan/pn5.jpg'
                 ]
             ],
@@ -156,6 +157,7 @@ class LandingController extends Controller
                 'images' => [
                     '/images/layanan/gizi1.jpg',
                     '/images/layanan/gizi2.jpg',
+                    '/images/layanan/kia.jpeg',
                     '/images/layanan/gizi3.jpg'
                 ]
             ],
@@ -203,11 +205,11 @@ class LandingController extends Controller
                 
                 'schedule' => [
                     [
-                        'label' => 'USG (dr. Iin)', 
+                        'label' => 'USG (dr. Qurrotu Aini)', 
                         'time' => 'Selasa - Kamis'
                     ],
                     [
-                        'label' => 'USG (dr. Fian)', 
+                        'label' => 'USG (dr. Vebrian Andika Putra)', 
                         'time' => "Jum'at"
                     ],
                     [
@@ -276,8 +278,6 @@ class LandingController extends Controller
                 'title' => 'Pemeriksaan Kekerasan terhadap Perempuan dan Anak',
                 'description' => 'Pemeriksaan medis awal dan visum bagi korban kekerasan terhadap perempuan dan anak.',
                 'images' => [
-                    '/images/layanan/kpa1.jpg',
-                    '/images/layanan/kpa2.jpg'
                 ]
             ],
 
@@ -345,7 +345,7 @@ class LandingController extends Controller
                     [
                         'name' => 'Hematologi: Darah Lengkap',
                         'images' => [
-                            '/images/layanan/lphl.jpg',
+                            '/images/layanan/lphl.jpeg',
                             '/images/layanan/hdl.jpg',
                         ]
                     ],
@@ -358,9 +358,9 @@ class LandingController extends Controller
                     [
                         'name' => 'Pemeriksaan TBC',
                         'images' => [
-                            '/images/layanan/lptbc.jpg',
+                            '/images/layanan/lptbc.jpeg',
                             '/images/layanan/tbc.jpg',
-                            '/images/layanan/ppgs.jpg',
+                            '/images/layanan/lab2.jpeg',
                         ]
                     ],
                 ],

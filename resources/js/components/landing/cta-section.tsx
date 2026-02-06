@@ -11,7 +11,7 @@ export function CTASection() {
           <div className="relative">
             <div className="relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-2xl">
               <img 
-                src="/images/puskesmas-light.jpeg" 
+                src="/images/pus.jpeg" 
                 alt="Puskesmas Sehat Sejahtera" 
                 className="w-full h-full object-cover" 
               />
@@ -84,7 +84,7 @@ export function CTASection() {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 rounded-full px-8">
-                <Link href="/contact">
+                <Link href="/information/contact">
                   Hubungi Sekarang
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>

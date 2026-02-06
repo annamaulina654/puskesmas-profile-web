@@ -8,7 +8,7 @@ const quickLinks = [
   { label: "Layanan", href: "/services" },
   { label: "Pengumuman", href: "/information/announcements" },
   { label: "Kegiatan", href: "/information/activities" },
-  { label: "Kontak", href: "/contact" },
+  { label: "Pengaduan", href: "/complaints" },
 ]
 
 const services = [
@@ -44,24 +44,30 @@ export function Footer() {
               terjangkau untuk semua lapisan masyarakat.
             </p>
             <div className="flex gap-3">
-              <Link
+              <a
                 href="https://www.facebook.com/profile.php?id=100089389995864&ref=_ig_profile_ac"
+                target="_blank" 
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
               >
                 <Facebook className="w-5 h-5" />
-              </Link>
-              <Link
+              </a>
+              <a
                 href="https://www.instagram.com/puskesmas.kwanyar_real/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
               >
                 <Instagram className="w-5 h-5" />
-              </Link>
-              <Link
+              </a>
+              <a
                 href="https://www.tiktok.com/@puskesmaskwanyar?is_from_webapp=1&sender_device=pc"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
               >
                 <TiktokIcon className="w-5 h-5" />
-              </Link>
+              </a>
             </div>
           </div>
 

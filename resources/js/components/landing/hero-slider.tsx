@@ -22,7 +22,7 @@ const slides = [
   },
   {
     id: 3,
-    image: "/images/puskesmas-light.jpeg",
+    image: "/images/slider1.jpeg",
     title: "Program Kesehatan Masyarakat",
     subtitle: "Berbagai program inovatif untuk meningkatkan kualitas kesehatan komunitas",
     cta: "Lihat Kegiatan",
@@ -30,11 +30,29 @@ const slides = [
   },
   {
     id: 4,
-    image: "/images/formal.jpeg",
+    image: "/images/slider2.jpeg",
     title: "Kesehatan Ibu dan Anak",
     subtitle: "Program khusus untuk kesejahteraan ibu hamil, menyusui, dan tumbuh kembang anak",
     cta: "Pelajari Lebih Lanjut",
     ctaLink: "/services",
+  },
+  {
+    id: 5,
+    image: "/images/slider3.jpeg",
+    title: "Fasilitas Nyaman & Bersih",
+    subtitle: "Kenyamanan pasien adalah prioritas utama kami",
+  },
+  {
+    id: 6,
+    image: "/images/slider4.jpeg",
+    title: "Fasilitas Medis Lengkap",
+    subtitle: "Didukung sarana dan prasarana kesehatan yang memadai untuk penanganan optimal",
+  },
+  {
+    id: 7,
+    image: "/images/slider5.jpeg",
+    title: "Antrean Tertib & Nyaman",
+    subtitle: "Sistem antrean modern untuk pengalaman berobat yang lebih baik",
   },
 ]
 
@@ -90,19 +108,21 @@ export function HeroSlider() {
                 >
                   {slide.subtitle}
                 </p>
-                <div
-                  className={`transition-all duration-700 delay-600 ${
-                    index === currentSlide ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-                  }`}
-                >
-                  <Button
-                    asChild
-                    size="lg"
-                    className="bg-white text-primary hover:bg-white/90 text-base px-8 py-6 rounded-full shadow-lg"
-                  >
-                    <Link href={slide.ctaLink}>{slide.cta}</Link>
-                  </Button>
-                </div>
+                {slide.cta && slide.ctaLink && (
+                    <div
+                      className={`transition-all duration-700 delay-600 ${
+                        index === currentSlide ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+                      }`}
+                    >
+                      <Button
+                        asChild
+                        size="lg"
+                        className="bg-white text-primary hover:bg-white/90 text-base px-8 py-6 rounded-full shadow-lg"
+                      >
+                        <Link href={slide.ctaLink}>{slide.cta}</Link>
+                      </Button>
+                    </div>
+                )}
               </div>
             </div>
           </div>

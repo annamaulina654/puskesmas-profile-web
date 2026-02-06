@@ -25,7 +25,7 @@ const profileSubmenus = [
   {
     title: "Kepegawaian",
     href: "/profile/staff",
-    description: "Data dokter, perawat, dan staf puskesmas",
+    description: "Jumlah data dokter, perawat, dan staf puskesmas",
   },
   { title: "Inovasi", href: "/profile/innovations", description: "Program inovatif untuk kesehatan masyarakat" },
   { title: "Tentang Kami", href: "/profile/about", description: "Sejarah dan profil Puskesmas" },

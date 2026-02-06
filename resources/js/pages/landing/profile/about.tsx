@@ -16,7 +16,7 @@ const facilities = [
   "PONED Persalinan 24 Jam",
   "Rawat Jalan",
   "Ambulance 24 Jam",
-  "EKG",
+  "CKG",
   "Laboratorium",
 ]
 
@@ -90,7 +90,7 @@ export default function AboutPage() {
 
               <div className="relative h-[600px] rounded-3xl overflow-hidden shadow-2xl mt-8 lg:mt-0">
                 <img 
-                  src="/images/puskesmas-light.jpeg"
+                  src="/images/pus.jpeg"
                   alt="Gedung UPT Puskesmas Kwanyar" 
                   className="w-full h-full object-cover" 
                 />

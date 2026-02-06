@@ -84,19 +84,29 @@ const innovations = [
 
 const awards = [
   {
-    title: "Juara II Lomba Pelayanan Publik (ISO)",
-    year: "2008",
-    images: ["/images/formal-achivement.jpeg"],
+    title: "Puskesmas Pertama Terakreditasi 'PARIPURNA'",
+    year: "2023",
+    images: ["/images/paripurna.jpeg"],
   },
   {
-    title: "Juara II Lomba Lingkungan Bersih Antar Puskesmas (HKN ke-49)",
-    year: "2013",
-    images: ["/images/placeholder.svg"],
+    title: "Puskesmas Terbaik Se-Kabupaten Bangkalan (Madura Awards)",
+    year: "2024",
+    images: ["/images/ma1.jpeg", "/images/ma2.jpeg", "/images/ma3.jpeg", "/images/ma-sert.jpeg"],
   },
   {
     title: "Penghargaan Keberhasilan Target PAD 94% (Retribusi Terbaik)",
     year: "2019",
-    images: ["/images/placeholder.svg"],
+    images: ["/images/PAD.jpg"],
+  },
+  {
+    title: "Puskesmas dengan Pengeluaran Harian Logistik Vaksin Ter-Aktif di Aplikasi SMILE",
+    year: "2024",
+    images: ["/images/smile.jpeg"],
+  },
+  {
+    title: "Penghargaan Menkes: Instansi Berkomitmen Mewujudkan 'Herd Immunity'",
+    year: "2022",
+    images: ["/images/herd.jpeg"],
   },
   {
     title: "Bidan Terbaik Sesuai Prosedur Rujukan Kasus Kebidanan",
@@ -104,24 +114,19 @@ const awards = [
     images: ["/images/placeholder.svg"],
   },
   {
-    title: "Penghargaan Menkes: Instansi Berkomitmen Mewujudkan 'Herd Immunity'",
-    year: "2022",
-    images: ["/images/placeholder.svg"],
-  },
-  {
     title: "Puskesmas Berprestasi Tingkat Kabupaten Bangkalan (HKN ke-58)",
     year: "2022",
     images: ["/images/placeholder.svg"],
   },
-  {
-    title: "Puskesmas Pertama Terakreditasi 'PARIPURNA'",
-    year: "2023",
-    images: ["/images/formal-achivement.jpeg"],
+    {
+    title: "Juara II Lomba Pelayanan Publik (ISO)",
+    year: "2008",
+    images: ["/images/placeholder.svg"],
   },
   {
-    title: "Puskesmas Terbaik Se-Kabupaten Bangkalan (Madura Awards)",
-    year: "2024",
-    images: ["/images/ma1.jpeg", "/images/ma2.jpeg", "/images/ma3.jpeg"],
+    title: "Juara II Lomba Lingkungan Bersih Antar Puskesmas (HKN ke-49)",
+    year: "2013",
+    images: ["/images/placeholder.svg"],
   },
 ]
 
