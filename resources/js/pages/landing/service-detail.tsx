@@ -95,8 +95,8 @@ const ManajemenImageSlider = ({ images }: { images: string[] }) => {
 
 export default function ServiceDetail({ service }: { service: ServiceData }) {
   const isDetailedLayout = service.detailed_items && service.detailed_items.length > 0;
-  const isManajemen = service.slug === 'manajemen-puskesmas' || service.title.toLowerCase().includes("manajemen");
-
+  const isManajemen = service.slug === 'manajemen-puskesmas';
+  
   return (
     <PublicLayout>
       <Head title={service.title} />

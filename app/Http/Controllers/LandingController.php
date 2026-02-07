@@ -143,13 +143,13 @@ class LandingController extends Controller
                 'images' => [
                     '/images/layanan/pnn.jpeg',
                     '/images/layanan/pn2.jpg',
-                    '/images/layanan/pn5.jpg'
+                    '/images/layanan/pn4.jpg'
                 ]
             ],
             'neonatal-esensial' => [
                 'title' => 'Neonatal Esensial',
                 'description' => 'Perawatan khusus bayi baru lahir (0-28 hari), manajemen BBLR, dan penanganan asfiksia.',
-                'images' => ['/images/layanan/neo.jpg']
+                'images' => ['/images/layanan/neo.jpg', '/images/layanan/pnn.jpeg']
             ],
             'pelayanan-gizi-ibu-anak' => [
                 'title' => 'Pelayanan Gizi Ibu dan Anak',
@@ -157,7 +157,6 @@ class LandingController extends Controller
                 'images' => [
                     '/images/layanan/gizi1.jpg',
                     '/images/layanan/gizi2.jpg',
-                    '/images/layanan/kia.jpeg',
                     '/images/layanan/gizi3.jpg'
                 ]
             ],
@@ -411,12 +410,12 @@ class LandingController extends Controller
             'fisioterapi' => [
                 'title' => 'Fisioterapi',
                 'description' => 'Pelayanan rehabilitasi medik dasar dan terapi fisik untuk pemulihan fungsi tubuh.',
-                'images' => ['/images/layanan/fisio.jpg']
+                'images' => []
             ],
             'promkes-krisis' => [
                 'title' => 'Promosi Kesehatan',
                 'description' => 'Kegiatan penyuluhan kesehatan masyarakat, pemberdayaan kader, dan penanggulangan krisis kesehatan.',
-                'images' => ['/images/layanan/promkes.jpg']
+                'images' => []
             ],
         ];
     }
