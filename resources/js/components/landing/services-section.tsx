@@ -66,10 +66,11 @@ const services = [
 
 export function ServicesSection() {
   return (
-    <section className="py-20 lg:py-28 bg-background">
+    <section className="py-20 lg:py-28 bg-green-50 relative">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-200 to-transparent"></div>
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
-          <span className="inline-block px-4 py-2 bg-primary/10 text-primary text-sm font-medium rounded-full mb-4">
+          <span className="inline-block px-4 py-2 bg-white border border-green-100 text-primary text-sm font-medium rounded-full mb-4 shadow-sm">
             Layanan Unggulan
           </span>
           <h2
@@ -87,7 +88,7 @@ export function ServicesSection() {
           {services.map((service, index) => (
             <Card
               key={index}
-              className="group hover:shadow-xl transition-all duration-300 border-border hover:border-primary/30 overflow-hidden bg-card"
+              className="group hover:shadow-xl transition-all duration-300 border-green-100 hover:border-primary/50 overflow-hidden bg-white"
             >
               <CardContent className="p-6">
                 <div
@@ -105,7 +106,7 @@ export function ServicesSection() {
         </div>
 
         <div className="text-center mt-12">
-          <Button asChild size="lg" className="bg-primary hover:bg-primary/90 rounded-full px-8">
+          <Button asChild size="lg" className="bg-primary hover:bg-primary/90 rounded-full px-8 shadow-lg shadow-green-900/10">
             <Link href="/services">
               Lihat Seluruh Layanan
               <ArrowRight className="w-4 h-4 ml-2" />

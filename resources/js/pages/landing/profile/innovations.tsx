@@ -135,9 +135,11 @@ export default function InnovationsPage() {
     <PublicLayout>
       <Head title="Inovasi & Penghargaan" />
 
-      <main className="min-h-screen">
-        <section className="pt-32 pb-16 bg-primary">
-          <div className="container mx-auto px-4 lg:px-8 text-center">
+      <main className="min-h-screen bg-green-50">
+        
+        <section className="pt-32 pb-16 bg-primary relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+          <div className="container mx-auto px-4 lg:px-8 text-center relative z-10">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4" style={{ fontFamily: "var(--font-heading)" }}>
               Inovasi & Penghargaan
             </h1>
@@ -147,10 +149,12 @@ export default function InnovationsPage() {
           </div>
         </section>
 
-        <section className="py-20">
+        <section className="py-20 relative">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-200 to-transparent"></div>
+
           <div className="container mx-auto px-4 lg:px-8">
             <div className="text-center mb-16">
-              <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
+              <div className="w-16 h-16 mx-auto rounded-2xl bg-white border border-green-100 shadow-sm flex items-center justify-center mb-6">
                 <Lightbulb className="w-8 h-8 text-primary" />
               </div>
               <h2
@@ -166,10 +170,10 @@ export default function InnovationsPage() {
 
             <div className="space-y-12">
               {innovations.map((innovation, index) => (
-                <Card key={index} className="border-0 shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-300">
+                <Card key={index} className="border border-green-100 shadow-lg hover:shadow-xl hover:shadow-green-900/10 overflow-hidden group transition-all duration-300 bg-white">
                   <div className={`grid lg:grid-cols-2 ${index % 2 === 1 ? "lg:flex-row-reverse" : ""}`}>
                     
-                    <div className={`relative w-full h-64 lg:h-auto bg-slate-100 ${index % 2 === 1 ? "lg:order-2" : ""}`}>
+                    <div className={`relative w-full h-64 lg:h-auto bg-green-50/50 ${index % 2 === 1 ? "lg:order-2" : ""}`}>
                         <InnovationImageSlider images={innovation.images} title={innovation.title} />
                     </div>
 
@@ -177,15 +181,15 @@ export default function InnovationsPage() {
                         className={`p-8 lg:p-12 flex flex-col justify-center h-full ${index % 2 === 1 ? "lg:order-1" : ""}`}
                       >
                       <div className="flex items-center gap-2 mb-4">
-                        <Badge className="bg-primary/10 text-primary hover:bg-primary/20">{innovation.category}</Badge>
-                        <Badge variant="outline">{innovation.year}</Badge>
+                        <Badge className="bg-green-100 text-green-700 hover:bg-green-200 border-green-200">{innovation.category}</Badge>
+                        <Badge variant="outline" className="border-green-200 text-green-700">{innovation.year}</Badge>
                       </div>
                       <h3 className="text-2xl font-bold text-foreground mb-4">{innovation.title}</h3>
                       <p className="text-muted-foreground leading-relaxed mb-6 text-justify">
                         {innovation.description}
                       </p>
                       
-                      <div className="flex items-start gap-3 p-4 bg-primary/5 rounded-xl border border-primary/10 mb-6">
+                      <div className="flex items-start gap-3 p-4 bg-green-50 rounded-xl border border-green-100 mb-6">
                         <Award className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                         <div>
                             <span className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Dampak / Tujuan</span>
@@ -212,8 +216,8 @@ export default function InnovationsPage() {
                               </DialogDescription>
                             </DialogHeader>
                             
-                            <div className="bg-slate-50 p-4 rounded-lg border border-slate-100 flex items-center gap-3 mb-2">
-                                <div className="bg-white p-2 rounded-full shadow-sm">
+                            <div className="bg-green-50 p-4 rounded-lg border border-green-100 flex items-center gap-3 mb-2">
+                                <div className="bg-white p-2 rounded-full shadow-sm border border-green-100">
                                     <Clock className="w-5 h-5 text-orange-500" />
                                 </div>
                                 <div>
@@ -225,7 +229,7 @@ export default function InnovationsPage() {
                             <div className="space-y-4 py-2">
                                 {innovation.guide.steps.map((step, i) => (
                                     <div key={i} className="flex gap-3">
-                                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold mt-0.5">
+                                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold mt-0.5 shadow-sm">
                                             {i + 1}
                                         </div>
                                         <p className="text-sm text-gray-600 leading-snug">{step}</p>
@@ -249,28 +253,35 @@ export default function InnovationsPage() {
           </div>
         </section>
 
-        <section className="py-20 bg-secondary/30">
+        <section className="py-20 relative">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-200 to-transparent"></div>
+          
           <div className="container mx-auto px-4 lg:px-8">
+            <div className="text-center mb-12">
+               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4" style={{ fontFamily: "var(--font-heading)" }}>
+                 Penghargaan & Prestasi
+               </h2>
+            </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {awards.map((award, index) => (
-                <Card key={index} className="border-0 shadow-lg hover:-translate-y-1 transition-transform duration-300 overflow-hidden h-full flex flex-col group">
+                <Card key={index} className="border border-green-100 shadow-md hover:shadow-xl hover:shadow-green-900/10 hover:-translate-y-1 transition-all duration-300 overflow-hidden h-full flex flex-col group bg-white">
                   
-                  <div className="relative h-48 bg-slate-100">
+                  <div className="relative h-48 bg-green-50/50">
                     
                     <InnovationImageSlider images={award.images} title={award.title} />
                     
-                    <div className="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur-sm text-primary font-bold px-3 py-1 rounded-full shadow-sm text-sm border border-primary/10">
+                    <div className="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur-sm text-primary font-bold px-3 py-1 rounded-full shadow-sm text-sm border border-green-100">
                         {award.year}
                     </div>
                   </div>
 
                   <CardContent className="p-6 flex flex-col items-center text-center flex-grow">
-                    <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mb-4 -mt-10 border-4 border-white shadow-md relative z-10">
-                      <Award className="w-6 h-6 text-amber-600" />
+                    <div className="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center mb-4 -mt-10 border-4 border-white shadow-md relative z-10">
+                      <Award className="w-6 h-6 text-amber-500" />
                     </div>
                     <div className="flex-grow flex flex-col justify-center">
-                        <h3 className="font-semibold text-foreground text-lg leading-snug">{award.title}</h3>
+                        <h3 className="font-semibold text-foreground text-lg leading-snug group-hover:text-primary transition-colors">{award.title}</h3>
                     </div>
                   </CardContent>
                 </Card>

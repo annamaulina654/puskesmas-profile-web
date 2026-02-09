@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button"
 
 export function CTASection() {
   return (
-    <section className="py-20 lg:py-28 bg-secondary/30">
+    <section className="py-20 lg:py-28 bg-green-50 relative">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-200 to-transparent"></div>
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           
           <div className="relative">
-            <div className="relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-2xl">
+            <div className="relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-2xl shadow-green-900/20 border-4 border-white/50">
               <img 
                 src="/images/pus.jpeg" 
                 alt="Puskesmas Sehat Sejahtera" 
@@ -17,9 +18,9 @@ export function CTASection() {
               />
             </div>
             
-            <div className="absolute -bottom-6 -right-6 lg:right-8 bg-card p-6 rounded-2xl shadow-xl max-w-xs border border-border/50">
+            <div className="absolute -bottom-6 -right-6 lg:right-8 bg-white p-6 rounded-2xl shadow-xl max-w-xs border border-green-100">
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center border border-green-100">
                   <Clock className="w-6 h-6 text-primary" />
                 </div>
                 <div>
@@ -32,14 +33,14 @@ export function CTASection() {
                 07.15 - 12.00
               </div>
               
-              <div className="my-3 h-px bg-border"></div>
+              <div className="my-3 h-px bg-green-100"></div>
 
               <div className="flex flex-col gap-1">
                  <div className="flex items-center justify-between text-sm">
                     <span className="text-muted-foreground">Jumat - Sabtu</span>
                     <span className="font-medium text-foreground">s/d 10.00 / 11.00</span>
                  </div>
-                 <div className="mt-1 bg-red-100 text-red-700 px-3 py-1.5 rounded-lg text-xs font-bold text-center border border-red-200">
+                 <div className="mt-1 bg-red-50 text-red-600 px-3 py-1.5 rounded-lg text-xs font-bold text-center border border-red-100">
                     UGD & PERSALINAN 24 JAM
                  </div>
               </div>
@@ -47,7 +48,7 @@ export function CTASection() {
           </div>
 
           <div className="lg:pl-8 mt-12 lg:mt-0">
-            <span className="inline-block px-4 py-2 bg-primary/10 text-primary text-sm font-medium rounded-full mb-4">
+            <span className="inline-block px-4 py-2 bg-white border border-green-100 text-primary text-sm font-medium rounded-full mb-4 shadow-sm">
               Hubungi Kami
             </span>
             <h2
@@ -63,7 +64,7 @@ export function CTASection() {
 
             <div className="space-y-4 mb-8">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-white border border-green-100 flex items-center justify-center flex-shrink-0 shadow-sm">
                   <MapPin className="w-6 h-6 text-primary" />
                 </div>
                 <div>
@@ -72,7 +73,7 @@ export function CTASection() {
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-white border border-green-100 flex items-center justify-center flex-shrink-0 shadow-sm">
                   <Phone className="w-6 h-6 text-primary" />
                 </div>
                 <div>
@@ -83,7 +84,7 @@ export function CTASection() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 rounded-full px-8">
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 rounded-full px-8 shadow-lg shadow-green-900/10">
                 <Link href="/information/contact">
                   Hubungi Sekarang
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -93,7 +94,7 @@ export function CTASection() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="rounded-full px-8 border-primary text-primary hover:bg-primary hover:text-primary-foreground bg-transparent"
+                className="rounded-full px-8 border-primary text-primary hover:bg-primary hover:text-white bg-white hover:border-primary shadow-sm"
               >
                 <Link href="/information/service-hours">Lihat Jadwal Lengkap</Link>
               </Button>

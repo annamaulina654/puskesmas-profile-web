@@ -47,10 +47,11 @@ export function ActivitiesSection({ activities }: { activities: Activity[] }) {
   }
 
   return (
-    <section className="py-20 lg:py-28 bg-secondary/30">
+    <section className="py-20 lg:py-28 bg-green-50 relative">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-200 to-transparent"></div>
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
-          <span className="inline-block px-4 py-2 bg-primary/10 text-primary text-sm font-medium rounded-full mb-4">
+          <span className="inline-block px-4 py-2 bg-white border border-green-100 text-primary text-sm font-medium rounded-full mb-4 shadow-sm">
             Kegiatan Terbaru
           </span>
           <h2
@@ -72,7 +73,7 @@ export function ActivitiesSection({ activities }: { activities: Activity[] }) {
               return (
                 <Card
                   key={activity.id}
-                  className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 bg-card"
+                  className="group overflow-hidden border border-green-100 shadow-sm hover:shadow-xl hover:shadow-green-900/5 hover:border-primary/30 transition-all duration-500 bg-white"
                 >
                   <Link href={`/information/activities/${activity.id}`}>
                       <div className="relative h-56 overflow-hidden cursor-pointer">
@@ -84,12 +85,12 @@ export function ActivitiesSection({ activities }: { activities: Activity[] }) {
                         
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         
-                        <Badge className={`absolute top-4 left-4 ${badgeColor} text-white border-0`}>
+                        <Badge className={`absolute top-4 left-4 ${badgeColor} text-white border-0 shadow-md`}>
                           {activity.category}
                         </Badge>
                         
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <span className="px-4 py-2 bg-white/90 text-foreground rounded-full text-sm font-medium flex items-center gap-2">
+                          <span className="px-4 py-2 bg-white/90 text-foreground rounded-full text-sm font-medium flex items-center gap-2 shadow-lg backdrop-blur-sm">
                               <ImageIcon className="w-4 h-4" /> Lihat Detail
                           </span>
                         </div>
@@ -98,7 +99,7 @@ export function ActivitiesSection({ activities }: { activities: Activity[] }) {
 
                   <CardContent className="p-6">
                     <div className="flex items-center gap-2 text-muted-foreground text-sm mb-3">
-                      <Calendar className="w-4 h-4" />
+                      <Calendar className="w-4 h-4 text-primary" />
                       {formatDate(activity.date)}
                     </div>
                     <Link href={`/information/activities/${activity.id}`}>
@@ -106,7 +107,7 @@ export function ActivitiesSection({ activities }: { activities: Activity[] }) {
                         {activity.title}
                         </h3>
                     </Link>
-                    <p className="text-muted-foreground text-sm line-clamp-2">
+                    <p className="text-muted-foreground text-sm line-clamp-2 leading-relaxed">
                         {activity.description}
                     </p>
                   </CardContent>
@@ -115,9 +116,11 @@ export function ActivitiesSection({ activities }: { activities: Activity[] }) {
             })}
           </div>
         ) : (
-           <div className="text-center py-12 bg-white rounded-xl border border-dashed border-gray-300">
-               <ImageIcon className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-               <p className="text-muted-foreground">Belum ada kegiatan terbaru yang diunggah.</p>
+           <div className="text-center py-12 bg-white rounded-xl border border-dashed border-green-200 shadow-sm">
+               <div className="bg-green-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <ImageIcon className="w-10 h-10 text-green-300" />
+               </div>
+               <p className="text-muted-foreground font-medium">Belum ada kegiatan terbaru yang diunggah.</p>
            </div>
         )}
 
@@ -126,7 +129,7 @@ export function ActivitiesSection({ activities }: { activities: Activity[] }) {
             asChild
             size="lg"
             variant="outline"
-            className="rounded-full px-8 border-primary text-primary hover:bg-primary hover:text-primary-foreground bg-transparent transition-all"
+            className="rounded-full px-8 border-primary text-primary hover:bg-primary hover:text-white bg-white shadow-sm hover:shadow-md transition-all"
           >
             <Link href="/information/activities">
               Lihat Semua Kegiatan

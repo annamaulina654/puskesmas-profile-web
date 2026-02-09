@@ -91,7 +91,9 @@ export default function OrganizationPage() {
           </div>
         </section>
 
-        <section className="py-20">
+        <section className="py-20 bg-green-50 relative">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-200 to-transparent"></div>
+          
           <div className="container mx-auto px-4 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4" style={{ fontFamily: "var(--font-heading)" }}>
@@ -101,7 +103,7 @@ export default function OrganizationPage() {
                 Struktur organisasi berdasarkan SK Kepala Puskesmas Tahun 2026
               </p>
             </div>
-            <div className="relative max-w-5xl mx-auto p-4 border rounded-2xl bg-white shadow-xl">
+            <div className="relative max-w-5xl mx-auto p-4 border border-green-100 rounded-2xl bg-white shadow-xl shadow-green-900/5">
               <img
                 src="/images/struktur.png" 
                 alt="Bagan Organisasi Puskesmas Kwanyar"
@@ -113,7 +115,7 @@ export default function OrganizationPage() {
           </div>
         </section>
 
-        <section className="py-20 bg-secondary/30">
+        <section className="py-20 bg-green-50/30 relative">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4" style={{ fontFamily: "var(--font-heading)" }}>
@@ -123,10 +125,10 @@ export default function OrganizationPage() {
 
             <div className="flex flex-wrap justify-center gap-8">
               {leadership.map((person, index) => (
-                <Card key={index} className="w-full max-w-sm border-0 shadow-lg group hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+                <Card key={index} className="w-full max-w-sm border border-green-100 shadow-lg hover:shadow-green-900/10 group hover:-translate-y-2 transition-all duration-300 overflow-hidden bg-white">
                   <CardContent className="p-8 text-center flex flex-col items-center">
                     
-                    <div className="w-40 h-40 mb-6 rounded-full border-4 border-white shadow-lg overflow-hidden relative group-hover:border-primary/20 transition-colors duration-300">
+                    <div className="w-40 h-40 mb-6 rounded-full border-4 border-green-50 shadow-lg overflow-hidden relative group-hover:border-primary/30 transition-colors duration-300">
                         {person.image ? (
                             <img 
                                 src={person.image} 
@@ -155,7 +157,9 @@ export default function OrganizationPage() {
           </div>
         </section>
 
-        <section className="py-20">
+        <section className="py-20 bg-green-50 relative">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-200 to-transparent"></div>
+
           <div className="container mx-auto px-4 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4" style={{ fontFamily: "var(--font-heading)" }}>
@@ -168,12 +172,12 @@ export default function OrganizationPage() {
 
             <Tabs defaultValue="klaster1" className="max-w-4xl mx-auto">
               <div className="overflow-x-auto pb-4 mb-4">
-                 <TabsList className="w-full justify-start md:justify-center h-auto p-1 bg-secondary/50 rounded-xl">
+                  <TabsList className="w-full justify-start md:justify-center h-auto p-1 bg-green-200/30 rounded-xl border border-green-100">
                     {clusters.map((cluster) => (
                         <TabsTrigger 
                             key={cluster.id} 
                             value={cluster.id}
-                            className="px-4 py-2 rounded-lg data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-md transition-all text-sm md:text-base whitespace-nowrap"
+                            className="px-4 py-2 rounded-lg data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm data-[state=active]:border-green-100 transition-all text-sm md:text-base whitespace-nowrap text-gray-600 hover:text-primary"
                         >
                         {cluster.name.split(':')[0]} 
                         </TabsTrigger>
@@ -182,18 +186,18 @@ export default function OrganizationPage() {
               </div>
 
               {clusters.map((cluster) => (
-                <TabsContent key={cluster.id} value={cluster.id} className="mt-0">
-                  <Card className="border-0 shadow-xl bg-white overflow-hidden">
-                    <div className="bg-primary/5 p-6 border-b border-primary/10">
+                <TabsContent key={cluster.id} value={cluster.id} className="mt-0 animate-in fade-in-50 zoom-in-95 duration-300">
+                  <Card className="border border-green-100 shadow-xl shadow-green-900/5 bg-white overflow-hidden">
+                    <div className="bg-green-50/50 p-6 border-b border-green-100">
                         <h3 className="text-2xl font-bold text-primary mb-1">{cluster.name}</h3>
                         <p className="text-muted-foreground">Penanggung Jawab: <span className="font-semibold text-foreground">{cluster.pj}</span></p>
                     </div>
                     <CardContent className="p-0">
-                      <div className="divide-y divide-gray-100">
+                      <div className="divide-y divide-green-50">
                         {cluster.teams.map((team, idx) => (
-                           <div key={idx} className="p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-2 hover:bg-gray-50 transition-colors">
+                           <div key={idx} className="p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-2 hover:bg-green-50/50 transition-colors">
                                 <span className="font-medium text-gray-800 text-lg">{team.name}</span>
-                                <span className="text-sm md:text-base text-gray-500 bg-gray-100 px-3 py-1 rounded-full w-fit">
+                                <span className="text-sm md:text-base text-primary bg-green-50 border border-green-100 px-3 py-1 rounded-full w-fit">
                                     PJ: {team.pj}
                                 </span>
                            </div>
