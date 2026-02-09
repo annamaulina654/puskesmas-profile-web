@@ -37,16 +37,19 @@ export default function AnnouncementDetail({ announcement }: { announcement: Ann
     <PublicLayout>
       <Head title={`${announcement.title} - Pengumuman`} />
 
-      <main className="min-h-screen pb-20 pt-24 bg-background">
-        <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
+      <main className="min-h-screen pb-20 pt-24 bg-green-50 relative">
+        
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-200 to-transparent"></div>
+
+        <div className="container mx-auto px-4 lg:px-8 max-w-4xl relative z-10">
             
-            <Button variant="ghost" asChild className="mb-6 pl-0 hover:pl-2 transition-all">
+            <Button variant="ghost" asChild className="mb-6 pl-0 hover:pl-2 transition-all text-green-700 hover:text-green-800 hover:bg-green-100/50">
                 <Link href="/information/announcements">
                     <ArrowLeft className="w-4 h-4 mr-2" /> Kembali ke Pengumuman
                 </Link>
             </Button>
 
-            <Card className="border-0 shadow-lg overflow-hidden">
+            <Card className="border border-green-100 shadow-xl shadow-green-900/5 overflow-hidden bg-white">
                 <div className={`h-2 w-full ${config.color}`} />
                 
                 <CardContent className="p-8 md:p-10">
@@ -54,21 +57,21 @@ export default function AnnouncementDetail({ announcement }: { announcement: Ann
                         <div className={`w-10 h-10 rounded-full ${config.color} flex items-center justify-center shadow-md`}>
                             <Icon className="w-5 h-5 text-white" />
                         </div>
-                        <Badge variant="outline" className="text-base px-3 py-1 font-medium">
+                        <Badge variant="outline" className="text-base px-3 py-1 font-medium border-green-200 bg-green-50 text-green-800">
                             {announcement.type}
                         </Badge>
                     </div>
 
-                    <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4 leading-snug">
+                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-snug">
                         {announcement.title}
                     </h1>
 
-                    <div className="flex items-center gap-2 text-muted-foreground mb-8 pb-8 border-b">
-                        <Calendar className="w-4 h-4" />
+                    <div className="flex items-center gap-2 text-muted-foreground mb-8 pb-8 border-b border-green-100">
+                        <Calendar className="w-4 h-4 text-primary" />
                         {formatDate(announcement.date)}
                     </div>
 
-                    <div className="prose prose-lg dark:prose-invert max-w-none text-foreground/90 leading-relaxed whitespace-pre-wrap">
+                    <div className="prose prose-lg prose-green max-w-none text-gray-700 leading-relaxed whitespace-pre-wrap">
                         {announcement.content}
                     </div>
                 </CardContent>

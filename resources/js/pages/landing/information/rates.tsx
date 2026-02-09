@@ -36,7 +36,7 @@ export default function RatesPage() {
     <PublicLayout>
       <Head title="Tarif Pelayanan" />
 
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-green-50">
         
         <section className="pt-32 pb-16 bg-primary relative overflow-hidden">
            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
@@ -53,9 +53,11 @@ export default function RatesPage() {
           </div>
         </section>
 
-        <section className="py-16 container mx-auto px-4 lg:px-8 max-w-5xl">
+        <section className="py-16 container mx-auto px-4 lg:px-8 max-w-5xl relative">
             
-            <div className="mb-16 bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg flex gap-4 items-start text-orange-900 shadow-sm">
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-200 to-transparent"></div>
+
+            <div className="mb-16 bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg flex gap-4 items-start text-orange-900 shadow-md">
                 <AlertCircle className="w-6 h-6 flex-shrink-0 mt-1 text-orange-600" />
                 <div>
                     <h4 className="font-bold text-lg">Informasi Penting bagi Peserta BPJS Kesehatan</h4>
@@ -70,7 +72,7 @@ export default function RatesPage() {
                     <div key={index} className="scroll-mt-24">
                         
                         <div className="flex items-start gap-4 mb-6">
-                            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0 mt-1">
+                            <div className="w-12 h-12 rounded-xl bg-white border border-green-100 flex items-center justify-center text-primary flex-shrink-0 mt-1 shadow-sm">
                                 <section.icon className="w-6 h-6" />
                             </div>
                             <div>
@@ -83,14 +85,14 @@ export default function RatesPage() {
                             </div>
                         </div>
 
-                        <div className="w-full rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-white">
+                        <div className="w-full rounded-2xl overflow-hidden border border-green-100 shadow-lg shadow-green-900/5 bg-white p-2">
                             <img 
                                 src={section.image} 
                                 alt={section.title}
-                                className="w-full h-auto object-cover"
+                                className="w-full h-auto object-cover rounded-xl"
                                 onError={(e) => {
                                     e.currentTarget.style.display = 'none';
-                                    e.currentTarget.parentElement!.innerHTML = `<div class="p-10 text-center text-gray-400">Gambar ${section.title} belum tersedia di folder images.</div>`;
+                                    e.currentTarget.parentElement!.innerHTML = `<div class="p-10 text-center text-gray-400 bg-gray-50 rounded-xl">Gambar ${section.title} belum tersedia di folder images.</div>`;
                                 }}
                             />
                         </div>
@@ -98,7 +100,7 @@ export default function RatesPage() {
                 ))}
             </div>
 
-            <div className="mt-20 pt-8 border-t border-gray-100 text-center text-gray-400">
+            <div className="mt-20 pt-8 border-t border-green-200 text-center text-gray-400">
                 <p>Sumber Data: Lampiran Perda Kab. Bangkalan No. 9 Tahun 2025</p>
             </div>
 

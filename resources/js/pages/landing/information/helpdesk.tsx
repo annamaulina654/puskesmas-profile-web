@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Head } from "@inertiajs/react"
 import PublicLayout from "@/layouts/public-layout"
-import { Search, ChevronDown, Phone, Mail } from "lucide-react"
+import { Search, ChevronDown, Phone, Mail, HelpCircle } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 
@@ -86,10 +86,11 @@ export default function HelpdeskPage() {
     <PublicLayout>
       <Head title="Pusat Bantuan" />
 
-      <main className="min-h-screen">
+      <main className="min-h-screen bg-green-50">
         
-        <section className="pt-32 pb-16 bg-primary">
-          <div className="container mx-auto px-4 lg:px-8 text-center">
+        <section className="pt-32 pb-16 bg-primary relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+          <div className="container mx-auto px-4 lg:px-8 text-center relative z-10">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4" style={{ fontFamily: "var(--font-heading)" }}>
               Pusat Bantuan
             </h1>
@@ -99,17 +100,19 @@ export default function HelpdeskPage() {
           </div>
         </section>
 
-        <section className="py-10 bg-secondary/30">
+        <section className="py-10 relative">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-200 to-transparent"></div>
+          
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-2xl mx-auto">
-              <div className="relative">
+              <div className="relative shadow-lg rounded-full">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input
                   type="text"
                   placeholder="Cari pertanyaan..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-12 h-14 text-lg rounded-full bg-background"
+                  className="pl-12 h-14 text-lg rounded-full bg-white border-green-200 focus-visible:ring-primary shadow-sm"
                 />
               </div>
             </div>
@@ -120,19 +123,19 @@ export default function HelpdeskPage() {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
               
-              <Card className="border-primary/20 hover:shadow-lg transition-shadow">
+              <Card className="bg-white border border-green-100 hover:shadow-lg hover:shadow-green-900/5 transition-all">
                 <CardContent className="p-6 text-center">
-                  <div className="w-14 h-14 mx-auto rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                  <div className="w-14 h-14 mx-auto rounded-xl bg-green-50 flex items-center justify-center mb-4 border border-green-100">
                     <Phone className="w-7 h-7 text-primary" />
                   </div>
                   <h3 className="font-semibold text-foreground mb-2">Telepon</h3>
-                  <p className="text-primary font-medium">0823-3458-2474</p>
+                  <p className="text-primary font-medium text-lg">0823-3458-2474</p>
                 </CardContent>
               </Card>
 
-              <Card className="border-primary/20 hover:shadow-lg transition-shadow">
+              <Card className="bg-white border border-green-100 hover:shadow-lg hover:shadow-green-900/5 transition-all">
                 <CardContent className="p-6 text-center">
-                  <div className="w-14 h-14 mx-auto rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                  <div className="w-14 h-14 mx-auto rounded-xl bg-green-50 flex items-center justify-center mb-4 border border-green-100">
                     <Mail className="w-7 h-7 text-primary" />
                   </div>
                   <h3 className="font-semibold text-foreground mb-2">Email</h3>
@@ -154,24 +157,29 @@ export default function HelpdeskPage() {
             <div className="max-w-3xl mx-auto space-y-8">
               {filteredFaqs.map((category) => (
                 <div key={category.category}>
-                  <h3 className="text-lg font-semibold text-primary mb-4">{category.category}</h3>
+                  <h3 className="text-lg font-semibold text-primary mb-4 flex items-center gap-2">
+                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
+                    {category.category}
+                  </h3>
                   <div className="space-y-3">
                     {category.questions.map((item, index) => {
                       const itemId = `${category.category}-${index}`
                       const isOpen = openItems.includes(itemId)
 
                       return (
-                        <Card key={index} className="border-border">
+                        <Card key={index} className="bg-white border border-green-100 shadow-sm hover:border-primary/30 transition-colors">
                           <button onClick={() => toggleItem(itemId)} className="w-full text-left">
                             <CardContent className="p-5">
                               <div className="flex items-center justify-between gap-4">
-                                <span className="font-medium text-foreground">{item.q}</span>
+                                <span className={`font-medium transition-colors ${isOpen ? 'text-primary' : 'text-foreground'}`}>
+                                    {item.q}
+                                </span>
                                 <ChevronDown
-                                  className={`w-5 h-5 text-muted-foreground transition-transform flex-shrink-0 ${isOpen ? "rotate-180" : ""}`}
+                                  className={`w-5 h-5 text-muted-foreground transition-transform flex-shrink-0 ${isOpen ? "rotate-180 text-primary" : ""}`}
                                 />
                               </div>
                               {isOpen && (
-                                <p className="mt-4 text-muted-foreground text-sm leading-relaxed border-t border-border pt-4">
+                                <p className="mt-4 text-muted-foreground text-sm leading-relaxed border-t border-green-50 pt-4">
                                   {item.a}
                                 </p>
                               )}
@@ -185,7 +193,10 @@ export default function HelpdeskPage() {
               ))}
 
               {filteredFaqs.length === 0 && (
-                <div className="text-center py-16">
+                <div className="text-center py-16 bg-white rounded-xl border border-dashed border-green-200 shadow-sm">
+                  <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-3">
+                     <HelpCircle className="w-6 h-6 text-green-300" />
+                  </div>
                   <p className="text-muted-foreground">Tidak ada pertanyaan yang ditemukan.</p>
                 </div>
               )}

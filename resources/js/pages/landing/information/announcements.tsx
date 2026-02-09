@@ -63,10 +63,11 @@ export default function AnnouncementsPage({ announcements }: { announcements: An
     <PublicLayout>
       <Head title="Pengumuman" />
 
-      <main className="min-h-screen">
+      <main className="min-h-screen bg-green-50">
         
-        <section className="pt-32 pb-16 bg-primary">
-          <div className="container mx-auto px-4 lg:px-8 text-center">
+        <section className="pt-32 pb-16 bg-primary relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+          <div className="container mx-auto px-4 lg:px-8 text-center relative z-10">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4" style={{ fontFamily: "var(--font-heading)" }}>
               Pengumuman
             </h1>
@@ -76,8 +77,11 @@ export default function AnnouncementsPage({ announcements }: { announcements: An
           </div>
         </section>
 
-        <section className="py-16">
+        <section className="py-16 relative">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-200 to-transparent"></div>
+
           <div className="container mx-auto px-4 lg:px-8">
+            
             <div className="flex flex-col md:flex-row gap-4 mb-10">
               <div className="relative flex-1">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -86,14 +90,18 @@ export default function AnnouncementsPage({ announcements }: { announcements: An
                   placeholder="Cari pengumuman..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-12 h-12"
+                  className="pl-12 h-12 bg-white border-green-200 focus-visible:ring-primary shadow-sm"
                 />
               </div>
               <div className="flex gap-2 flex-wrap">
                 <Button
                   variant={selectedType === null ? "default" : "outline"}
                   onClick={() => setSelectedType(null)}
-                  className="rounded-full"
+                  className={`rounded-full shadow-sm transition-all ${
+                      selectedType === null 
+                      ? "bg-primary hover:bg-primary/90" 
+                      : "bg-white border-green-200 hover:bg-green-100 hover:text-primary text-gray-600"
+                  }`}
                 >
                   Semua
                 </Button>
@@ -102,7 +110,11 @@ export default function AnnouncementsPage({ announcements }: { announcements: An
                     key={type}
                     variant={selectedType === type ? "default" : "outline"}
                     onClick={() => setSelectedType(type)}
-                    className="rounded-full"
+                    className={`rounded-full shadow-sm transition-all ${
+                        selectedType === type 
+                        ? "bg-primary hover:bg-primary/90" 
+                        : "bg-white border-green-200 hover:bg-green-100 hover:text-primary text-gray-600"
+                    }`}
                   >
                     {type}
                   </Button>
@@ -119,35 +131,35 @@ export default function AnnouncementsPage({ announcements }: { announcements: An
                 return (
                   <Card
                     key={announcement.id}
-                    className="border-border hover:shadow-lg transition-all cursor-pointer overflow-hidden group"
+                    className="border border-green-100 shadow-sm hover:shadow-lg hover:shadow-green-900/5 hover:border-primary/50 transition-all cursor-pointer overflow-hidden group bg-white"
                   >
                     <Link href={`/information/announcements/${announcement.id}`}>
                         <CardContent className="p-6">
                         <div className="flex items-start gap-4">
                             <div
-                            className={`w-14 h-14 rounded-xl ${config.bgColor} flex items-center justify-center flex-shrink-0`}
+                            className={`w-14 h-14 rounded-xl ${config.bgColor} flex items-center justify-center flex-shrink-0 shadow-md shadow-gray-200`}
                             >
                             <Icon className="w-7 h-7 text-white" />
                             </div>
                             <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-2 flex-wrap">
-                                <Badge variant="secondary" className="text-xs">
+                                <Badge variant="secondary" className="text-xs border border-green-100 bg-green-50 text-green-800">
                                 {announcement.type}
                                 </Badge>
                                 
                                 {isNew && (
-                                <Badge className="bg-primary text-primary-foreground text-xs">Baru</Badge>
+                                <Badge className="bg-primary text-primary-foreground text-xs shadow-sm">Baru</Badge>
                                 )}
                                 
                                 <div className="flex items-center gap-1 text-muted-foreground text-xs ml-auto">
-                                <Calendar className="w-3.5 h-3.5" />
+                                <Calendar className="w-3.5 h-3.5 text-primary/70" />
                                 {formatDate(announcement.date)}
                                 </div>
                             </div>
                             
                             <h3 className="text-lg font-semibold text-foreground mb-2 flex items-center gap-2 group-hover:text-primary transition-colors">
                                 {announcement.title}
-                                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+                                <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                             </h3>
                             
                             <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">
@@ -162,8 +174,11 @@ export default function AnnouncementsPage({ announcements }: { announcements: An
               })}
 
               {filteredAnnouncements.length === 0 && (
-                <div className="text-center py-16">
-                  <p className="text-muted-foreground">Tidak ada pengumuman yang ditemukan.</p>
+                <div className="text-center py-16 bg-white rounded-xl border border-dashed border-green-200 shadow-sm">
+                  <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                     <Search className="w-8 h-8 text-green-300" />
+                  </div>
+                  <p className="text-muted-foreground font-medium">Tidak ada pengumuman yang ditemukan.</p>
                 </div>
               )}
             </div>

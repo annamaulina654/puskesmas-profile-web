@@ -59,10 +59,11 @@ export default function ActivitiesPage({ activities }: { activities: Activity[] 
     <PublicLayout>
       <Head title="Kegiatan" />
 
-      <main className="min-h-screen">
+      <main className="min-h-screen bg-green-50">
         
-        <section className="pt-32 pb-16 bg-primary">
-          <div className="container mx-auto px-4 lg:px-8 text-center">
+        <section className="pt-32 pb-16 bg-primary relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+          <div className="container mx-auto px-4 lg:px-8 text-center relative z-10">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4" style={{ fontFamily: "var(--font-heading)" }}>
               Kegiatan
             </h1>
@@ -72,7 +73,9 @@ export default function ActivitiesPage({ activities }: { activities: Activity[] 
           </div>
         </section>
 
-        <section className="py-16">
+        <section className="py-16 relative">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-200 to-transparent"></div>
+
           <div className="container mx-auto px-4 lg:px-8">
             <div className="flex flex-col md:flex-row gap-4 mb-10">
               <div className="relative flex-1">
@@ -82,14 +85,18 @@ export default function ActivitiesPage({ activities }: { activities: Activity[] 
                   placeholder="Cari kegiatan..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-12 h-12"
+                  className="pl-12 h-12 bg-white border-green-200 focus-visible:ring-primary shadow-sm"
                 />
               </div>
               <div className="flex gap-2 flex-wrap">
                 <Button
                   variant={selectedCategory === null ? "default" : "outline"}
                   onClick={() => setSelectedCategory(null)}
-                  className="rounded-full"
+                  className={`rounded-full shadow-sm transition-all ${
+                      selectedCategory === null 
+                      ? "bg-primary hover:bg-primary/90 text-white" 
+                      : "bg-white border-green-200 hover:bg-green-100 hover:text-primary text-gray-600"
+                  }`}
                 >
                   Semua
                 </Button>
@@ -98,7 +105,11 @@ export default function ActivitiesPage({ activities }: { activities: Activity[] 
                     key={category}
                     variant={selectedCategory === category ? "default" : "outline"}
                     onClick={() => setSelectedCategory(category)}
-                    className="rounded-full"
+                    className={`rounded-full shadow-sm transition-all ${
+                        selectedCategory === category 
+                        ? "bg-primary hover:bg-primary/90 text-white" 
+                        : "bg-white border-green-200 hover:bg-green-100 hover:text-primary text-gray-600"
+                    }`}
                   >
                     {category}
                   </Button>
@@ -115,7 +126,7 @@ export default function ActivitiesPage({ activities }: { activities: Activity[] 
                 return (
                   <Card
                     key={activity.id}
-                    className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500"
+                    className="group overflow-hidden border border-green-100 shadow-sm hover:shadow-xl hover:shadow-green-900/10 hover:border-primary/50 transition-all duration-500 bg-white"
                   >
                     <Link href={`/information/activities/${activity.id}`}>
                         <div className="relative h-56 overflow-hidden cursor-pointer">
@@ -127,33 +138,37 @@ export default function ActivitiesPage({ activities }: { activities: Activity[] 
                             
                             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                             
-                            <Badge className={`absolute top-4 left-4 ${badgeColor} text-white border-0`}>
+                            <Badge className={`absolute top-4 left-4 ${badgeColor} text-white border-0 shadow-md`}>
                                 {activity.category}
                             </Badge>
                             
                             {hasImages && activity.images!.length > 1 && (
-                                <div className="absolute top-4 right-4 bg-black/50 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
+                                <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full flex items-center gap-1 border border-white/20">
                                 <ImageIcon className="w-3 h-3" />
                                 +{activity.images!.length - 1}
                                 </div>
                             )}
                             
                             <div className="absolute bottom-4 left-4 right-4">
-                                <h3 className="text-white font-semibold text-lg line-clamp-2">{activity.title}</h3>
+                                <h3 className="text-white font-semibold text-lg line-clamp-2 drop-shadow-md">{activity.title}</h3>
                             </div>
                         </div>
                     </Link>
                     
                     <CardContent className="p-6">
                       <div className="flex items-center gap-2 text-muted-foreground text-sm mb-3">
-                        <Calendar className="w-4 h-4" />
+                        <Calendar className="w-4 h-4 text-primary" />
                         {formatDate(activity.date)}
-                        <span className="mx-2">•</span>
-                        {activity.location}
+                        {activity.location && (
+                          <>
+                            <span className="mx-2 text-gray-300">•</span>
+                            <span className="truncate">{activity.location}</span>
+                          </>
+                        )}
                       </div>
-                      <p className="text-muted-foreground text-sm line-clamp-3 mb-4">{activity.description}</p>
+                      <p className="text-muted-foreground text-sm line-clamp-3 mb-4 leading-relaxed">{activity.description}</p>
                       
-                      <Button variant="link" className="px-0 text-primary p-0 h-auto font-semibold" asChild>
+                      <Button variant="link" className="px-0 text-primary p-0 h-auto font-semibold hover:text-green-700" asChild>
                           <Link href={`/information/activities/${activity.id}`}>
                             Lihat Selengkapnya
                           </Link>
@@ -164,8 +179,11 @@ export default function ActivitiesPage({ activities }: { activities: Activity[] 
               })}
 
               {filteredActivities.length === 0 && (
-                <div className="col-span-full text-center py-16">
-                  <p className="text-muted-foreground">Tidak ada kegiatan yang ditemukan.</p>
+                <div className="col-span-full text-center py-16 bg-white rounded-xl border border-dashed border-green-200 shadow-sm">
+                  <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                     <ImageIcon className="w-8 h-8 text-green-300" />
+                  </div>
+                  <p className="text-muted-foreground font-medium">Tidak ada kegiatan yang ditemukan.</p>
                 </div>
               )}
             </div>
