@@ -57,7 +57,7 @@ export default function ComplaintsPage({ flash, publishedComplaints = [] }: Comp
     <PublicLayout>
       <Head title="Layanan Pengaduan" />
       
-      <main className="min-h-screen bg-slate-50/50">
+      <main className="min-h-screen bg-green-50">
         
         <section className="pt-32 pb-20 bg-primary relative overflow-hidden">
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
@@ -75,24 +75,26 @@ export default function ComplaintsPage({ flash, publishedComplaints = [] }: Comp
           </div>
         </section>
 
-        <section className="py-12 lg:py-20">
+        <section className="py-12 lg:py-20 relative">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-200 to-transparent"></div>
+
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-4xl mx-auto space-y-16">
               
               <div className="relative">
                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-primary/5 blur-3xl rounded-full -z-10"></div>
                  
-                 <Card className="border-0 shadow-xl overflow-hidden">
+                 <Card className="border border-green-100 shadow-xl shadow-green-900/10 overflow-hidden bg-white">
                     <div className="h-2 bg-gradient-to-r from-primary to-green-400"></div>
                     <CardHeader className="text-center pt-8 pb-2">
-                        <CardTitle className="text-2xl font-bold">Formulir Pengaduan</CardTitle>
+                        <CardTitle className="text-2xl font-bold text-gray-800">Formulir Pengaduan</CardTitle>
                         <CardDescription>Identitas Anda aman bersama kami.</CardDescription>
                     </CardHeader>
 
                     <CardContent className="p-8">
                       {isSubmitted || flash?.success ? (
                         <div className="text-center py-12 animate-in fade-in zoom-in duration-300">
-                          <div className="w-20 h-20 mx-auto rounded-full bg-green-100 flex items-center justify-center mb-6 ring-8 ring-green-50">
+                          <div className="w-20 h-20 mx-auto rounded-full bg-green-100 flex items-center justify-center mb-6 ring-8 ring-green-50 border border-green-200">
                             <CheckCircle className="w-10 h-10 text-green-600" />
                           </div>
                           <h3 className="text-2xl font-bold text-gray-800 mb-2">Pengaduan Diterima!</h3>
@@ -103,7 +105,7 @@ export default function ComplaintsPage({ flash, publishedComplaints = [] }: Comp
                               size="lg"
                               variant="outline" 
                               onClick={() => setIsSubmitted(false)}
-                              className="rounded-full px-8"
+                              className="rounded-full px-8 border-green-200 text-primary hover:bg-green-50"
                           >
                               Buat Pengaduan Baru
                           </Button>
@@ -114,19 +116,19 @@ export default function ComplaintsPage({ flash, publishedComplaints = [] }: Comp
                           
                           <div className="grid sm:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                              <Label htmlFor="name" className="font-medium">Nama Lengkap</Label>
+                              <Label htmlFor="name" className="font-medium text-gray-700">Nama Lengkap</Label>
                               <Input
                                 id="name"
                                 value={data.name}
                                 onChange={(e) => setData('name', e.target.value)}
                                 placeholder="Nama sesuai KTP (Boleh nama samaran)"
                                 required
-                                className={`h-11 ${errors.name ? "border-red-500" : ""}`}
+                                className={`h-11 bg-white border-green-200 focus-visible:ring-primary ${errors.name ? "border-red-500" : ""}`}
                               />
                               {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
                             </div>
                             <div className="space-y-2">
-                              <Label htmlFor="email" className="font-medium">Email</Label>
+                              <Label htmlFor="email" className="font-medium text-gray-700">Email</Label>
                               <Input
                                 id="email"
                                 type="email"
@@ -134,7 +136,7 @@ export default function ComplaintsPage({ flash, publishedComplaints = [] }: Comp
                                 onChange={(e) => setData('email', e.target.value)}
                                 placeholder="nama@email.com"
                                 required
-                                className={`h-11 ${errors.email ? "border-red-500" : ""}`}
+                                className={`h-11 bg-white border-green-200 focus-visible:ring-primary ${errors.email ? "border-red-500" : ""}`}
                               />
                               {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
                             </div>
@@ -142,33 +144,33 @@ export default function ComplaintsPage({ flash, publishedComplaints = [] }: Comp
 
                           <div className="grid sm:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                              <Label htmlFor="phone" className="font-medium">No. WhatsApp / HP</Label>
+                              <Label htmlFor="phone" className="font-medium text-gray-700">No. WhatsApp / HP</Label>
                               <Input
                                 id="phone"
                                 type="tel"
                                 value={data.phone}
                                 onChange={(e) => setData('phone', e.target.value)}
                                 placeholder="08xx-xxxx-xxxx"
-                                className={`h-11 ${errors.phone ? "border-red-500" : ""}`}
+                                className={`h-11 bg-white border-green-200 focus-visible:ring-primary ${errors.phone ? "border-red-500" : ""}`}
                               />
                               {errors.phone && <p className="text-xs text-red-500">{errors.phone}</p>}
                             </div>
                             <div className="space-y-2">
-                              <Label htmlFor="subject" className="font-medium">Judul / Kategori</Label>
+                              <Label htmlFor="subject" className="font-medium text-gray-700">Judul / Kategori</Label>
                               <Input
                                 id="subject"
                                 value={data.subject}
                                 onChange={(e) => setData('subject', e.target.value)}
                                 placeholder="Contoh: Pelayanan Poli Umum"
                                 required
-                                className={`h-11 ${errors.subject ? "border-red-500" : ""}`}
+                                className={`h-11 bg-white border-green-200 focus-visible:ring-primary ${errors.subject ? "border-red-500" : ""}`}
                               />
                               {errors.subject && <p className="text-xs text-red-500">{errors.subject}</p>}
                             </div>
                           </div>
 
                           <div className="space-y-2">
-                            <Label htmlFor="message" className="font-medium">Isi Pengaduan / Aspirasi</Label>
+                            <Label htmlFor="message" className="font-medium text-gray-700">Isi Pengaduan / Aspirasi</Label>
                             <Textarea
                               id="message"
                               value={data.message}
@@ -176,7 +178,7 @@ export default function ComplaintsPage({ flash, publishedComplaints = [] }: Comp
                               placeholder="Ceritakan detail keluhan atau saran Anda..."
                               rows={6}
                               required
-                              className={`resize-none ${errors.message ? "border-red-500" : ""}`}
+                              className={`resize-none bg-white border-green-200 focus-visible:ring-primary ${errors.message ? "border-red-500" : ""}`}
                             />
                             {errors.message && <p className="text-xs text-red-500">{errors.message}</p>}
                           </div>
@@ -187,7 +189,7 @@ export default function ComplaintsPage({ flash, publishedComplaints = [] }: Comp
                                 id="is_public" 
                                 checked={data.is_public}
                                 onChange={(e) => setData('is_public', e.target.checked)}
-                                className="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4"
+                                className="rounded border-green-300 text-primary focus:ring-primary h-4 w-4"
                              />
                              <Label htmlFor="is_public" className="text-sm text-muted-foreground font-normal cursor-pointer select-none">
                                 Izinkan pengaduan dan balasan ditampilkan secara publik (Nama bisa disamarkan).
@@ -197,7 +199,7 @@ export default function ComplaintsPage({ flash, publishedComplaints = [] }: Comp
                           <Button 
                               type="submit" 
                               size="lg" 
-                              className="w-full bg-primary hover:bg-primary/90 h-12 text-base rounded-lg"
+                              className="w-full bg-primary hover:bg-primary/90 h-12 text-base rounded-lg shadow-lg shadow-green-900/20 transition-all hover:-translate-y-0.5"
                               disabled={processing}
                           >
                             {processing ? (
@@ -214,37 +216,37 @@ export default function ComplaintsPage({ flash, publishedComplaints = [] }: Comp
 
               <div id="public-complaints">
                   <div className="flex items-center gap-3 mb-8">
-                     <div className="p-3 bg-white shadow-sm rounded-lg text-primary border border-gray-100">
-                        <MessageSquare className="w-6 h-6" />
-                     </div>
-                     <div>
-                        <h2 className="text-2xl font-bold text-gray-800">Aspirasi Terpublikasi</h2>
-                        <p className="text-muted-foreground">Daftar pertanyaan dan pengaduan yang telah ditanggapi.</p>
-                     </div>
+                      <div className="p-3 bg-white shadow-sm rounded-lg text-primary border border-green-100">
+                         <MessageSquare className="w-6 h-6" />
+                      </div>
+                      <div>
+                         <h2 className="text-2xl font-bold text-gray-800">Aspirasi Terpublikasi</h2>
+                         <p className="text-muted-foreground">Daftar pertanyaan dan pengaduan yang telah ditanggapi.</p>
+                      </div>
                   </div>
 
                   <div className="space-y-6">
                     {complaintList.map((complaint) => (
-                       <Card key={complaint.id} className="border border-gray-100 shadow-sm hover:shadow-md transition-shadow bg-white overflow-hidden">
+                        <Card key={complaint.id} className="border border-green-100 shadow-sm hover:shadow-md transition-shadow bg-white overflow-hidden">
                           <CardContent className="p-0">
                              
                              <div className="p-6">
                                 <div className="flex items-start gap-4">
-                                   <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-slate-500">
+                                   <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center flex-shrink-0 text-primary border border-green-100">
                                       <User className="w-5 h-5" />
                                    </div>
                                    <div className="flex-1">
                                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
                                          <div>
                                             <span className="font-bold text-gray-900 mr-2">{complaint.name}</span>
-                                            <Badge variant="secondary" className="text-xs font-normal">{complaint.category}</Badge>
+                                            <Badge variant="secondary" className="text-xs font-normal border-green-200 bg-green-50 text-green-800">{complaint.category}</Badge>
                                          </div>
                                          <div className="flex items-center text-xs text-muted-foreground">
                                             <Clock className="w-3 h-3 mr-1" />
                                             {complaint.date}
                                          </div>
                                       </div>
-                                      <p className="text-gray-700 leading-relaxed bg-slate-50 p-4 rounded-r-xl rounded-bl-xl border border-slate-100">
+                                      <p className="text-gray-700 leading-relaxed bg-gray-50 p-4 rounded-r-xl rounded-bl-xl border border-gray-100">
                                          "{complaint.message}"
                                       </p>
                                    </div>
@@ -252,7 +254,7 @@ export default function ComplaintsPage({ flash, publishedComplaints = [] }: Comp
                              </div>
 
                              {complaint.reply && (
-                                <div className="bg-primary/5 p-6 border-t border-primary/10">
+                                <div className="bg-green-50/50 p-6 border-t border-green-100">
                                    <div className="flex items-start gap-4">
                                       <div className="flex-1 text-right">
                                          <div className="flex flex-col sm:flex-row-reverse sm:items-center sm:justify-between gap-2 mb-2">
@@ -264,11 +266,11 @@ export default function ComplaintsPage({ flash, publishedComplaints = [] }: Comp
                                                Dijawab: {complaint.reply_date}
                                             </div>
                                          </div>
-                                         <p className="text-gray-700 leading-relaxed bg-white p-4 rounded-l-xl rounded-br-xl shadow-sm border border-primary/10 text-left">
+                                         <p className="text-gray-700 leading-relaxed bg-white p-4 rounded-l-xl rounded-br-xl shadow-sm border border-green-100 text-left">
                                             {complaint.reply}
                                          </p>
                                       </div>
-                                      <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center flex-shrink-0 text-white shadow-md shadow-primary/30">
+                                      <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center flex-shrink-0 text-white shadow-md shadow-green-900/20 border border-green-600">
                                          <img src="/images/images/image.png" alt="Admin" className="w-6 h-6 object-contain brightness-0 invert" />
                                       </div>
                                    </div>
@@ -276,13 +278,15 @@ export default function ComplaintsPage({ flash, publishedComplaints = [] }: Comp
                              )}
 
                           </CardContent>
-                       </Card>
+                        </Card>
                     ))}
 
                     {complaintList.length === 0 && (
-                        <div className="text-center py-10 bg-white rounded-xl border border-dashed border-gray-300">
-                            <MessageSquare className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-                            <p className="text-gray-500">Belum ada aspirasi yang dipublikasikan.</p>
+                        <div className="text-center py-10 bg-white rounded-xl border border-dashed border-green-200 shadow-sm">
+                            <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <MessageSquare className="w-6 h-6 text-green-300" />
+                            </div>
+                            <p className="text-muted-foreground font-medium">Belum ada aspirasi yang dipublikasikan.</p>
                         </div>
                     )}
                   </div>
