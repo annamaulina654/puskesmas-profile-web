@@ -101,7 +101,7 @@ export default function ServiceDetail({ service }: { service: ServiceData }) {
     <PublicLayout>
       <Head title={service.title} />
 
-      <main className="min-h-screen bg-slate-50">
+      <main className="min-h-screen bg-green-50">
         
         <section className="pt-32 pb-12 bg-primary">
           <div className="container mx-auto px-4 lg:px-8">
@@ -165,29 +165,29 @@ export default function ServiceDetail({ service }: { service: ServiceData }) {
                              <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Lingkup Manajemen</h3>
                              <div className="grid md:grid-cols-2 gap-4">
                                 {service.points.map((pt, idx) => (
-                                    <div key={idx} className="bg-white p-5 rounded-xl border border-gray-100 flex items-center gap-4 shadow-sm hover:shadow-md transition-all group cursor-pointer hover:border-primary/50">
-                                        <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-white transition-colors">
+                                    <div key={idx} className="bg-white p-5 rounded-xl border border-green-100 flex items-center gap-4 shadow-sm hover:shadow-lg hover:shadow-green-900/5 transition-all group cursor-pointer hover:border-primary/50">
+                                        <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-white transition-colors border border-green-100">
                                             <CheckCircle2 className="w-5 h-5" />
                                         </div>
                                         <span className="font-bold text-gray-800 text-lg">{pt}</span>
                                     </div>
                                 ))}
-                            </div>
+                             </div>
                         </div>
                     )}
                 </div>
 
             ) : isDetailedLayout ? (
                 <div className="max-w-5xl mx-auto">
-                    <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 mb-12 text-center">
+                    <div className="bg-white p-8 rounded-2xl shadow-sm border border-green-100 mb-12 text-center">
                          <h2 className="text-2xl font-bold text-gray-900 mb-4">Tentang Layanan</h2>
                          <p className="text-lg text-gray-600 leading-relaxed">{service.description}</p>
                     </div>
 
                     <div className="space-y-12">
                         {service.detailed_items?.map((item, index) => (
-                            <div key={index} className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 flex flex-col md:flex-row">
-                                <div className="md:w-1/2 bg-gray-100 p-2">
+                            <div key={index} className="bg-white rounded-3xl overflow-hidden shadow-sm border border-green-100 flex flex-col md:flex-row hover:shadow-md transition-shadow">
+                                <div className="md:w-1/2 bg-green-50/50 p-2">
                                     <div className={`grid gap-2 h-full ${item.images.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
                                         {item.images.map((img, imgIdx) => (
                                             <div 
@@ -213,7 +213,7 @@ export default function ServiceDetail({ service }: { service: ServiceData }) {
                                         </div>
                                         <h3 className="text-2xl font-bold text-gray-900 leading-tight">{item.name}</h3>
                                     </div>
-                                    <p className="text-gray-600 leading-relaxed text-lg pl-14 border-l-2 border-gray-100 ml-5">
+                                    <p className="text-gray-600 leading-relaxed text-lg pl-14 border-l-2 border-green-100 ml-5">
                                         {item.desc}
                                     </p>
                                 </div>
@@ -225,7 +225,7 @@ export default function ServiceDetail({ service }: { service: ServiceData }) {
             ) : (
                 <div className="grid lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-1">
-                        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-24">
+                        <div className="bg-white p-6 rounded-2xl shadow-sm border border-green-100 sticky top-24">
                             <h3 className="text-xl font-bold text-gray-900 mb-4">Tentang Layanan</h3>
                             <p className="text-gray-600 leading-relaxed text-lg text-left">
                                 {service.description}
@@ -259,7 +259,7 @@ export default function ServiceDetail({ service }: { service: ServiceData }) {
                         {service.images && service.images.length > 0 ? (
                             <div className="grid sm:grid-cols-2 gap-4">
                                 {service.images.map((img, index) => (
-                                    <div key={index} className="group relative overflow-hidden rounded-xl shadow-md aspect-video bg-gray-200 cursor-pointer">
+                                    <div key={index} className="group relative overflow-hidden rounded-xl shadow-md aspect-video bg-gray-200 cursor-pointer border border-green-100">
                                         <img 
                                             src={img} 
                                             alt={`${service.title} ${index + 1}`}
@@ -273,8 +273,8 @@ export default function ServiceDetail({ service }: { service: ServiceData }) {
                                 ))}
                             </div>
                         ) : (
-                            <div className="h-40 bg-gray-50 rounded-xl flex flex-col items-center justify-center text-gray-400 border border-dashed border-gray-300">
-                                <ImageIcon className="w-8 h-8 mb-2 opacity-50" />
+                            <div className="h-40 bg-white rounded-xl flex flex-col items-center justify-center text-gray-400 border border-dashed border-green-200 shadow-sm">
+                                <ImageIcon className="w-8 h-8 mb-2 opacity-50 text-green-300" />
                                 <p>Dokumentasi foto belum tersedia.</p>
                             </div>
                         )}

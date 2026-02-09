@@ -160,7 +160,8 @@ export default function ServicesPage() {
     <PublicLayout>
       <Head title="Daftar Layanan" />
 
-      <main className="min-h-screen bg-slate-50">
+      <main className="min-h-screen bg-green-50">
+        
         <section className="pt-32 pb-20 bg-primary relative overflow-hidden">
            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
            
@@ -182,11 +183,11 @@ export default function ServicesPage() {
               const isManajemen = cluster.id === "klaster-1";
 
               return (
-                <div key={cluster.id} className={`grid md:grid-cols-[1fr,2.5fr] gap-8 md:gap-12 items-start ${index !== 0 ? 'border-t border-gray-200 pt-16' : ''}`}>
+                <div key={cluster.id} className={`grid md:grid-cols-[1fr,2.5fr] gap-8 md:gap-12 items-start ${index !== 0 ? 'border-t border-green-200 pt-16' : ''}`}>
                     
                     <div className="flex flex-col justify-center h-full">
                         <div className="flex items-center gap-3 mb-4">
-                           <span className="p-3 bg-primary/10 rounded-xl text-primary shadow-sm">
+                           <span className="p-3 bg-white rounded-xl text-primary shadow-sm border border-green-100">
                              <cluster.icon className="w-6 h-6" />
                            </span>
                            <span className="text-primary font-bold uppercase tracking-wider text-xs">
@@ -205,11 +206,11 @@ export default function ServicesPage() {
                         
                         {isManajemen ? (
                             <Link href="/services/manajemen-puskesmas" className="block group">
-                                <Card className="border-gray-200 bg-white overflow-hidden hover:shadow-xl hover:border-primary/50 transition-all duration-300 cursor-pointer relative">
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-10 -mt-10 transition-all group-hover:bg-primary/10"></div>
+                                <Card className="border border-green-100 bg-white overflow-hidden hover:shadow-xl hover:shadow-green-900/5 hover:border-primary/50 transition-all duration-300 cursor-pointer relative">
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-green-50 rounded-bl-full -mr-10 -mt-10 transition-all group-hover:bg-green-100"></div>
                                     
                                     <CardContent className="p-8 flex items-start gap-6 relative z-10">
-                                        <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 text-primary group-hover:scale-110 transition-transform duration-300">
+                                        <div className="w-16 h-16 rounded-2xl bg-green-50 flex items-center justify-center shrink-0 text-primary group-hover:scale-110 transition-transform duration-300 border border-green-100">
                                             <cluster.icon className="w-8 h-8" />
                                         </div>
                                         <div>
@@ -230,24 +231,24 @@ export default function ServicesPage() {
                             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {cluster.services.map((service: any, idx) => (
                                     <Link key={idx} href={`/services/${service.slug}`} className="block h-full">
-                                        <Card className="group border-gray-200 bg-white h-full relative overflow-hidden hover:shadow-lg hover:border-primary/50 transition-all duration-300 cursor-pointer">
-                                            <div className="absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-bl-full -mr-8 -mt-8 transition-all group-hover:bg-primary/10"></div>
-                                            <CardContent className="p-5 flex flex-col h-full relative z-10">
-                                                <div className="flex items-center gap-3 mb-3">
-                                                    <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-300 text-primary">
-                                                        <service.icon className="w-5 h-5 transition-colors" />
+                                            <Card className="group border border-green-100 bg-white h-full relative overflow-hidden hover:shadow-lg hover:shadow-green-900/5 hover:border-primary/50 transition-all duration-300 cursor-pointer">
+                                                <div className="absolute top-0 right-0 w-16 h-16 bg-green-50 rounded-bl-full -mr-8 -mt-8 transition-all group-hover:bg-green-100"></div>
+                                                <CardContent className="p-5 flex flex-col h-full relative z-10">
+                                                    <div className="flex items-center gap-3 mb-3">
+                                                        <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-300 text-primary border border-green-100 group-hover:border-primary">
+                                                            <service.icon className="w-5 h-5 transition-colors" />
+                                                        </div>
+                                                        <h3 className="font-bold text-gray-800 text-sm group-hover:text-primary transition-colors leading-tight">
+                                                            {service.name}
+                                                        </h3>
                                                     </div>
-                                                    <h3 className="font-bold text-gray-800 text-sm group-hover:text-primary transition-colors leading-tight">
-                                                        {service.name}
-                                                    </h3>
-                                                </div>
-                                                {service.desc && (
-                                                  <p className="text-xs text-gray-500 leading-relaxed line-clamp-3 mt-auto">
-                                                      {service.desc}
-                                                  </p>
-                                                )}
-                                            </CardContent>
-                                        </Card>
+                                                    {service.desc && (
+                                                      <p className="text-xs text-gray-500 leading-relaxed line-clamp-3 mt-auto">
+                                                          {service.desc}
+                                                      </p>
+                                                    )}
+                                                </CardContent>
+                                            </Card>
                                     </Link>
                                 ))}
                             </div>
@@ -258,7 +259,10 @@ export default function ServicesPage() {
             })}
         </section>
 
-        <section className="py-20 bg-white border-t border-gray-100">
+        <section className="py-20 bg-green-50 relative">
+            
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-200 to-transparent"></div>
+
             <div className="container mx-auto px-4 lg:px-8">
                 <div className="text-center mb-12">
                     <span className="text-orange-600 font-bold text-xs uppercase tracking-widest mb-2 block">
@@ -275,11 +279,12 @@ export default function ServicesPage() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {lintasKlaster.map((item: any, idx) => (
                       <Link key={idx} href={`/services/${item.slug}`} className="block h-full">
-                        <Card className="h-full flex flex-col border-gray-200 hover:border-orange-500/50 hover:shadow-md transition-all duration-300 bg-orange-50/30">                            <CardHeader className="flex flex-row items-center gap-4 pb-3">
-                                <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 shadow-sm">
+                        <Card className="h-full flex flex-col border border-green-100 hover:border-orange-500/50 hover:shadow-lg hover:shadow-orange-500/5 transition-all duration-300 bg-white"> 
+                            <CardHeader className="flex flex-row items-center gap-4 pb-3">
+                                <div className="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center text-orange-600 shadow-sm border border-orange-100">
                                     <item.icon className="w-6 h-6" />
                                 </div>
-                                <CardTitle className="text-lg font-bold text-gray-800 leading-tight">
+                                <CardTitle className="text-lg font-bold text-gray-800 leading-tight group-hover:text-orange-600 transition-colors">
                                   {item.title}
                                 </CardTitle>
                             </CardHeader>
