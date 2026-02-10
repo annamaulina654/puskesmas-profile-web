@@ -111,6 +111,7 @@ class LandingController extends Controller
         return [
             'manajemen-puskesmas' => [
                 'title' => 'Manajemen Puskesmas',
+                'slug' => 'manajemen-puskesmas',
                 'description' => 'Sistem tata kelola administrasi dan manajemen operasional yang mendukung seluruh pelayanan kesehatan agar berjalan efektif, efisien, dan bermutu.',
                 'images' => [
                     '/images/layanan/man1.jpeg', 
